@@ -1,13 +1,17 @@
-import { useTranslation } from 'next-i18next'
-import { useTheme } from '@mui/material/styles'
-import { Typography } from '@mui/material'
+// import { useTranslation } from 'next-i18next'
+import Banner from '../../components/Banner'
+import Sidebar from '../../components/Sidebar/Sidebar'
 import { getStaticPaths, makeStaticProps } from '../../lib/getStatic'
 
 export default function Home() {
-  const { t } = useTranslation('common')
-  const theme = useTheme()
+  // const { t } = useTranslation('common')
 
-  return <Typography sx={{ color: theme.palette.primary.light }}>{t('title')}</Typography>
+  return (
+    <>
+      <Banner />
+      <Sidebar />
+    </>
+  )
 }
 
 const getStaticProps = makeStaticProps(['common'])

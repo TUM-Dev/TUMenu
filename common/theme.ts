@@ -59,6 +59,9 @@ export const themeOptions: ThemeOptions = {
         body2: { fontFamilyName },
         button: { fontFamilyName, textTransform: 'initial' },
     },
+    // use this approach for any spacing (padding,gap,width,height,) when you want to use rem(px) as measurment
+    // spacing(1) means 0.5 rem = 8px
+    spacing: (factor: number) => `${0.5 * factor}rem`,
 }
 // https://material-ui.com/customization/default-theme/#default-theme
 const theme: Theme = createTheme(themeOptions)
