@@ -29,7 +29,7 @@ export default function SidebarSubmenu(props: SubmenuProps) {
             primary={foodPlace.city}
             sx={{ fontSize: theme.spacing(2.5) }}
           />
-          <ListItemIcon className={`chevron ${open ? 'active' : 'inactive'}`}>
+          <ListItemIcon>
             {open ? (
               <ExpandLessIcon sx={{ color: theme.palette.primary.main }} />
             ) : (
@@ -41,8 +41,12 @@ export default function SidebarSubmenu(props: SubmenuProps) {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {foodPlace.foodPlaces.map((place) => (
-            <ListItemButton key={place} sx={{ pl: 4 }}>
-              <ListItemText disableTypography primary={place} sx={{ fontSize: theme.spacing(2) }} />
+            <ListItemButton key={place.canteen_id} sx={{ pl: 4 }}>
+              <ListItemText
+                disableTypography
+                primary={place.name}
+                sx={{ fontSize: theme.spacing(2) }}
+              />
             </ListItemButton>
           ))}
         </List>

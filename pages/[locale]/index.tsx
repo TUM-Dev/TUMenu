@@ -1,18 +1,31 @@
-// import { useTranslation } from 'next-i18next'
 import Banner from '../../components/Banner'
 import Sidebar from '../../components/Sidebar/Sidebar'
-import { getStaticPaths, makeStaticProps } from '../../lib/getStatic'
+import { getStaticPaths, getI18nProps } from '../../lib/getStatic'
+import { FoodPlace } from '../../types/FoodPlace'
 
-export default function Home() {
-  // const { t } = useTranslation('common')
+interface HomeProps {
+  foodPlaces: FoodPlace[]
+}
 
+export default function Home({ foodPlaces }: HomeProps) {
   return (
     <>
       <Banner />
-      <Sidebar />
+      <Sidebar foodPlaces={foodPlaces} />
     </>
   )
 }
 
-const getStaticProps = makeStaticProps(['common'])
-export { getStaticPaths, getStaticProps }
+export const getStaticProps = async (ctx: unknown) => {
+  const foodPlaces = await (
+    await fetch('https://tum-dev.github.io/eat-api/enums/canteens.json')
+  ).json()
+
+  return {
+    props: {
+      ...(await getI18nProps(ctx, ['common'])),
+      foodPlaces,
+    },
+  }
+}
+export { getStaticPaths }
