@@ -1,4 +1,5 @@
 import Banner from '../../components/Banner'
+import LayoutContainer from '../../components/Layout/LayoutContainer'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import { getStaticPaths, getI18nProps } from '../../lib/getStatic'
 import { FoodPlace } from '../../types/FoodPlace'
@@ -12,6 +13,7 @@ export default function Home({ foodPlaces }: HomeProps) {
     <>
       <Banner />
       <Sidebar foodPlaces={foodPlaces} />
+      <LayoutContainer />
     </>
   )
 }

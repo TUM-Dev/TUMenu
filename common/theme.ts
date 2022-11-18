@@ -39,6 +39,14 @@ export const themeOptions: ThemeOptions = {
                 textPrimary: {
                     color: '#ffffff',
                 },
+
+                contained: {
+                    "&:hover": {
+                        backgroundColor: '#1976D2'
+                    },
+                    borderRadius: '12px'
+                },
+
             },
         },
     },
