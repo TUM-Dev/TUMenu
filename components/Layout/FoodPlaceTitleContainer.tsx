@@ -1,7 +1,14 @@
 import { Grid, Typography, useTheme, LinearProgress, Button } from '@mui/material'
 import { LocationOn } from '@mui/icons-material'
+import { useTranslation } from 'next-i18next'
+import { FoodPlace } from '../../types/FoodPlace'
 
-export default function FoodPlaceTitleContainer() {
+export interface FoodPlaceTitleContainerProps {
+  foodPlaceData: FoodPlace
+}
+
+export default function FoodPlaceTitleContainer({ foodPlaceData }: FoodPlaceTitleContainerProps) {
+  const { t } = useTranslation('common')
   const theme = useTheme()
   return (
     <Grid container rowSpacing={2}>
@@ -9,7 +16,7 @@ export default function FoodPlaceTitleContainer() {
         <Grid container justifyContent="center" alignItems="center" spacing={1}>
           <Grid item xs={8}>
             <Typography variant="h3" sx={{ fontWeight: 600, textAlign: 'right' }}>
-              Mensa Garching
+              {foodPlaceData.name}
             </Typography>
           </Grid>
           <Grid item xs={4}>
@@ -27,7 +34,7 @@ export default function FoodPlaceTitleContainer() {
         <Grid container justifyContent="center" alignItems="center" spacing={1}>
           <Grid item xs={3}>
             <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
-              Current queue status
+              {t('queueStatus')}
             </Typography>
           </Grid>
           <Grid item xs={7}>
@@ -42,7 +49,12 @@ export default function FoodPlaceTitleContainer() {
         <Grid container justifyContent="center" alignItems="center" spacing={1}>
           <Grid item xs={8}>
             <Typography variant="subtitle1" sx={{ textAlign: 'right' }}>
-              Freitag von 11:00 - 14:00 geoffnet
+              {`${t('intlDateTime', {
+                val: new Date(),
+                formatParams: {
+                  val: { weekday: 'long' },
+                },
+              })}`}
             </Typography>
           </Grid>
           <Grid item xs={4}>
@@ -53,7 +65,7 @@ export default function FoodPlaceTitleContainer() {
                 backgroundColor: theme.palette.primary.light,
                 color: theme.palette.primary.main,
               }}>
-              Offnungszeiten
+              {t('openingHours')}
             </Button>
           </Grid>
         </Grid>

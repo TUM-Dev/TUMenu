@@ -10,6 +10,7 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import { useState } from 'react'
+import Link from '../Link'
 import { SidebarEntry } from '../../types/SidebarEntry'
 
 interface SubmenuProps {
@@ -42,11 +43,13 @@ export default function SidebarSubmenu(props: SubmenuProps) {
         <List component="div" disablePadding>
           {foodPlace.foodPlaces.map((place) => (
             <ListItemButton key={place.canteen_id} sx={{ pl: 4 }}>
-              <ListItemText
-                disableTypography
-                primary={place.name}
-                sx={{ fontSize: theme.spacing(2) }}
-              />
+              <Link href={`/${place.canteen_id}`} skipLocaleHandling={false}>
+                <ListItemText
+                  disableTypography
+                  primary={place.name}
+                  sx={{ fontSize: theme.spacing(2) }}
+                />
+              </Link>
             </ListItemButton>
           ))}
         </List>

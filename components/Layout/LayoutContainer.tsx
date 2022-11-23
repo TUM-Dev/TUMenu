@@ -1,7 +1,15 @@
 import { Box, useTheme } from '@mui/material'
+import { FoodPlace } from '../../types/FoodPlace'
+import { FoodPlaceMenu } from '../../types/FoodPlaceMenu'
 import LayoutContainerHeader from './LayoutContainerHeader'
 
-export default function LayoutContainer() {
+export interface LayoutContainerProps {
+  foodPlaceMenu: FoodPlaceMenu
+  foodPlaceData: FoodPlace
+}
+
+export default function LayoutContainer({ foodPlaceMenu, foodPlaceData }: LayoutContainerProps) {
+  console.log(foodPlaceMenu)
   const theme = useTheme()
   return (
     <Box
@@ -10,7 +18,7 @@ export default function LayoutContainer() {
         minHeight: '100%',
         padding: theme.spacing(4),
       }}>
-      <LayoutContainerHeader />
+      <LayoutContainerHeader foodPlaceData={foodPlaceData} />
     </Box>
   )
 }
