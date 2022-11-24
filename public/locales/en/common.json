@@ -2,5 +2,6 @@
   "subtitleBanner": "The place, where you can find daily menus for some student places in Munich",
   "queueStatus": "Current queue status",
   "openingHours": "Opening hours",
-  "intlDateTime": "{{val, datetime}} open from"
+  "intlDateTime": "{{val, datetime}} open from",
+  "language": "Change Language"
 }

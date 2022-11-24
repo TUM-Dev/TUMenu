@@ -10,4 +10,23 @@ module.exports = {
   images: {
     unoptimized: true,
   },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/de/mensa-garching',
+        permanent: true,
+      },
+      {
+        source: '/de',
+        destination: '/de/mensa-garching',
+        permanent: true,
+      },
+      {
+        source: '/en',
+        destination: '/en/mensa-garching',
+        permanent: true,
+      },
+    ]
+  },
 }

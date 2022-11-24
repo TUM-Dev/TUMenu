@@ -2,5 +2,6 @@
   "subtitleBanner": "Hier können Sie Tagesmenus für einige studentische Orte in München finden",
   "queueStatus": "Aktuelle Warteschlange",
   "openingHours": "Öffnugszeiten",
-  "intlDateTime": "{{val, datetime}} geöffnet von"
+  "intlDateTime": "{{val, datetime}} geöffnet von",
+  "language": "Sprache wechseln"
 }
