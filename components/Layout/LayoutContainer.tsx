@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { Box, useTheme } from '@mui/material'
+import dayjs from 'dayjs'
 import { FoodPlace } from '../../types/FoodPlace'
 import { FoodPlaceMenu } from '../../types/FoodPlaceMenu'
 import LayoutContainerHeader from './LayoutContainerHeader'
@@ -9,7 +11,9 @@ export interface LayoutContainerProps {
 }
 
 export default function LayoutContainer({ foodPlaceMenu, foodPlaceData }: LayoutContainerProps) {
-  console.log(foodPlaceMenu)
+  const today = new Date()
+
+  const [value, setValue] = useState<dayjs.Dayjs | null>(dayjs(today))
   const theme = useTheme()
   return (
     <Box
@@ -18,7 +22,11 @@ export default function LayoutContainer({ foodPlaceMenu, foodPlaceData }: Layout
         minHeight: '100%',
         padding: theme.spacing(4),
       }}>
-      <LayoutContainerHeader foodPlaceData={foodPlaceData} />
+      <LayoutContainerHeader
+        foodPlaceData={foodPlaceData}
+        datePickerValue={value}
+        datePickerSetValue={setValue}
+      />
     </Box>
   )
 }

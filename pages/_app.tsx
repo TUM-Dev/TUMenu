@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 import { CacheProvider, EmotionCache } from '@emotion/react'
 import theme from '../common/theme'
 import createEmotionCache from '../common/createEmotionCache'
+import '../styles/global.css'
 
 interface ExtendedAppProps extends AppProps {
   // eslint-disable-next-line react/require-default-props
