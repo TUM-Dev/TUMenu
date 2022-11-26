@@ -21,11 +21,10 @@ export default function HeaderDatePicker({
       <DatePicker
         value={datePickerValue}
         onChange={(newValue) => {
-          datePickerSetValue(newValue)
+          if (dayjs(newValue).isValid()) datePickerSetValue(newValue)
         }}
         renderInput={(params) => (
           <TextField
-            InputProps={{ readOnly: true, disabled: true }}
             sx={{
               backgroundColor: theme.palette.secondary.main,
             }}
