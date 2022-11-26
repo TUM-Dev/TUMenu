@@ -20,12 +20,12 @@ module.exports = {
       {
         source: '/de',
         destination: '/de/mensa-garching',
-        permanent: true,
+        permanent: false,
       },
       {
         source: '/en',
         destination: '/en/mensa-garching',
-        permanent: true,
+        permanent: false,
       },
     ]
   },
