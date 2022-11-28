@@ -27,6 +27,24 @@ export const themeOptions: ThemeOptions = {
                 underline: 'none',
             },
         },
+        MuiTab: {
+            styleOverrides: {
+                root: {
+                    "&.Mui-selected": {
+                        backgroundColor: "#fff !important",
+                    },
+                    fontSize: '1.2rem',
+                    color: '#24a0ed !important'
+                }
+            }
+        },
+        MuiTabs: {
+            styleOverrides: {
+                indicator: {
+                    backgroundColor: '#24a0ed'
+                }
+            }
+        },
         MuiButton: {
             defaultProps: {
                 disableElevation: true,

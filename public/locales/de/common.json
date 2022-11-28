@@ -9,5 +9,14 @@
   "tuesday": "Dienstag",
   "wednesday": "Mittwoch",
   "thursday": "Donnerstag",
-  "friday": "Freitag"
+  "friday": "Freitag",
+  "all": "Alles",
+  "meat": "Fleisch",
+  "vegetarian": "Vegetarisch",
+  "sideDish": "Beilagen",
+  "studyPot": "Studitopf",
+  "dessert": "Süßspeisen",
+  "cardGridHeading": "Alle Preise gelten nur für Studierende",
+  "generateMenu": "Random Menu generieren",
+  "labelFilter": "Filtern nach labels"
 }

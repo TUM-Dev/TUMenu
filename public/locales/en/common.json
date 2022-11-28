@@ -9,5 +9,14 @@
   "tuesday": "Tuesday",
   "wednesday": "Wednesday",
   "thursday": "Thursday",
-  "friday": "Friday"
+  "friday": "Friday",
+  "all": "All",
+  "meat": "Meat",
+  "vegetarian": "Vegetarian",
+  "sideDish": "Side dishes",
+  "studyPot": "Study pot",
+  "desert": "Desserts",
+  "cardGridHeading": "All Prices are valid only for Students",
+  "generateMenu": "Generate random menu",
+  "labelFilter": "Filter by labels"
 }

@@ -13,13 +13,13 @@ export type Weeks = {
 export type Days = {
     date: string,
     dishes: Dishes[]
-    labels: string[]
-    dish_type: string
 }
 
 export type Dishes = {
     name: string,
     prices: Prices
+    labels: string[]
+    dish_type: string
 }
 
 export type Prices = {
