@@ -28,6 +28,7 @@ export default function Banner() {
         objectPosition="bottom"
         style={{ filter: 'brightness(60%)' }}
         priority
+        alt="Mensa Garching"
       />
       <Box
         sx={{
@@ -37,7 +38,9 @@ export default function Banner() {
           color: theme.palette.primary.main,
           maxWidth: theme.spacing(80),
         }}>
-        <Typography variant="h2">TUM-HUNGER</Typography>
+        <Typography variant="h2" sx={{ color: theme.palette.primary.light }}>
+          TUM<span style={{ color: theme.palette.primary.main }}>enu</span>
+        </Typography>
         <Typography variant="h5" sx={{ paddingLeft: theme.spacing(1) }}>
           {t('subtitleBanner')}
         </Typography>

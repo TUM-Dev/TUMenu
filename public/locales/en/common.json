@@ -18,5 +18,6 @@
   "desert": "Desserts",
   "cardGridHeading": "All Prices are valid only for Students",
   "generateMenu": "Generate random menu",
-  "labelFilter": "Filter by labels"
+  "labelFilter": "Filter by labels",
+  "notFound": "Items not found, that suit your serch criteria"
 }

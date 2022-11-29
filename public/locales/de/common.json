@@ -18,5 +18,6 @@
   "dessert": "Süßspeisen",
   "cardGridHeading": "Alle Preise gelten nur für Studierende",
   "generateMenu": "Random Menu generieren",
-  "labelFilter": "Filtern nach labels"
+  "labelFilter": "Filtern nach labels",
+  "notFound": "Keine Daten gefunden, die Ihren Suchkriterien entsprechen"
 }

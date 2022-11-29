@@ -1,4 +1,4 @@
-import { useTheme, Chip } from '@mui/material'
+import { useTheme, Chip, Tooltip } from '@mui/material'
 
 interface LabelProps {
   bgColor: string
@@ -8,13 +8,16 @@ interface LabelProps {
 export default function Label({ bgColor, text }: LabelProps) {
   const theme = useTheme()
   return (
-    <Chip
-      label={text}
-      sx={{
-        backgroundColor: bgColor,
-        color: theme.palette.secondary.light,
-        fontWeight: '600',
-      }}
-    />
+    <Tooltip title={text} arrow>
+      <Chip
+        label={text}
+        sx={{
+          backgroundColor: bgColor,
+          color: theme.palette.secondary.light,
+          fontWeight: '600',
+          width: theme.spacing(13),
+        }}
+      />
+    </Tooltip>
   )
 }

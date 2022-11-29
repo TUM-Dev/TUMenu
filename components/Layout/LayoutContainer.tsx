@@ -1,34 +1,44 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Box, Typography, useTheme, Button } from '@mui/material'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import dayjs from 'dayjs'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import { FoodPlace } from '../../types/FoodPlace'
-import { FoodPlaceMenu } from '../../types/FoodPlaceMenu'
+import { Dishes, FoodPlaceMenu } from '../../types/FoodPlaceMenu'
 import LayoutContainerHeader from './LayoutContainerHeader'
 import FilterTabs from './Tabs'
 import CardGrid from './CardGrid'
+import NotFound from '../NotFound'
+import { Labels } from '../../types/Labels'
 
 export interface LayoutContainerProps {
   foodPlaceMenu: FoodPlaceMenu
   foodPlaceData: FoodPlace
+  labels: Labels[]
 }
 
 dayjs.extend(weekOfYear)
 
-export default function LayoutContainer({ foodPlaceMenu, foodPlaceData }: LayoutContainerProps) {
+export default function LayoutContainer({
+  foodPlaceMenu,
+  foodPlaceData,
+  labels,
+}: LayoutContainerProps) {
   const today = new Date()
   const [value, setValue] = useState<dayjs.Dayjs | null>(dayjs(today))
-  const filters = foodPlaceMenu.weeks
-    .filter((week) => week.year === value?.year() && week.number === value.week() - 1)
-    .map((week) => week.days.filter((day) => dayjs(day.date).isSame(value, 'day')))
-    .flat(1)
-    .map((dailyMenu) => dailyMenu.dishes.map((dish) => dish.dish_type))
-    .flat(1)
-  const tabFilters = [...new Set(filters)]
+  const [mealsShown, setMealsShown] = useState<Dishes[]>([])
+  console.log(foodPlaceMenu)
 
-  console.log(tabFilters)
+  useEffect(() => {
+    const dailyMeals = foodPlaceMenu.weeks
+      .filter((week) => week.year === value?.year() && week.number === value.week() - 1)
+      .map((week) => week.days.filter((day) => dayjs(day.date).isSame(value, 'day')))
+      .flat(1)
+      .map((dailyMenu) => dailyMenu.dishes.map((dish) => dish))
+      .flat(1)
+    setMealsShown(dailyMeals)
+  }, [value])
 
   const theme = useTheme()
   const { t } = useTranslation('common')
@@ -38,6 +48,7 @@ export default function LayoutContainer({ foodPlaceMenu, foodPlaceData }: Layout
         ml: theme.spacing(30),
         minHeight: '100%',
         padding: theme.spacing(4),
+        backgroundColor: `${theme.palette.primary.main} !important`,
       }}>
       <LayoutContainerHeader
         foodPlaceData={foodPlaceData}
@@ -83,7 +94,11 @@ export default function LayoutContainer({ foodPlaceMenu, foodPlaceData }: Layout
           </Button>
         </Box>
       </Box>
-      <CardGrid />
+      {mealsShown.length !== 0 ? (
+        <CardGrid dailyMeals={mealsShown} labels={labels} />
+      ) : (
+        <NotFound />
+      )}
     </Box>
   )
 }

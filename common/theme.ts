@@ -9,12 +9,12 @@ export const themeOptions: ThemeOptions = {
         mode: 'light',
         primary: {
             main: '#ffffff',
-            light: "#24A0ED",
+            light: "#3070B3",
             dark: '#000000',
         },
         secondary: {
             main: '#D9D9D9',
-            dark: '#1976D2',
+            dark: '#14519A',
             light: '#333333'
         },
         background: {
@@ -34,14 +34,14 @@ export const themeOptions: ThemeOptions = {
                         backgroundColor: "#fff !important",
                     },
                     fontSize: '1.2rem',
-                    color: '#24a0ed !important'
+                    color: '#3070B3 !important'
                 }
             }
         },
         MuiTabs: {
             styleOverrides: {
                 indicator: {
-                    backgroundColor: '#24a0ed'
+                    backgroundColor: '#3070B3'
                 }
             }
         },
@@ -60,7 +60,7 @@ export const themeOptions: ThemeOptions = {
 
                 contained: {
                     "&:hover": {
-                        backgroundColor: '#1976D2'
+                        backgroundColor: '#14519A'
                     },
                     borderRadius: '12px'
                 },

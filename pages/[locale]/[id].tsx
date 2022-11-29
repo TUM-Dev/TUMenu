@@ -8,13 +8,16 @@ import { Context } from '../../types/Context'
 import getFoodPlaces from '../../lib/getFoodPlaces'
 import getFoodPlace from '../../lib/getFoodPlace'
 import { FoodPlaceMenu } from '../../types/FoodPlaceMenu'
+import getLabels from '../../lib/getLabels'
+import { Labels } from '../../types/Labels'
 
 interface CanteenPageProps {
   foodPlaces: FoodPlace[]
   foodPlaceMenu: FoodPlaceMenu
+  labels: Labels[]
 }
 
-export default function CanteenPage({ foodPlaces, foodPlaceMenu }: CanteenPageProps) {
+export default function CanteenPage({ foodPlaces, foodPlaceMenu, labels }: CanteenPageProps) {
   const foodPlaceData = foodPlaces.find(
     (foodPlace) => foodPlace.canteen_id === foodPlaceMenu.canteen_id,
   )
@@ -24,7 +27,11 @@ export default function CanteenPage({ foodPlaces, foodPlaceMenu }: CanteenPagePr
       <Banner />
       <Sidebar foodPlaces={foodPlaces} />
       {foodPlaceData && (
-        <LayoutContainer foodPlaceMenu={foodPlaceMenu} foodPlaceData={foodPlaceData} />
+        <LayoutContainer
+          foodPlaceMenu={foodPlaceMenu}
+          foodPlaceData={foodPlaceData}
+          labels={labels}
+        />
       )}
     </>
   )
@@ -34,11 +41,13 @@ export const getStaticProps = async (ctx: Context) => {
   const { id, locale } = ctx.params
   const foodPlaces = await getFoodPlaces()
   const foodPlaceMenu = await getFoodPlace(locale, id)
+  const labels = await getLabels()
   return {
     props: {
       ...(await getI18nProps(ctx, ['common'])),
       foodPlaces,
       foodPlaceMenu,
+      labels,
     },
   }
 }

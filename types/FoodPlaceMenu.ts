@@ -23,13 +23,11 @@ export type Dishes = {
 }
 
 export type Prices = {
-    students: Prices,
-    staff: Prices,
-    guests: Prices,
+    students: Price,
 }
 
 export type Price = {
     base_price: number,
     price_per_unit: number,
-    unite: string
+    unit: string
 }
