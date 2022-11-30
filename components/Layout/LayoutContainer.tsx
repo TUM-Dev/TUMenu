@@ -4,6 +4,7 @@ import { Box, Typography, useTheme, Button, Tabs, Tab } from '@mui/material'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import dayjs from 'dayjs'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
+import minMax from 'dayjs/plugin/minMax'
 import { FoodPlace } from '../../types/FoodPlace'
 import { Dishes, FoodPlaceMenu } from '../../types/FoodPlaceMenu'
 import LayoutContainerHeader from './LayoutContainerHeader'
@@ -18,14 +19,16 @@ export interface LayoutContainerProps {
 }
 
 dayjs.extend(weekOfYear)
+dayjs.extend(minMax)
 
 export default function LayoutContainer({
   foodPlaceMenu,
   foodPlaceData,
   labels,
 }: LayoutContainerProps) {
-  const today = new Date()
-  const [value, setValue] = useState<dayjs.Dayjs | null>(dayjs(today))
+  const [value, setValue] = useState<dayjs.Dayjs | null>(dayjs())
+  const [maxDate, setMaxDate] = useState<dayjs.Dayjs>(dayjs())
+  const [minDate, setMinDate] = useState<dayjs.Dayjs>(dayjs())
   const [mealsShown, setMealsShown] = useState<Dishes[]>([])
   const [initialMeals, setInitialMeals] = useState<Dishes[]>([])
   const [filteredValue, setFilteredValue] = useState('All')
@@ -47,8 +50,25 @@ export default function LayoutContainer({
       .flat(1)
       .map((dailyMenu) => dailyMenu.dishes.map((dish) => dish))
       .flat(1)
+
     setMealsShown(dailyMeals)
     setInitialMeals(dailyMeals)
+
+    const latestWeek = Math.max(...foodPlaceMenu.weeks.map((week) => week.number))
+    const firstWeek = Math.min(...foodPlaceMenu.weeks.map((week) => week.number))
+    const lastDay = dayjs.max(
+      foodPlaceMenu.weeks
+        .filter((week) => week.number === latestWeek)[0]
+        .days.map((day) => dayjs(day.date)),
+    )
+    const firstDay = dayjs.min(
+      foodPlaceMenu.weeks
+        .filter((week) => week.number === firstWeek)[0]
+        .days.map((day) => dayjs(day.date)),
+    )
+
+    setMinDate(firstDay)
+    setMaxDate(lastDay)
   }, [value, foodPlaceMenu])
 
   const theme = useTheme()
@@ -65,6 +85,8 @@ export default function LayoutContainer({
         foodPlaceData={foodPlaceData}
         datePickerValue={value}
         datePickerSetValue={setValue}
+        minDate={minDate}
+        maxDate={maxDate}
       />
       <Box sx={{ borderBottom: 2, borderColor: 'divider' }}>
         <Tabs value={filteredValue} onChange={handleChange} sx={{ mt: theme.spacing(3) }} centered>

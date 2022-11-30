@@ -33,7 +33,9 @@ export default function DishCard({ meal, labels }: DishCardProps) {
       }
       return `${price.base_price.toFixed(2)}€`
     }
-    return `${price.price_per_unit.toFixed(2)}€/${price.unit}`
+    return price.price_per_unit !== null
+      ? `${price.price_per_unit.toFixed(2)}€/${price.unit}`
+      : t('unknown')
   }
 
   return (
