@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import dayjs from 'dayjs'
 import { Grid, Typography, useTheme, LinearProgress, Button, Box } from '@mui/material'
+import { linearProgressClasses } from '@mui/material/LinearProgress'
+import { styled } from '@mui/material/styles'
 import { LocationOn } from '@mui/icons-material'
 import { useTranslation } from 'next-i18next'
 import { FoodPlace, daysArr, OpeningHoursType } from '../../types/FoodPlace'
@@ -16,9 +18,20 @@ export default function FoodPlaceTitleContainer({
   datePickerValue,
 }: FoodPlaceTitleContainerProps) {
   const [open, setOpen] = useState<boolean>(false)
-  const { t } = useTranslation('common')
   const theme = useTheme()
+  const { t } = useTranslation('common')
   const weekend = datePickerValue?.get('day') === 6 || datePickerValue?.get('day') === 0
+
+  const BorderLinearProgress = styled(LinearProgress)(() => ({
+    [`&.${linearProgressClasses.colorPrimary}`]: {
+      backgroundColor: theme.palette.secondary.main,
+    },
+    [`& .${linearProgressClasses.bar}`]: {
+      borderRadius: 5,
+      backgroundColor: theme.palette.mode === 'light' ? '#1a90ff' : '#308fe8',
+    },
+  }))
+
   return (
     <>
       <Grid
@@ -55,9 +68,14 @@ export default function FoodPlaceTitleContainer({
               </Typography>
             </Grid>
             <Grid item xs={7}>
-              <LinearProgress
-                color="success"
-                sx={{ borderRadius: '12px', height: theme.spacing(2.75) }}
+              <BorderLinearProgress
+                variant="determinate"
+                value={50}
+                sx={{
+                  borderRadius: '12px',
+                  height: theme.spacing(2.75),
+                  backgroundColor: theme.palette.primary.light,
+                }}
               />
             </Grid>
           </Grid>
