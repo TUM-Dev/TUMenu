@@ -38,7 +38,7 @@ export default function LayoutContainer({
       .map((dailyMenu) => dailyMenu.dishes.map((dish) => dish))
       .flat(1)
     setMealsShown(dailyMeals)
-  }, [value])
+  }, [value, foodPlaceMenu])
 
   const theme = useTheme()
   const { t } = useTranslation('common')

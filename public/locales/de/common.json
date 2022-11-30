@@ -19,5 +19,6 @@
   "cardGridHeading": "Alle Preise gelten nur für Studierende",
   "generateMenu": "Random Menu generieren",
   "labelFilter": "Filtern nach labels",
-  "notFound": "Keine Daten gefunden, die Ihren Suchkriterien entsprechen"
+  "notFound": "Keine Daten gefunden, die Ihren Suchkriterien entsprechen",
+  "unknown": "Ungewiss"
 }

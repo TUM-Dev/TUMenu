@@ -10,17 +10,10 @@ interface DishCardProps {
   labels: Labels[]
 }
 
-const formatPrice = (price: Price) => {
-  if (price.base_price !== 0) {
-    if (price.price_per_unit !== 0) {
-      return `${price.base_price}€ + ${price.price_per_unit}€/${price.unit}`
-    }
-    return `${price.base_price}€`
-  }
-  return `${price.price_per_unit}€/${price.unit}`
-}
-
 export default function DishCard({ meal, labels }: DishCardProps) {
+  const theme = useTheme()
+  const { i18n, t } = useTranslation('common')
+
   const getLabelText = (mealLabel: string, locale: string) => {
     const foundLabel = labels.find((label) => label.enum_name === mealLabel)
     if (foundLabel) {
@@ -32,8 +25,17 @@ export default function DishCard({ meal, labels }: DishCardProps) {
     return ''
   }
 
-  const theme = useTheme()
-  const { i18n } = useTranslation()
+  const formatPrice = (price: Price) => {
+    if (price == null) return t('unknown')
+    if (price.base_price !== 0) {
+      if (price.price_per_unit !== 0 && price.price_per_unit != null) {
+        return `${price.base_price}€ + ${price.price_per_unit}€/${price.unit}`
+      }
+      return `${price.base_price}€`
+    }
+    return `${price.price_per_unit}€/${price.unit}`
+  }
+
   return (
     <Box
       sx={{

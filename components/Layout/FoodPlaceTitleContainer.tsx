@@ -74,10 +74,12 @@ export default function FoodPlaceTitleContainer({
                       },
                     })} ${
                       foodPlaceData.open_hours[
+                        // eslint-disable-next-line no-unsafe-optional-chaining
                         `${daysArr[datePickerValue?.get('day')! - 1]}` as keyof OpeningHoursType
                       ].start
                     } - ${
                       foodPlaceData.open_hours[
+                        // eslint-disable-next-line no-unsafe-optional-chaining
                         `${daysArr[datePickerValue?.get('day')! - 1]}` as keyof OpeningHoursType
                       ].end
                     }`
