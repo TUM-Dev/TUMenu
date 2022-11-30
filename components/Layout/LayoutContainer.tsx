@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'next-i18next'
-import { Box, Typography, useTheme, Button } from '@mui/material'
+import { Box, Typography, useTheme, Button, Tabs, Tab } from '@mui/material'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import dayjs from 'dayjs'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import { FoodPlace } from '../../types/FoodPlace'
 import { Dishes, FoodPlaceMenu } from '../../types/FoodPlaceMenu'
 import LayoutContainerHeader from './LayoutContainerHeader'
-import FilterTabs from './Tabs'
 import CardGrid from './CardGrid'
 import NotFound from '../NotFound'
 import { Labels } from '../../types/Labels'
@@ -28,7 +27,18 @@ export default function LayoutContainer({
   const today = new Date()
   const [value, setValue] = useState<dayjs.Dayjs | null>(dayjs(today))
   const [mealsShown, setMealsShown] = useState<Dishes[]>([])
-  console.log(foodPlaceMenu)
+  const [initialMeals, setInitialMeals] = useState<Dishes[]>([])
+  const [filteredValue, setFilteredValue] = useState('All')
+
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    if (newValue !== 'All') {
+      const filteredMeals = initialMeals.filter((meal) => meal.dish_type === newValue)
+      setMealsShown(filteredMeals)
+    } else {
+      setMealsShown(initialMeals)
+    }
+    setFilteredValue(newValue)
+  }
 
   useEffect(() => {
     const dailyMeals = foodPlaceMenu.weeks
@@ -38,6 +48,7 @@ export default function LayoutContainer({
       .map((dailyMenu) => dailyMenu.dishes.map((dish) => dish))
       .flat(1)
     setMealsShown(dailyMeals)
+    setInitialMeals(dailyMeals)
   }, [value, foodPlaceMenu])
 
   const theme = useTheme()
@@ -55,7 +66,20 @@ export default function LayoutContainer({
         datePickerValue={value}
         datePickerSetValue={setValue}
       />
-      <FilterTabs />
+      <Box sx={{ borderBottom: 2, borderColor: 'divider' }}>
+        <Tabs value={filteredValue} onChange={handleChange} sx={{ mt: theme.spacing(3) }} centered>
+          <Tab value="All" label={t('all')} />
+          <Tab value="Fleisch" label={t('meat')} />
+          <Tab value="Vegetarisch" label={t('vegetarian')} />
+          <Tab value="Wok" label="Wok" />
+          <Tab value="Grill" label="Grill" />
+          <Tab value="Pasta" label="Pasta" />
+          <Tab value="Pizza" label="Pizza" />
+          <Tab value="Studitopf" label={t('studyPot')} />
+          <Tab value="Beilagen" label={t('sideDish')} />
+          <Tab value="Süßspeise" label={t('dessert')} />
+        </Tabs>
+      </Box>
       <Box
         sx={{
           display: 'flex',

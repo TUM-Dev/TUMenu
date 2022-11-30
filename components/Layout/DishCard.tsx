@@ -29,11 +29,11 @@ export default function DishCard({ meal, labels }: DishCardProps) {
     if (price == null) return t('unknown')
     if (price.base_price !== 0) {
       if (price.price_per_unit !== 0 && price.price_per_unit != null) {
-        return `${price.base_price}€ + ${price.price_per_unit}€/${price.unit}`
+        return `${price.base_price.toFixed(2)}€ + ${price.price_per_unit.toFixed(2)}€/${price.unit}`
       }
-      return `${price.base_price}€`
+      return `${price.base_price.toFixed(2)}€`
     }
-    return `${price.price_per_unit}€/${price.unit}`
+    return `${price.price_per_unit.toFixed(2)}€/${price.unit}`
   }
 
   return (
