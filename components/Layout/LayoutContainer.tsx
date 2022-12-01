@@ -16,6 +16,7 @@ export interface LayoutContainerProps {
   foodPlaceMenu: FoodPlaceMenu
   foodPlaceData: FoodPlace
   labels: Labels[]
+  height: number
 }
 
 dayjs.extend(weekOfYear)
@@ -25,6 +26,7 @@ export default function LayoutContainer({
   foodPlaceMenu,
   foodPlaceData,
   labels,
+  height,
 }: LayoutContainerProps) {
   const [value, setValue] = useState<dayjs.Dayjs | null>(dayjs())
   const [maxDate, setMaxDate] = useState<dayjs.Dayjs>(dayjs())
@@ -141,9 +143,9 @@ export default function LayoutContainer({
         </Box>
       </Box>
       {mealsShown.length !== 0 ? (
-        <CardGrid dailyMeals={mealsShown} labels={labels} />
+        <CardGrid dailyMeals={mealsShown} labels={labels} height={height} />
       ) : (
-        <NotFound />
+        <NotFound height={height}/>
       )}
     </Box>
   )

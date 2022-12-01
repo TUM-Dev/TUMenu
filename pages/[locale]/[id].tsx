@@ -1,5 +1,6 @@
+import { useState } from 'react'
+import dynamic from 'next/dynamic'
 import Banner from '../../components/Banner'
-import Sidebar from '../../components/Sidebar/Sidebar'
 import LayoutContainer from '../../components/Layout/LayoutContainer'
 import { getI18nPaths, getI18nProps } from '../../lib/getStatic'
 import { FoodPlace } from '../../types/FoodPlace'
@@ -11,6 +12,10 @@ import { FoodPlaceMenu } from '../../types/FoodPlaceMenu'
 import getLabels from '../../lib/getLabels'
 import { Labels } from '../../types/Labels'
 
+const DynamicSidebar = dynamic(() => import('../../components/Sidebar/Sidebar'), {
+  ssr: false,
+})
+
 interface CanteenPageProps {
   foodPlaces: FoodPlace[]
   foodPlaceMenu: FoodPlaceMenu
@@ -18,6 +23,7 @@ interface CanteenPageProps {
 }
 
 export default function CanteenPage({ foodPlaces, foodPlaceMenu, labels }: CanteenPageProps) {
+  const [height, setHeight] = useState(0)
   const foodPlaceData = foodPlaces.find(
     (foodPlace) => foodPlace.canteen_id === foodPlaceMenu.canteen_id,
   )
@@ -25,12 +31,13 @@ export default function CanteenPage({ foodPlaces, foodPlaceMenu, labels }: Cante
   return (
     <>
       <Banner />
-      <Sidebar foodPlaces={foodPlaces} />
+      <DynamicSidebar foodPlaces={foodPlaces} height={height} setHeight={setHeight} />
       {foodPlaceData && (
         <LayoutContainer
           foodPlaceMenu={foodPlaceMenu}
           foodPlaceData={foodPlaceData}
           labels={labels}
+          height={height}
         />
       )}
     </>

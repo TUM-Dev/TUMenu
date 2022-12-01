@@ -2,19 +2,24 @@ import { Box, Typography, useTheme } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 
-export default function NotFound() {
+interface NotFoundProps {
+  height: number
+}
+
+export default function NotFound({ height }: NotFoundProps) {
   const theme = useTheme()
   const { t } = useTranslation('common')
   return (
     <Box
       sx={{
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'center',
         columnGap: theme.spacing(4),
         rowGap: theme.spacing(4),
         flexWrap: 'wrap',
         my: theme.spacing(4),
+        minHeight: height,
       }}>
       <Box
         sx={{
