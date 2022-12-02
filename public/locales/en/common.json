@@ -21,5 +21,7 @@
   "labelFilter": "Filter by labels",
   "notFound": "Items not found, that suit your serch criteria",
   "unknown": "unknown",
-  "price": "Price"
+  "price": "Price",
+  "people": "People",
+  "percent": "Percent"
 }

@@ -1,21 +1,24 @@
 import { useState } from 'react'
 import dayjs from 'dayjs'
-import { Grid, Typography, useTheme, LinearProgress, Button, Box } from '@mui/material'
+import { Grid, Typography, useTheme, LinearProgress, Button, Box, Tooltip } from '@mui/material'
 import { linearProgressClasses } from '@mui/material/LinearProgress'
 import { styled } from '@mui/material/styles'
 import { LocationOn } from '@mui/icons-material'
 import { useTranslation } from 'next-i18next'
 import { FoodPlace, daysArr, OpeningHoursType } from '../../types/FoodPlace'
 import OpeningHours from './OpeningHours'
+import { Queue } from '../../types/Queue'
 
 export interface FoodPlaceTitleContainerProps {
   foodPlaceData: FoodPlace
   datePickerValue: dayjs.Dayjs | null
+  queueData: Queue
 }
 
 export default function FoodPlaceTitleContainer({
   foodPlaceData,
   datePickerValue,
+  queueData,
 }: FoodPlaceTitleContainerProps) {
   const [open, setOpen] = useState<boolean>(false)
   const theme = useTheme()
@@ -36,7 +39,7 @@ export default function FoodPlaceTitleContainer({
     <>
       <Grid
         container
-        rowSpacing={2}
+        rowSpacing={1}
         alignItems="center"
         justifyContent="center"
         flexDirection="row"
@@ -55,73 +58,86 @@ export default function FoodPlaceTitleContainer({
             />
           </Box>
         </Grid>
-        <Grid item xs={12}>
-          <Grid
-            container
-            justifyContent="center"
-            alignItems="center"
-            spacing={1}
-            flexDirection="row">
-            <Grid item xs={3}>
-              <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
-                {t('queueStatus')}
-              </Typography>
-            </Grid>
-            <Grid item xs={7}>
-              <BorderLinearProgress
-                variant="determinate"
-                value={50}
-                sx={{
-                  borderRadius: '12px',
-                  height: theme.spacing(2.75),
-                  backgroundColor: theme.palette.primary.light,
-                }}
-              />
+        {queueData !== null ? (
+          <Grid item xs={12}>
+            <Grid
+              container
+              justifyContent="center"
+              alignItems="center"
+              spacing={1}
+              flexDirection="row">
+              <Grid item xs={3}>
+                <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
+                  {t('queueStatus')}
+                </Typography>
+              </Grid>
+              <Grid item xs={7}>
+                <Tooltip
+                  title={`${t('people')}: ${queueData.current}, ${t(
+                    'percent',
+                  )}: ${queueData.percent.toFixed(2)}`}
+                  arrow
+                  placement="bottom-end">
+                  <BorderLinearProgress
+                    variant="determinate"
+                    value={queueData.percent}
+                    sx={{
+                      borderRadius: '12px',
+                      height: theme.spacing(2.75),
+                      backgroundColor: theme.palette.primary.light,
+                    }}
+                  />
+                </Tooltip>
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
+        ) : (
+          ''
+        )}
         <Grid item xs={9}>
-          <Grid container justifyContent="center" alignItems="center" spacing={1}>
-            <Grid item xs={8}>
-              <Typography variant="subtitle1" sx={{ textAlign: 'right' }}>
-                {!weekend
-                  ? `${t('intlDateTimeOpen', {
-                      val: datePickerValue,
-                      formatParams: {
-                        val: { weekday: 'long' },
-                      },
-                    })} ${
-                      foodPlaceData.open_hours[
-                        // eslint-disable-next-line no-unsafe-optional-chaining
-                        `${daysArr[datePickerValue?.get('day')! - 1]}` as keyof OpeningHoursType
-                      ].start
-                    } - ${
-                      foodPlaceData.open_hours[
-                        // eslint-disable-next-line no-unsafe-optional-chaining
-                        `${daysArr[datePickerValue?.get('day')! - 1]}` as keyof OpeningHoursType
-                      ].end
-                    }`
-                  : t('intlDateTimeClosed', {
-                      val: datePickerValue,
-                      formatParams: {
-                        val: { weekday: 'long' },
-                      },
-                    })}
-              </Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Button
-                onClick={() => setOpen(true)}
-                variant="contained"
-                size="medium"
-                sx={{
-                  backgroundColor: theme.palette.primary.light,
-                  color: theme.palette.primary.main,
-                }}>
-                {t('openingHours')}
-              </Button>
-            </Grid>
-          </Grid>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: theme.spacing(1),
+            }}>
+            <Typography variant="subtitle1" sx={{ textAlign: 'right' }}>
+              {!weekend
+                ? `${t('intlDateTimeOpen', {
+                    val: datePickerValue,
+                    formatParams: {
+                      val: { weekday: 'long' },
+                    },
+                  })} ${
+                    foodPlaceData.open_hours[
+                      // eslint-disable-next-line no-unsafe-optional-chaining
+                      `${daysArr[datePickerValue?.get('day')! - 1]}` as keyof OpeningHoursType
+                    ].start
+                  } - ${
+                    foodPlaceData.open_hours[
+                      // eslint-disable-next-line no-unsafe-optional-chaining
+                      `${daysArr[datePickerValue?.get('day')! - 1]}` as keyof OpeningHoursType
+                    ].end
+                  }`
+                : t('intlDateTimeClosed', {
+                    val: datePickerValue,
+                    formatParams: {
+                      val: { weekday: 'long' },
+                    },
+                  })}
+            </Typography>
+            <Button
+              onClick={() => setOpen(true)}
+              variant="contained"
+              size="medium"
+              sx={{
+                backgroundColor: theme.palette.primary.light,
+                color: theme.palette.primary.main,
+              }}>
+              {t('openingHours')}
+            </Button>
+          </Box>
         </Grid>
       </Grid>
       <OpeningHours foodPlaceData={foodPlaceData} open={open} setOpen={setOpen} />

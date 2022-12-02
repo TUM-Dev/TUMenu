@@ -21,5 +21,7 @@
   "labelFilter": "Filtern nach labels",
   "notFound": "Keine Daten gefunden, die Ihren Suchkriterien entsprechen",
   "unknown": "Ungewiss",
-  "price": "Preis"
+  "price": "Preis",
+  "people": "Menschen",
+  "percent": "Prozent"
 }

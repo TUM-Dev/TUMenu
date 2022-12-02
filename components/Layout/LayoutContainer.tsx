@@ -12,12 +12,14 @@ import LayoutContainerHeader from './LayoutContainerHeader'
 import CardGrid from './CardGrid'
 import NotFound from '../NotFound'
 import { Labels } from '../../types/Labels'
+import { Queue } from '../../types/Queue'
 
 export interface LayoutContainerProps {
   foodPlaceMenu: FoodPlaceMenu
   foodPlaceData: FoodPlace
   labels: Labels[]
   height: number
+  queueData: Queue
 }
 
 dayjs.extend(weekOfYear)
@@ -28,6 +30,7 @@ export default function LayoutContainer({
   foodPlaceData,
   labels,
   height,
+  queueData,
 }: LayoutContainerProps) {
   const theme = useTheme()
   const { t } = useTranslation('common')
@@ -92,7 +95,8 @@ export default function LayoutContainer({
       sx={{
         ml: theme.spacing(30),
         minHeight: '100%',
-        padding: theme.spacing(4),
+        px: theme.spacing(4),
+        py: theme.spacing(2),
         backgroundColor: `${theme.palette.primary.main} !important`,
       }}>
       <LayoutContainerHeader
@@ -101,9 +105,10 @@ export default function LayoutContainer({
         datePickerSetValue={setValue}
         minDate={minDate}
         maxDate={maxDate}
+        queueData={queueData}
       />
       <Box sx={{ borderBottom: 2, borderColor: 'divider' }}>
-        <Tabs value={filteredValue} onChange={handleChange} sx={{ mt: theme.spacing(3) }} centered>
+        <Tabs value={filteredValue} onChange={handleChange} sx={{ mt: theme.spacing(1) }} centered>
           <Tab value="All" label={t('all')} disabled={initialMeals.length === 0} />
           <Tab value="Fleisch" label={t('meat')} disabled={initialMeals.length === 0} />
           <Tab value="Vegetarisch" label={t('vegetarian')} disabled={initialMeals.length === 0} />

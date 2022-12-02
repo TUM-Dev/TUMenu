@@ -12,8 +12,6 @@ interface HomeProps {
   foodPlaces: FoodPlace[]
 }
 
-console.log('here')
-
 export default function Home({ foodPlaces }: HomeProps) {
   const [height, setHeight] = useState(0)
 
