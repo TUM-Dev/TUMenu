@@ -46,31 +46,36 @@ export default function LayoutContainer({
   }
 
   useEffect(() => {
-    const dailyMeals = foodPlaceMenu.weeks
-      .filter((week) => week.year === value?.year() && week.number === value.week() - 1)
-      .map((week) => week.days.filter((day) => dayjs(day.date).isSame(value, 'day')))
-      .flat(1)
-      .map((dailyMenu) => dailyMenu.dishes.map((dish) => dish))
-      .flat(1)
+    if (foodPlaceMenu.weeks.length !== 0) {
+      const dailyMeals = foodPlaceMenu.weeks
+        .filter((week) => week.year === value?.year() && week.number === value.week() - 1)
+        .map((week) => week.days.filter((day) => dayjs(day.date).isSame(value, 'day')))
+        .flat(1)
+        .map((dailyMenu) => dailyMenu.dishes.map((dish) => dish))
+        .flat(1)
 
-    setMealsShown(dailyMeals)
-    setInitialMeals(dailyMeals)
+      setMealsShown(dailyMeals)
+      setInitialMeals(dailyMeals)
 
-    const latestWeek = Math.max(...foodPlaceMenu.weeks.map((week) => week.number))
-    const firstWeek = Math.min(...foodPlaceMenu.weeks.map((week) => week.number))
-    const lastDay = dayjs.max(
-      foodPlaceMenu.weeks
-        .filter((week) => week.number === latestWeek)[0]
-        .days.map((day) => dayjs(day.date)),
-    )
-    const firstDay = dayjs.min(
-      foodPlaceMenu.weeks
-        .filter((week) => week.number === firstWeek)[0]
-        .days.map((day) => dayjs(day.date)),
-    )
+      const latestWeek = Math.max(...foodPlaceMenu.weeks.map((week) => week.number))
+      const firstWeek = Math.min(...foodPlaceMenu.weeks.map((week) => week.number))
+      const lastDay = dayjs.max(
+        foodPlaceMenu.weeks
+          .filter((week) => week.number === latestWeek)[0]
+          .days.map((day) => dayjs(day.date)),
+      )
+      const firstDay = dayjs.min(
+        foodPlaceMenu.weeks
+          .filter((week) => week.number === firstWeek)[0]
+          .days.map((day) => dayjs(day.date)),
+      )
 
-    setMinDate(firstDay)
-    setMaxDate(lastDay)
+      setMinDate(firstDay)
+      setMaxDate(lastDay)
+    } else {
+      setMealsShown([])
+      setInitialMeals([])
+    }
   }, [value, foodPlaceMenu])
 
   const theme = useTheme()
@@ -92,16 +97,16 @@ export default function LayoutContainer({
       />
       <Box sx={{ borderBottom: 2, borderColor: 'divider' }}>
         <Tabs value={filteredValue} onChange={handleChange} sx={{ mt: theme.spacing(3) }} centered>
-          <Tab value="All" label={t('all')} />
-          <Tab value="Fleisch" label={t('meat')} />
-          <Tab value="Vegetarisch" label={t('vegetarian')} />
-          <Tab value="Wok" label="Wok" />
-          <Tab value="Grill" label="Grill" />
-          <Tab value="Pasta" label="Pasta" />
-          <Tab value="Pizza" label="Pizza" />
-          <Tab value="Studitopf" label={t('studyPot')} />
-          <Tab value="Beilagen" label={t('sideDish')} />
-          <Tab value="Süßspeise" label={t('dessert')} />
+          <Tab value="All" label={t('all')} disabled={initialMeals.length === 0} />
+          <Tab value="Fleisch" label={t('meat')} disabled={initialMeals.length === 0} />
+          <Tab value="Vegetarisch" label={t('vegetarian')} disabled={initialMeals.length === 0} />
+          <Tab value="Wok" label="Wok" disabled={initialMeals.length === 0} />
+          <Tab value="Grill" label="Grill" disabled={initialMeals.length === 0} />
+          <Tab value="Pasta" label="Pasta" disabled={initialMeals.length === 0} />
+          <Tab value="Pizza" label="Pizza" disabled={initialMeals.length === 0} />
+          <Tab value="Studitopf" label={t('studyPot')} disabled={initialMeals.length === 0} />
+          <Tab value="Beilagen" label={t('sideDish')} disabled={initialMeals.length === 0} />
+          <Tab value="Süßspeise" label={t('dessert')} disabled={initialMeals.length === 0} />
         </Tabs>
       </Box>
       <Box
@@ -145,7 +150,7 @@ export default function LayoutContainer({
       {mealsShown.length !== 0 ? (
         <CardGrid dailyMeals={mealsShown} labels={labels} height={height} />
       ) : (
-        <NotFound height={height}/>
+        <NotFound height={height} />
       )}
     </Box>
   )

@@ -33,6 +33,11 @@ export const themeOptions: ThemeOptions = {
                     "&.Mui-selected": {
                         backgroundColor: "#fff !important",
                     },
+                    "&.Mui-disabled": {
+                        color: "#83a9d1 !important",
+                        cursor: 'not-allowed',
+                        pointerEvents: 'all !important'
+                    },
                     fontSize: '1.2rem',
                     color: '#3070B3 !important'
                 }

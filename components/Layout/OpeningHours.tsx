@@ -13,7 +13,11 @@ export default function OpeningHours({ foodPlaceData, open, setOpen }: OpeningHo
   const { t } = useTranslation('common')
   const theme = useTheme()
   return (
-    <Dialog open={open} onClose={() => setOpen(false)} sx={{ borderRadius: '12px' }}>
+    <Dialog
+      open={open}
+      onClose={() => setOpen(false)}
+      sx={{ borderRadius: '12px' }}
+      disableScrollLock>
       <Box
         sx={{
           display: 'flex',
