@@ -1,6 +1,6 @@
 {
   "subtitleBanner": "Hier können Sie Tagesmenus für einige studentische Orte in München finden",
-  "queueStatus": "Aktuelle Warteschlange",
+  "queueStatus": "Aktuelle Mensa Auslastung",
   "openingHours": "Öffnugszeiten",
   "intlDateTimeOpen": "{{val, datetime}} geöffnet von",
   "intlDateTimeClosed": "{{val, datetime}} geschlossen",
@@ -20,5 +20,6 @@
   "generateMenu": "Random Menu generieren",
   "labelFilter": "Filtern nach labels",
   "notFound": "Keine Daten gefunden, die Ihren Suchkriterien entsprechen",
-  "unknown": "Ungewiss"
+  "unknown": "Ungewiss",
+  "price": "Preis"
 }

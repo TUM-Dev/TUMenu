@@ -20,5 +20,6 @@
   "generateMenu": "Generate random menu",
   "labelFilter": "Filter by labels",
   "notFound": "Items not found, that suit your serch criteria",
-  "unknown": "unknown"
+  "unknown": "unknown",
+  "price": "Price"
 }

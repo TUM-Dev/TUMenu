@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { Box, Typography, useTheme, Button, Tabs, Tab } from '@mui/material'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
@@ -28,6 +29,10 @@ export default function LayoutContainer({
   labels,
   height,
 }: LayoutContainerProps) {
+  const theme = useTheme()
+  const { t } = useTranslation('common')
+  const router = useRouter()
+
   const [value, setValue] = useState<dayjs.Dayjs | null>(dayjs())
   const [maxDate, setMaxDate] = useState<dayjs.Dayjs>(dayjs())
   const [minDate, setMinDate] = useState<dayjs.Dayjs>(dayjs())
@@ -78,8 +83,10 @@ export default function LayoutContainer({
     }
   }, [value, foodPlaceMenu])
 
-  const theme = useTheme()
-  const { t } = useTranslation('common')
+  useEffect(() => {
+    setFilteredValue('All')
+  }, [value, router.pathname])
+
   return (
     <Box
       sx={{

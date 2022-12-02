@@ -72,7 +72,7 @@ export default function DishCard({ meal, labels }: DishCardProps) {
           mt: 'auto',
         }}>
         <Typography variant="h6" sx={{ fontWeight: 600 }}>
-          Price:
+          {t('price')}
         </Typography>
         <Typography variant="h6" sx={{ fontWeight: 600 }}>
           {formatPrice(meal.prices.students)}
