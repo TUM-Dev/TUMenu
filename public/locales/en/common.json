@@ -23,5 +23,7 @@
   "unknown": "unknown",
   "price": "Price",
   "people": "People",
-  "percent": "Percent"
+  "percent": "Percent",
+  "firstDish": "Starter",
+  "secondDish": "Main dish"
 }

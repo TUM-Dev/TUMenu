@@ -23,5 +23,7 @@
   "unknown": "Ungewiss",
   "price": "Preis",
   "people": "Menschen",
-  "percent": "Prozent"
+  "percent": "Prozent",
+  "firstDish": "Vorgericht",
+  "secondDish": "Hauptgericht"
 }

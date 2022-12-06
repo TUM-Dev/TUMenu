@@ -13,6 +13,7 @@ import CardGrid from './CardGrid'
 import NotFound from '../NotFound'
 import { Labels } from '../../types/Labels'
 import { Queue } from '../../types/Queue'
+import GeneratedMenu from './GeneratedMenu'
 
 export interface LayoutContainerProps {
   foodPlaceMenu: FoodPlaceMenu
@@ -41,7 +42,8 @@ export default function LayoutContainer({
   const [minDate, setMinDate] = useState<dayjs.Dayjs>(dayjs())
   const [mealsShown, setMealsShown] = useState<Dishes[]>([])
   const [initialMeals, setInitialMeals] = useState<Dishes[]>([])
-  const [filteredValue, setFilteredValue] = useState('All')
+  const [filteredValue, setFilteredValue] = useState<string>('All')
+  const [showMenu, setShowMenu] = useState<boolean>(false)
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     if (newValue !== 'All') {
@@ -50,6 +52,7 @@ export default function LayoutContainer({
     } else {
       setMealsShown(initialMeals)
     }
+    setShowMenu(false)
     setFilteredValue(newValue)
   }
 
@@ -119,6 +122,7 @@ export default function LayoutContainer({
           <Tab value="Studitopf" label={t('studyPot')} disabled={initialMeals.length === 0} />
           <Tab value="Beilagen" label={t('sideDish')} disabled={initialMeals.length === 0} />
           <Tab value="Süßspeise" label={t('dessert')} disabled={initialMeals.length === 0} />
+          <Tab value="Disable" label="Disabled" sx={{ display: 'none', pointerEvents: 'none' }} />
         </Tabs>
       </Box>
       <Box
@@ -141,6 +145,7 @@ export default function LayoutContainer({
           <Button
             variant="contained"
             size="medium"
+            onClick={() => setShowMenu(true)}
             sx={{
               backgroundColor: theme.palette.primary.light,
               color: theme.palette.primary.main,
@@ -159,10 +164,20 @@ export default function LayoutContainer({
           </Button>
         </Box>
       </Box>
-      {mealsShown.length !== 0 ? (
+      {mealsShown.length !== 0 && !showMenu ? (
         <CardGrid dailyMeals={mealsShown} labels={labels} height={height} />
       ) : (
-        <NotFound height={height} />
+        // eslint-disable-next-line react/jsx-no-useless-fragment
+        <>{!showMenu && <NotFound height={height} />}</>
+      )}
+      {showMenu && (
+        <GeneratedMenu
+          height={height}
+          setFilteredValue={setFilteredValue}
+          setShowMenu={setShowMenu}
+          meals={initialMeals}
+          labels={labels}
+        />
       )}
     </Box>
   )
