@@ -44,6 +44,8 @@ export default function LayoutContainer({
   const [initialMeals, setInitialMeals] = useState<Dishes[]>([])
   const [filteredValue, setFilteredValue] = useState<string>('All')
   const [showMenu, setShowMenu] = useState<boolean>(false)
+  // to initate the rerender of the GenerateMenu component
+  const [rerender, setRerender] = useState<number>(Math.random())
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     if (newValue !== 'All') {
@@ -54,6 +56,11 @@ export default function LayoutContainer({
     }
     setShowMenu(false)
     setFilteredValue(newValue)
+  }
+
+  const handleGenerateMenu = () => {
+    setShowMenu(true)
+    setRerender(Math.random())
   }
 
   useEffect(() => {
@@ -145,7 +152,8 @@ export default function LayoutContainer({
           <Button
             variant="contained"
             size="medium"
-            onClick={() => setShowMenu(true)}
+            disabled={initialMeals.length === 0}
+            onClick={handleGenerateMenu}
             sx={{
               backgroundColor: theme.palette.primary.light,
               color: theme.palette.primary.main,
@@ -156,6 +164,7 @@ export default function LayoutContainer({
             startIcon={<FilterAltIcon />}
             variant="contained"
             size="medium"
+            disabled={initialMeals.length === 0}
             sx={{
               backgroundColor: theme.palette.primary.light,
               color: theme.palette.primary.main,
@@ -168,7 +177,11 @@ export default function LayoutContainer({
         <CardGrid dailyMeals={mealsShown} labels={labels} height={height} />
       ) : (
         // eslint-disable-next-line react/jsx-no-useless-fragment
-        <>{!showMenu && <NotFound height={height} />}</>
+        <>
+          {!showMenu && (
+            <NotFound height={height} translationString="notFound" imageSource="/not_found.svg" />
+          )}
+        </>
       )}
       {showMenu && (
         <GeneratedMenu
@@ -177,6 +190,7 @@ export default function LayoutContainer({
           setShowMenu={setShowMenu}
           meals={initialMeals}
           labels={labels}
+          rerender={rerender}
         />
       )}
     </Box>

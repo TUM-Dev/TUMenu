@@ -58,18 +58,22 @@ export const themeOptions: ThemeOptions = {
                 root: {
                     lineHeight: 2,
                     borderWidth: 4,
+                    "&.Mui-disabled": {
+                        backgroundColor: "#598dc2 !important",
+                        cursor: 'not-allowed',
+                        pointerEvents: 'all !important',
+                        color: '#fff'
+                    },
                 },
                 textPrimary: {
                     color: '#ffffff',
                 },
-
                 contained: {
                     "&:hover": {
                         backgroundColor: '#14519A'
                     },
                     borderRadius: '12px'
                 },
-
             },
         },
     },

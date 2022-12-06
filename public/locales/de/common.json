@@ -25,5 +25,6 @@
   "people": "Menschen",
   "percent": "Prozent",
   "firstDish": "Vorgericht",
-  "secondDish": "Hauptgericht"
+  "secondDish": "Hauptgericht",
+  "noMenu": "Kein passendes Menu gefunden"
 }

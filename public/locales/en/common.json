@@ -25,5 +25,6 @@
   "people": "People",
   "percent": "Percent",
   "firstDish": "Starter",
-  "secondDish": "Main dish"
+  "secondDish": "Main dish",
+  "noMenu": "Could not find a Menu"
 }

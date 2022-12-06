@@ -4,9 +4,11 @@ import Image from 'next/image'
 
 interface NotFoundProps {
   height: number
+  translationString: string
+  imageSource: string
 }
 
-export default function NotFound({ height }: NotFoundProps) {
+export default function NotFound({ height, imageSource, translationString }: NotFoundProps) {
   const theme = useTheme()
   const { t } = useTranslation('common')
   return (
@@ -27,18 +29,12 @@ export default function NotFound({ height }: NotFoundProps) {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
+          gap: theme.spacing(2),
         }}>
         <Typography variant="h4" sx={{ color: theme.palette.primary.dark, fontWeight: 600 }}>
-          {t('notFound')}
+          {t(translationString)}
         </Typography>
-        <Image
-          src="/not_found.svg"
-          quality={100}
-          height={400}
-          width={400}
-          priority
-          alt="Not Found"
-        />
+        <Image src={imageSource} quality={100} height={400} width={400} priority alt="Not Found" />
       </Box>
     </Box>
   )

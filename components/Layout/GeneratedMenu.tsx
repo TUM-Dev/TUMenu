@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { Dishes } from '../../types/FoodPlaceMenu'
 import { Labels } from '../../types/Labels'
 import { Menu } from '../../types/Menu'
+import NotFound from '../NotFound'
 import DishCard from './DishCard'
 
 interface GeneratedMenuProps {
@@ -12,6 +13,7 @@ interface GeneratedMenuProps {
   setShowMenu: React.Dispatch<React.SetStateAction<boolean>>
   meals: Dishes[]
   labels: Labels[]
+  rerender: number
 }
 
 const Circle = styled('div')(({ theme }) => ({
@@ -40,6 +42,7 @@ export default function GeneratedMenu({
   setShowMenu,
   meals,
   labels,
+  rerender,
 }: GeneratedMenuProps) {
   const [menu, setMenu] = useState<Menu>()
   const theme = useTheme()
@@ -79,72 +82,81 @@ export default function GeneratedMenu({
 
   useEffect(() => {
     generateMenu()
-  }, [setShowMenu])
+  }, [rerender])
 
-  return (
-    <Box
-      sx={{
-        minHeight: height,
-        display: 'flex',
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-        gap: theme.spacing(4),
-        mt: theme.spacing(4),
-      }}>
+  if (menu && (menu.firstDish || menu.secondDish || menu.thirdDish)) {
+    return (
       <Box
         sx={{
+          minHeight: height,
           display: 'flex',
-          flexDirection: 'column',
-          rowGap: theme.spacing(5),
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <CircleTitleContainer>
-          <Circle>
-            <Typography variant="h6">1</Typography>
-          </Circle>
-          <Typography variant="h6" sx={{ fontWeight: 600 }}>
-            {t('firstDish')}
-          </Typography>
-        </CircleTitleContainer>
-        {menu && <DishCard meal={menu.firstDish} labels={labels} />}
-      </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          rowGap: theme.spacing(5),
           alignItems: 'flex-start',
-          justifyContent: 'center',
+          justifyContent: 'flex-start',
+          gap: theme.spacing(4),
+          my: theme.spacing(4),
         }}>
-        <CircleTitleContainer>
-          <Circle>
-            <Typography variant="h6">2</Typography>
-          </Circle>
-          <Typography variant="h6" sx={{ fontWeight: 600 }}>
-            {t('secondDish')}
-          </Typography>
-        </CircleTitleContainer>
-        {menu && <DishCard meal={menu.secondDish} labels={labels} />}
+        {menu && menu.firstDish && (
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              rowGap: theme.spacing(5),
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <CircleTitleContainer>
+              <Circle>
+                <Typography variant="h6">1</Typography>
+              </Circle>
+              <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                {t('firstDish')}
+              </Typography>
+            </CircleTitleContainer>
+            {menu && <DishCard meal={menu.firstDish} labels={labels} />}
+          </Box>
+        )}
+        {menu && menu.secondDish && (
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              rowGap: theme.spacing(5),
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <CircleTitleContainer>
+              <Circle>
+                <Typography variant="h6">2</Typography>
+              </Circle>
+              <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                {t('secondDish')}
+              </Typography>
+            </CircleTitleContainer>
+            <DishCard meal={menu.secondDish} labels={labels} />
+          </Box>
+        )}
+        {menu && menu.thirdDish && (
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              rowGap: theme.spacing(5),
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <CircleTitleContainer>
+              <Circle>
+                <Typography variant="h6">3</Typography>
+              </Circle>
+              <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                Dessert
+              </Typography>
+            </CircleTitleContainer>
+            <DishCard meal={menu.thirdDish} labels={labels} />
+          </Box>
+        )}
       </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          rowGap: theme.spacing(5),
-          alignItems: 'flex-start',
-          justifyContent: 'center',
-        }}>
-        <CircleTitleContainer>
-          <Circle>
-            <Typography variant="h6">3</Typography>
-          </Circle>
-          <Typography variant="h6" sx={{ fontWeight: 600 }}>
-            Dessert
-          </Typography>
-        </CircleTitleContainer>
-        {menu && <DishCard meal={menu.secondDish} labels={labels} />}
-      </Box>
-    </Box>
-  )
+    )
+  }
+  return <NotFound height={height} translationString="noMenu" imageSource="/no_menu.svg" />
 }
