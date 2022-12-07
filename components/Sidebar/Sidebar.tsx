@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
+import { useTranslation } from 'next-i18next'
 import { Box, useTheme, List, Button, Typography } from '@mui/material'
 import MapIcon from '@mui/icons-material/Map'
 import { FoodPlace } from '../../types/FoodPlace'
 import { SidebarEntry } from '../../types/SidebarEntry'
 import SidebarSubmenu from './SidebarSubmenu'
-import { useTranslation } from 'next-i18next'
 
 interface SidebarProps {
   foodPlaces: FoodPlace[]
