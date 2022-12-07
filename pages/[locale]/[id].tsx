@@ -59,18 +59,21 @@ export const getStaticProps = async (ctx: Context) => {
   const { id, locale } = ctx.params
   const foodPlaces = await getFoodPlaces()
   const foodPlaceMenu = await getFoodPlace(locale, id)
-  const queueStatusLink = foodPlaces.filter(
-    (foodPlace) => foodPlace.canteen_id === 'mensa-garching',
-  )[0].queue_status
+  const queueStatusExist = foodPlaces.filter(
+    (foodPlace) =>
+      foodPlace.canteen_id === foodPlaceMenu.canteen_id &&
+      foodPlaceMenu.canteen_id === 'mensa-garching',
+  )
   let queueData = null
   if (
-    queueStatusLink !== null &&
+    queueStatusExist.length !== 0 &&
+    queueStatusExist[0].queue_status !== null &&
     dayjs().get('hour') < 14 &&
     dayjs().get('hour') >= 11 &&
     dayjs().get('day') !== 6 &&
     dayjs().get('day') !== 0
   ) {
-    queueData = await getQueueStatus(queueStatusLink)
+    queueData = await getQueueStatus(queueStatusExist[0].queue_status)
   }
   const labels = await getLabels()
   return {

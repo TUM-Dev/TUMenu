@@ -49,7 +49,7 @@ export default function MensaMap({ open, setOpen, location, canteenName }: Mensa
           onClick={() => setOpen(false)}
         />
       </Box>
-      <MapContainer center={coordinates} zoom={11} style={{ width: 600, height: 500 }}>
+      <MapContainer center={coordinates} zoom={15} style={{ width: 600, height: 500 }}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
