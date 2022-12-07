@@ -16,19 +16,21 @@ export default function OpeningHours({ foodPlaceData, open, setOpen }: OpeningHo
     <Dialog
       open={open}
       onClose={() => setOpen(false)}
-      sx={{ borderRadius: '12px' }}
+      PaperProps={{
+        style: { borderRadius: '12px' },
+      }}
       disableScrollLock>
       <Box
         sx={{
           display: 'flex',
           justifyContent: 'flex-end',
           backgroundColor: theme.palette.primary.light,
-          height: theme.spacing(6),
-          pt: theme.spacing(1),
-          px: theme.spacing(2),
+          height: theme.spacing(5),
+          pt: theme.spacing(0.5),
+          px: theme.spacing(0.5),
         }}>
         <CancelRoundedIcon
-          fontSize="medium"
+          fontSize="small"
           sx={{ color: theme.palette.primary.main, cursor: 'pointer' }}
           onClick={() => setOpen(false)}
         />

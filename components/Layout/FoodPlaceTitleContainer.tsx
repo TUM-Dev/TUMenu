@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import dayjs from 'dayjs'
 import { Grid, Typography, useTheme, LinearProgress, Button, Box, Tooltip } from '@mui/material'
@@ -8,6 +9,10 @@ import { useTranslation } from 'next-i18next'
 import { FoodPlace, daysArr, OpeningHoursType } from '../../types/FoodPlace'
 import OpeningHours from './OpeningHours'
 import { Queue } from '../../types/Queue'
+
+const DynamicMap = dynamic(() => import('./Map'), {
+  ssr: false,
+})
 
 export interface FoodPlaceTitleContainerProps {
   foodPlaceData: FoodPlace
@@ -21,6 +26,7 @@ export default function FoodPlaceTitleContainer({
   queueData,
 }: FoodPlaceTitleContainerProps) {
   const [open, setOpen] = useState<boolean>(false)
+  const [mapIsOpen, setMapIsOpen] = useState(false)
   const theme = useTheme()
   const { t } = useTranslation('common')
   const weekend = datePickerValue?.get('day') === 6 || datePickerValue?.get('day') === 0
@@ -50,6 +56,7 @@ export default function FoodPlaceTitleContainer({
               {foodPlaceData.name}
             </Typography>
             <LocationOn
+              onClick={() => setMapIsOpen(true)}
               sx={{
                 fontSize: theme.spacing(6),
                 color: theme.palette.secondary.dark,
@@ -141,6 +148,12 @@ export default function FoodPlaceTitleContainer({
         </Grid>
       </Grid>
       <OpeningHours foodPlaceData={foodPlaceData} open={open} setOpen={setOpen} />
+      <DynamicMap
+        open={mapIsOpen}
+        setOpen={setMapIsOpen}
+        location={foodPlaceData.location}
+        canteenName={foodPlaceData.name}
+      />
     </>
   )
 }

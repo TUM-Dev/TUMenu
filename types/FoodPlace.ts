@@ -1,11 +1,7 @@
 export type FoodPlace = {
     enum_name: string,
     name: string,
-    location: {
-        address: string,
-        latitude: number,
-        longitude: number
-    },
+    location: MensaLocation
     canteen_id: string,
     queue_status: string | null,
     open_hours: OpeningHoursType
@@ -35,3 +31,9 @@ export type OpeningHoursType = {
 }
 
 export const daysArr = ['mon', 'tue', 'wed', 'thu', 'fri']
+
+export type MensaLocation = {
+    address: string,
+    latitude: number,
+    longitude: number
+}
