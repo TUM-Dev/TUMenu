@@ -26,5 +26,6 @@
   "percent": "Prozent",
   "firstDish": "Vorgericht",
   "secondDish": "Hauptgericht",
-  "noMenu": "Kein passendes Menu gefunden"
+  "noMenu": "Kein passendes Menu gefunden",
+  "showAllCanteens": "Alle Mensen zeigen"
 }

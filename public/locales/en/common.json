@@ -26,5 +26,6 @@
   "percent": "Percent",
   "firstDish": "Starter",
   "secondDish": "Main dish",
-  "noMenu": "Could not find a Menu"
+  "noMenu": "Could not find a Menu",
+  "showAllCanteens": "Show all canteens"
 }

@@ -151,8 +151,9 @@ export default function FoodPlaceTitleContainer({
       <DynamicMap
         open={mapIsOpen}
         setOpen={setMapIsOpen}
-        location={foodPlaceData.location}
-        canteenName={foodPlaceData.name}
+        foodPlaces={[foodPlaceData]}
+        mapOpenCoordinates={[foodPlaceData.location.latitude, foodPlaceData.location.longitude]}
+        zoom={15}
       />
     </>
   )

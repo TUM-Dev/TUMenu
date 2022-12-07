@@ -6,7 +6,7 @@ import L, { LatLngExpression } from 'leaflet'
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png'
 import markerIcon from 'leaflet/dist/images/marker-icon.png'
 import markerShadow from 'leaflet/dist/images/marker-shadow.png'
-import { MensaLocation } from '../../types/FoodPlace'
+import { FoodPlace } from '../../types/FoodPlace'
 import 'leaflet/dist/leaflet.css'
 
 L.Icon.Default.mergeOptions({
@@ -18,12 +18,18 @@ L.Icon.Default.mergeOptions({
 interface MensaMapProps {
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
-  location: MensaLocation
-  canteenName: string
+  foodPlaces: FoodPlace[]
+  mapOpenCoordinates: LatLngExpression
+  zoom: number
 }
 
-export default function MensaMap({ open, setOpen, location, canteenName }: MensaMapProps) {
-  const coordinates: LatLngExpression = [location.latitude, location.longitude]
+export default function MensaMap({
+  open,
+  setOpen,
+  foodPlaces,
+  mapOpenCoordinates,
+  zoom,
+}: MensaMapProps) {
   const theme = useTheme()
 
   return (
@@ -49,25 +55,33 @@ export default function MensaMap({ open, setOpen, location, canteenName }: Mensa
           onClick={() => setOpen(false)}
         />
       </Box>
-      <MapContainer center={coordinates} zoom={15} style={{ width: 600, height: 500 }}>
+      <MapContainer center={mapOpenCoordinates} zoom={zoom} style={{ width: 600, height: 500 }}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={coordinates}>
-          <Popup>
-            <a
-              href={`https://maps.google.com/?q=${location.latitude},${location.longitude}`}
-              target="_blank"
-              style={{ fontWeight: 600, color: theme.palette.primary.light }}
-              rel="noreferrer">
-              {canteenName}
-            </a>
-            <Typography variant="body2" sx={{ margin: '0 !important' }}>
-              {location.address}
-            </Typography>
-          </Popup>
-        </Marker>
+        {foodPlaces.map((foodPlace) => {
+          const coordinates: LatLngExpression = [
+            foodPlace.location.latitude,
+            foodPlace.location.longitude,
+          ]
+          return (
+            <Marker position={coordinates}>
+              <Popup>
+                <a
+                  href={`https://maps.google.com/?q=${foodPlace.location.latitude},${foodPlace.location.longitude}`}
+                  target="_blank"
+                  style={{ fontWeight: 600, color: theme.palette.primary.light }}
+                  rel="noreferrer">
+                  {foodPlace.name}
+                </a>
+                <Typography variant="body2" sx={{ margin: '0 !important' }}>
+                  {foodPlace.location.address}
+                </Typography>
+              </Popup>
+            </Marker>
+          )
+        })}
       </MapContainer>
     </Dialog>
   )

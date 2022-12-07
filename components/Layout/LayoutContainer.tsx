@@ -98,6 +98,7 @@ export default function LayoutContainer({
 
   useEffect(() => {
     setFilteredValue('All')
+    setShowMenu(false)
   }, [value, router.pathname])
 
   return (
