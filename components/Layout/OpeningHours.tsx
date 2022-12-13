@@ -42,7 +42,7 @@ export default function OpeningHours({ foodPlaceData, open, setOpen }: OpeningHo
         sx={{
           px: { xs: theme.spacing(3), sm: theme.spacing(5) },
           pb: theme.spacing(5),
-          width: { sm: theme.spacing(50) },
+          width: { xs: theme.spacing(37), sm: theme.spacing(50) },
           textAlign: 'center',
           backgroundColor: theme.palette.primary.light,
           color: theme.palette.primary.main,

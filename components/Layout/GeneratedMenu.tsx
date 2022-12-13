@@ -90,8 +90,9 @@ export default function GeneratedMenu({
         sx={{
           minHeight: height,
           display: 'flex',
+          flexWrap: 'wrap',
           alignItems: 'flex-start',
-          justifyContent: 'flex-start',
+          justifyContent: { xs: 'center', sd: 'flex-start' },
           gap: theme.spacing(4),
           my: theme.spacing(4),
         }}>

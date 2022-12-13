@@ -117,6 +117,7 @@ export default function FoodPlaceTitleContainer({
           <Box
             sx={{
               display: 'flex',
+              flexWrap: 'wrap',
               alignItems: 'center',
               justifyContent: 'center',
               gap: theme.spacing(1),
