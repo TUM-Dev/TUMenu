@@ -46,6 +46,7 @@ export default function LayoutContainer({
   const [showMenu, setShowMenu] = useState<boolean>(false)
   // to initate the rerender of the GenerateMenu component
   const [rerender, setRerender] = useState<number>(Math.random())
+  const disableButtons = initialMeals.length === 0
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     if (newValue !== 'All') {
@@ -118,18 +119,25 @@ export default function LayoutContainer({
         maxDate={maxDate}
         queueData={queueData}
       />
-      <Box sx={{ borderBottom: 2, borderColor: 'divider' }}>
-        <Tabs value={filteredValue} onChange={handleChange} sx={{ mt: theme.spacing(1) }} centered>
-          <Tab value="All" label={t('all')} disabled={initialMeals.length === 0} />
-          <Tab value="Fleisch" label={t('meat')} disabled={initialMeals.length === 0} />
-          <Tab value="Vegetarisch" label={t('vegetarian')} disabled={initialMeals.length === 0} />
-          <Tab value="Wok" label="Wok" disabled={initialMeals.length === 0} />
-          <Tab value="Grill" label="Grill" disabled={initialMeals.length === 0} />
-          <Tab value="Pasta" label="Pasta" disabled={initialMeals.length === 0} />
-          <Tab value="Pizza" label="Pizza" disabled={initialMeals.length === 0} />
-          <Tab value="Studitopf" label={t('studyPot')} disabled={initialMeals.length === 0} />
-          <Tab value="Beilagen" label={t('sideDish')} disabled={initialMeals.length === 0} />
-          <Tab value="Süßspeise" label={t('dessert')} disabled={initialMeals.length === 0} />
+      <Box
+        sx={{ borderBottom: 2, borderColor: 'divider', display: 'flex', justifyContent: 'center' }}>
+        <Tabs
+          value={filteredValue}
+          onChange={handleChange}
+          sx={{ mt: theme.spacing(1) }}
+          variant="scrollable"
+          scrollButtons
+          allowScrollButtonsMobile>
+          <Tab value="All" label={t('all')} disabled={disableButtons} />
+          <Tab value="Fleisch" label={t('meat')} disabled={disableButtons} />
+          <Tab value="Vegetarisch" label={t('vegetarian')} disabled={disableButtons} />
+          <Tab value="Wok" label="Wok" disabled={disableButtons} />
+          <Tab value="Grill" label="Grill" disabled={disableButtons} />
+          <Tab value="Pasta" label="Pasta" disabled={disableButtons} />
+          <Tab value="Pizza" label="Pizza" disabled={disableButtons} />
+          <Tab value="Studitopf" label={t('studyPot')} disabled={disableButtons} />
+          <Tab value="Beilagen" label={t('sideDish')} disabled={disableButtons} />
+          <Tab value="Süßspeise" label={t('dessert')} disabled={disableButtons} />
           <Tab value="Disable" label="Disabled" sx={{ display: 'none', pointerEvents: 'none' }} />
         </Tabs>
       </Box>
@@ -153,7 +161,7 @@ export default function LayoutContainer({
           <Button
             variant="contained"
             size="medium"
-            disabled={initialMeals.length === 0}
+            disabled={disableButtons}
             onClick={handleGenerateMenu}
             sx={{
               backgroundColor: theme.palette.primary.light,
@@ -165,7 +173,7 @@ export default function LayoutContainer({
             startIcon={<FilterAltIcon />}
             variant="contained"
             size="medium"
-            disabled={initialMeals.length === 0}
+            disabled={disableButtons}
             sx={{
               backgroundColor: theme.palette.primary.light,
               color: theme.palette.primary.main,
