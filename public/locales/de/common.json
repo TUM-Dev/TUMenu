@@ -27,5 +27,6 @@
   "firstDish": "Vorgericht",
   "secondDish": "Hauptgericht",
   "noMenu": "Kein passendes Menu gefunden",
-  "showAllCanteens": "Alle Mensen zeigen"
+  "showAllCanteens": "Alle Mensen zeigen",
+  "selectCanteen": "Mensa wählen"
 }

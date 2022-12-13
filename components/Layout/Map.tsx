@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dialog, Typography, useTheme, Box } from '@mui/material'
+import { Dialog, Typography, useTheme, Box, useMediaQuery } from '@mui/material'
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import L, { LatLngExpression } from 'leaflet'
@@ -31,6 +31,7 @@ export default function MensaMap({
   zoom,
 }: MensaMapProps) {
   const theme = useTheme()
+  const matches = useMediaQuery('(min-width:37.5em)')
 
   return (
     <Dialog
@@ -55,7 +56,10 @@ export default function MensaMap({
           onClick={() => setOpen(false)}
         />
       </Box>
-      <MapContainer center={mapOpenCoordinates} zoom={zoom} style={{ width: 600, height: 500 }}>
+      <MapContainer
+        center={mapOpenCoordinates}
+        zoom={zoom}
+        style={{ width: matches ? 550 : 300, height: 500 }}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

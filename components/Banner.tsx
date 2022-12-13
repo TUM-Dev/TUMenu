@@ -33,12 +33,15 @@ export default function Banner() {
       <Box
         sx={{
           position: 'absolute' as 'absolute',
-          left: theme.spacing(7),
-          top: theme.spacing(7),
+          left: { sm: theme.spacing(7), xs: '50%' },
+          top: { sm: theme.spacing(7), xs: '50%' },
           color: theme.palette.primary.main,
           maxWidth: theme.spacing(80),
+          width: { xs: '90%', sm: 'unset' },
+          textAlign: { sm: 'left', xs: 'center' },
+          transform: { xs: 'translate(-50%,-50%)', sm: 'unset' },
         }}>
-        <Typography variant="h2" sx={{ color: theme.palette.primary.light }}>
+        <Typography variant="h2" sx={{ color: theme.palette.primary.light, fontWeight: 600 }}>
           TUM<span style={{ color: theme.palette.primary.main }}>enu</span>
         </Typography>
         <Typography variant="h5" sx={{ paddingLeft: theme.spacing(1) }}>

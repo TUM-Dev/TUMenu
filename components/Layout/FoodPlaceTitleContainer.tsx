@@ -1,7 +1,16 @@
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import dayjs from 'dayjs'
-import { Grid, Typography, useTheme, LinearProgress, Button, Box, Tooltip } from '@mui/material'
+import {
+  Grid,
+  Typography,
+  useTheme,
+  LinearProgress,
+  Button,
+  Box,
+  Tooltip,
+  useMediaQuery,
+} from '@mui/material'
 import { linearProgressClasses } from '@mui/material/LinearProgress'
 import { styled } from '@mui/material/styles'
 import { LocationOn } from '@mui/icons-material'
@@ -30,6 +39,7 @@ export default function FoodPlaceTitleContainer({
   const theme = useTheme()
   const { t } = useTranslation('common')
   const weekend = datePickerValue?.get('day') === 6 || datePickerValue?.get('day') === 0
+  const matches = useMediaQuery('(min-width:28.125em)')
 
   const BorderLinearProgress = styled(LinearProgress)(() => ({
     [`&.${linearProgressClasses.colorPrimary}`]: {
@@ -52,7 +62,9 @@ export default function FoodPlaceTitleContainer({
         sx={{ width: '100%', position: 'relative' as 'relative' }}>
         <Grid item xs={12}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Typography variant="h4" sx={{ fontWeight: 600, textAlign: 'right' }}>
+            <Typography
+              variant="h4"
+              sx={{ fontWeight: 600, textAlign: { xs: 'center', sm: 'right' } }}>
               {foodPlaceData.name}
             </Typography>
             <LocationOn
@@ -101,7 +113,7 @@ export default function FoodPlaceTitleContainer({
         ) : (
           ''
         )}
-        <Grid item xs={9}>
+        <Grid item sm={9} xs={12}>
           <Box
             sx={{
               display: 'flex',
@@ -109,7 +121,7 @@ export default function FoodPlaceTitleContainer({
               justifyContent: 'center',
               gap: theme.spacing(1),
             }}>
-            <Typography variant="subtitle1" sx={{ textAlign: 'right' }}>
+            <Typography variant="subtitle1" sx={{ textAlign: { xs: 'center', sm: 'right' } }}>
               {!weekend
                 ? `${t('intlDateTimeOpen', {
                     val: datePickerValue,
@@ -137,7 +149,7 @@ export default function FoodPlaceTitleContainer({
             <Button
               onClick={() => setOpen(true)}
               variant="contained"
-              size="medium"
+              size={matches ? 'medium' : 'small'}
               sx={{
                 backgroundColor: theme.palette.primary.light,
                 color: theme.palette.primary.main,

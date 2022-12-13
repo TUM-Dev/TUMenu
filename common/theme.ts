@@ -4,6 +4,18 @@ import { Roboto } from '@next/font/google'
 const fontFamily = Roboto({ weight: ['400', '500', '700'], subsets: ['latin'] })
 const fontFamilyName = fontFamily.style.fontFamily
 
+declare module '@mui/material/styles' {
+    interface BreakpointOverrides {
+        xs: true;
+        xm: true;
+        sm: true;
+        sd: true;
+        md: true;
+        lg: true;
+        xl: true;
+    }
+}
+
 export const themeOptions: ThemeOptions = {
     palette: {
         mode: 'light',
@@ -98,8 +110,19 @@ export const themeOptions: ThemeOptions = {
     // use this approach for any spacing (padding,gap,width,height,) when you want to use rem(px) as measurment
     // spacing(1) means 0.5 rem = 8px
     spacing: (factor: number) => `${0.5 * factor}rem`,
+    breakpoints: {
+        values: {
+            xs: 0,
+            xm: 450,
+            sm: 600,
+            sd: 800,
+            md: 900,
+            lg: 1100,
+            xl: 1536,
+        },
+    },
 }
-// https://material-ui.com/customization/default-theme/#default-theme
+
 const theme: Theme = createTheme(themeOptions)
 const materialTheme = responsiveFontSizes(theme)
 

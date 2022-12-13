@@ -19,13 +19,14 @@
   "cardGridHeading": "All Prices are valid only for Students",
   "generateMenu": "Generate random menu",
   "labelFilter": "Filter by labels",
-  "notFound": "Items not found, that suit your serch criteria",
+  "notFound": "Items not found, that suit your search criteria",
   "unknown": "unknown",
   "price": "Price",
   "people": "People",
   "percent": "Percent",
   "firstDish": "Starter",
   "secondDish": "Main dish",
-  "noMenu": "Could not find a Menu",
-  "showAllCanteens": "Show all canteens"
+  "noMenu": "Could not find a menu",
+  "showAllCanteens": "Show all canteens",
+  "selectCanteen": "Select food place"
 }

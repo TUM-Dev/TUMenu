@@ -40,9 +40,9 @@ export default function OpeningHours({ foodPlaceData, open, setOpen }: OpeningHo
         rowSpacing={2}
         flexDirection="column"
         sx={{
-          px: theme.spacing(5),
+          px: { xs: theme.spacing(3), sm: theme.spacing(5) },
           pb: theme.spacing(5),
-          width: theme.spacing(50),
+          width: { sm: theme.spacing(50) },
           textAlign: 'center',
           backgroundColor: theme.palette.primary.light,
           color: theme.palette.primary.main,

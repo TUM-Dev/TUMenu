@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from '@mui/material'
+import { Box, Typography, useTheme, useMediaQuery } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 
@@ -11,6 +11,7 @@ interface NotFoundProps {
 export default function NotFound({ height, imageSource, translationString }: NotFoundProps) {
   const theme = useTheme()
   const { t } = useTranslation('common')
+  const matches = useMediaQuery('(min-width:37.5em)')
   return (
     <Box
       sx={{
@@ -34,7 +35,14 @@ export default function NotFound({ height, imageSource, translationString }: Not
         <Typography variant="h4" sx={{ color: theme.palette.primary.dark, fontWeight: 600 }}>
           {t(translationString)}
         </Typography>
-        <Image src={imageSource} quality={100} height={400} width={400} priority alt="Not Found" />
+        <Image
+          src={imageSource}
+          quality={100}
+          height={matches ? 400 : 300}
+          width={matches ? 400 : 300}
+          priority
+          alt="Not Found"
+        />
       </Box>
     </Box>
   )

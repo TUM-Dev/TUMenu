@@ -78,11 +78,11 @@ export default function Sidebar({ foodPlaces, height, setHeight }: SidebarProps)
     <>
       <Box
         sx={{
+          display: { lg: 'flex', xs: 'none' },
           position: 'absolute' as 'absolute',
           // minHeight: '100%',
           height: 'auto',
           width: theme.spacing(30),
-          display: 'flex',
           flexDirection: 'column',
           bgcolor: theme.palette.primary.light,
           color: theme.palette.primary.main,

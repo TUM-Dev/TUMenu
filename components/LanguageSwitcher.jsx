@@ -31,7 +31,7 @@ const LanguageSwitchLink = ({ locale, ...rest }) => {
       sx={{
         position: 'absolute',
         top: theme.spacing(2),
-        right: theme.spacing(4),
+        right: { xs: 0, sm: theme.spacing(4) },
         width: theme.spacing(28),
       }}>
       <Grid item xs={8}>

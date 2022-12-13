@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { Box, Typography, useTheme, Button, Tabs, Tab } from '@mui/material'
+import { Box, Typography, useTheme, Button, Tabs, Tab, useMediaQuery } from '@mui/material'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import dayjs from 'dayjs'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
@@ -47,6 +47,7 @@ export default function LayoutContainer({
   // to initate the rerender of the GenerateMenu component
   const [rerender, setRerender] = useState<number>(Math.random())
   const disableButtons = initialMeals.length === 0
+  const matches = useMediaQuery('(min-width:28.125em)')
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     if (newValue !== 'All') {
@@ -105,7 +106,7 @@ export default function LayoutContainer({
   return (
     <Box
       sx={{
-        ml: theme.spacing(30),
+        ml: { lg: theme.spacing(30), md: 0 },
         minHeight: '100%',
         px: theme.spacing(4),
         py: theme.spacing(2),
@@ -144,8 +145,10 @@ export default function LayoutContainer({
       <Box
         sx={{
           display: 'flex',
+          flexWrap: 'wrap',
           alignItems: 'center',
-          justifyContent: 'space-between',
+          justifyContent: { xs: 'center', sd: 'space-between' },
+          gap: { xs: theme.spacing(1), sd: '0' },
           mt: theme.spacing(2),
         }}>
         <Typography variant="h5" sx={{ fontWeight: 600 }}>
@@ -160,7 +163,7 @@ export default function LayoutContainer({
           }}>
           <Button
             variant="contained"
-            size="medium"
+            size={matches ? 'medium' : 'small'}
             disabled={disableButtons}
             onClick={handleGenerateMenu}
             sx={{
@@ -172,7 +175,7 @@ export default function LayoutContainer({
           <Button
             startIcon={<FilterAltIcon />}
             variant="contained"
-            size="medium"
+            size={matches ? 'medium' : 'small'}
             disabled={disableButtons}
             sx={{
               backgroundColor: theme.palette.primary.light,
