@@ -15,10 +15,10 @@ import { SidebarEntry } from '../../types/SidebarEntry'
 
 interface SubmenuProps {
   foodPlace: SidebarEntry
+  setTriggerSidebarMobile: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function SidebarSubmenu(props: SubmenuProps) {
-  const { foodPlace } = props
+export default function SidebarSubmenu({ foodPlace, setTriggerSidebarMobile }: SubmenuProps) {
   const [open, setOpen] = useState(false)
   const theme = useTheme()
   return (
@@ -43,7 +43,10 @@ export default function SidebarSubmenu(props: SubmenuProps) {
         <List component="div" disablePadding>
           {foodPlace.foodPlaces.map((place) => (
             <ListItemButton key={place.canteen_id} sx={{ pl: 4 }}>
-              <Link href={`/${place.canteen_id}`} skipLocaleHandling={false}>
+              <Link
+                href={`/${place.canteen_id}`}
+                skipLocaleHandling={false}
+                setTriggerSidebarMobile={setTriggerSidebarMobile}>
                 <ListItemText
                   disableTypography
                   primary={place.name}

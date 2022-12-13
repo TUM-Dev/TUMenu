@@ -21,6 +21,8 @@ export interface LayoutContainerProps {
   labels: Labels[]
   height: number
   queueData: Queue
+  triggerSidebarMobile: boolean
+  setTriggerSidebarMobile: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 dayjs.extend(weekOfYear)
@@ -32,6 +34,8 @@ export default function LayoutContainer({
   labels,
   height,
   queueData,
+  triggerSidebarMobile,
+  setTriggerSidebarMobile,
 }: LayoutContainerProps) {
   const theme = useTheme()
   const { t } = useTranslation('common')
@@ -119,6 +123,8 @@ export default function LayoutContainer({
         minDate={minDate}
         maxDate={maxDate}
         queueData={queueData}
+        triggerSidebarMobile={triggerSidebarMobile}
+        setTriggerSidebarMobile={setTriggerSidebarMobile}
       />
       <Box
         sx={{ borderBottom: 2, borderColor: 'divider', display: 'flex', justifyContent: 'center' }}>

@@ -14,11 +14,18 @@ interface HomeProps {
 
 export default function Home({ foodPlaces }: HomeProps) {
   const [height, setHeight] = useState(0)
+  const [triggerSidebarMobile, setTriggerSidebarMobile] = useState(false)
 
   return (
     <>
       <Banner />
-      <DynamicSidebar foodPlaces={foodPlaces} height={height} setHeight={setHeight} />
+      <DynamicSidebar
+        foodPlaces={foodPlaces}
+        height={height}
+        setHeight={setHeight}
+        triggerSidebarMobile={triggerSidebarMobile}
+        setTriggerSidebarMobile={setTriggerSidebarMobile}
+      />
       <h1>Please choose a foodPlace to start browsing</h1>
     </>
   )

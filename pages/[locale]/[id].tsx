@@ -34,6 +34,7 @@ export default function CanteenPage({
   queueData,
 }: CanteenPageProps) {
   const [height, setHeight] = useState(0)
+  const [triggerSidebarMobile, setTriggerSidebarMobile] = useState(false)
   const foodPlaceData = foodPlaces.find(
     (foodPlace) => foodPlace.canteen_id === foodPlaceMenu.canteen_id,
   )
@@ -41,7 +42,13 @@ export default function CanteenPage({
   return (
     <>
       <Banner />
-      <DynamicSidebar foodPlaces={foodPlaces} height={height} setHeight={setHeight} />
+      <DynamicSidebar
+        foodPlaces={foodPlaces}
+        height={height}
+        setHeight={setHeight}
+        triggerSidebarMobile={triggerSidebarMobile}
+        setTriggerSidebarMobile={setTriggerSidebarMobile}
+      />
       {foodPlaceData && (
         <LayoutContainer
           foodPlaceMenu={foodPlaceMenu}
@@ -49,6 +56,8 @@ export default function CanteenPage({
           labels={labels}
           height={height}
           queueData={queueData}
+          triggerSidebarMobile={triggerSidebarMobile}
+          setTriggerSidebarMobile={setTriggerSidebarMobile}
         />
       )}
     </>

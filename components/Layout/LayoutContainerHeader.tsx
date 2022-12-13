@@ -13,6 +13,8 @@ export interface LayoutHeaderProps {
   minDate: dayjs.Dayjs
   maxDate: dayjs.Dayjs
   queueData: Queue
+  triggerSidebarMobile: boolean
+  setTriggerSidebarMobile: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function LayoutContainerHeader({
@@ -22,6 +24,8 @@ export default function LayoutContainerHeader({
   minDate,
   maxDate,
   queueData,
+  triggerSidebarMobile,
+  setTriggerSidebarMobile,
 }: LayoutHeaderProps) {
   const theme = useTheme()
   const { t } = useTranslation('common')
@@ -38,6 +42,7 @@ export default function LayoutContainerHeader({
         <Box sx={{ display: 'center', alignItems: 'center', justifyContent: 'center' }}>
           <Button
             variant="contained"
+            onClick={() => setTriggerSidebarMobile(!triggerSidebarMobile)}
             size="medium"
             sx={{
               backgroundColor: theme.palette.primary.light,

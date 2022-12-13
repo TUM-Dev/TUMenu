@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
+import CancelRoundedIcon from '@mui/icons-material/CancelRounded'
 import { useTranslation } from 'next-i18next'
 import { Box, useTheme, List, Button, Typography } from '@mui/material'
 import MapIcon from '@mui/icons-material/Map'
@@ -11,13 +12,21 @@ interface SidebarProps {
   foodPlaces: FoodPlace[]
   height: number
   setHeight: React.Dispatch<React.SetStateAction<number>>
+  triggerSidebarMobile: boolean
+  setTriggerSidebarMobile: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const DynamicMap = dynamic(() => import('../Layout/Map'), {
   ssr: false,
 })
 
-export default function Sidebar({ foodPlaces, height, setHeight }: SidebarProps) {
+export default function Sidebar({
+  foodPlaces,
+  height,
+  setHeight,
+  triggerSidebarMobile,
+  setTriggerSidebarMobile,
+}: SidebarProps) {
   // useRef allows us to "store" the div in a constant,
   // and to access it via observedDiv.current
   const observedDiv = useRef<HTMLDivElement>(null)
@@ -60,6 +69,10 @@ export default function Sidebar({ foodPlaces, height, setHeight }: SidebarProps)
     { city: 'Rosenheim', foodPlaces: [] },
   ]
 
+  const handleOpenMap = () => {
+    setOpenMap(true)
+    setTriggerSidebarMobile(false)
+  }
   foodPlaces.forEach((foodPlace) => {
     const { address } = foodPlace.location
     if (address.includes('Garching'))
@@ -78,9 +91,9 @@ export default function Sidebar({ foodPlaces, height, setHeight }: SidebarProps)
     <>
       <Box
         sx={{
-          display: { lg: 'flex', xs: 'none' },
+          display: { lg: 'flex', xs: triggerSidebarMobile ? 'flex' : 'none' },
           position: 'absolute' as 'absolute',
-          // minHeight: '100%',
+          minHeight: '100%',
           height: 'auto',
           width: theme.spacing(30),
           flexDirection: 'column',
@@ -88,10 +101,26 @@ export default function Sidebar({ foodPlaces, height, setHeight }: SidebarProps)
           color: theme.palette.primary.main,
           borderTopRightRadius: '12px',
           borderBottomRightRadius: '12px',
+          zIndex: 9999,
         }}
         ref={observedDiv}>
+        <Box
+          sx={{
+            display: { lg: 'none', xs: 'flex' },
+            justifyContent: 'flex-end',
+            backgroundColor: theme.palette.primary.light,
+            height: theme.spacing(3),
+            pt: theme.spacing(0.5),
+            px: theme.spacing(0.5),
+          }}>
+          <CancelRoundedIcon
+            fontSize="small"
+            sx={{ color: theme.palette.primary.main, cursor: 'pointer' }}
+            onClick={() => setTriggerSidebarMobile(false)}
+          />
+        </Box>
         <Button
-          onClick={() => setOpenMap(true)}
+          onClick={handleOpenMap}
           variant="text"
           endIcon={<MapIcon />}
           sx={{ justifyContent: 'flex-start', pl: theme.spacing(2) }}>
@@ -99,7 +128,7 @@ export default function Sidebar({ foodPlaces, height, setHeight }: SidebarProps)
         </Button>
         <List component="nav">
           {foodPlacesSorted.map((foodPlace) => (
-            <SidebarSubmenu foodPlace={foodPlace} key={foodPlace.city} />
+            <SidebarSubmenu foodPlace={foodPlace} key={foodPlace.city} setTriggerSidebarMobile={setTriggerSidebarMobile} />
           ))}
         </List>
       </Box>

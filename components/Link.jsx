@@ -2,7 +2,12 @@ import { useTheme } from '@mui/material'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-export default function LinkComponent({ children, skipLocaleHandling, ...rest }) {
+export default function LinkComponent({
+  children,
+  skipLocaleHandling,
+  setTriggerSidebarMobile,
+  ...rest
+}) {
   const theme = useTheme()
   const router = useRouter()
   const locale = rest.locale || router.query.locale || ''
@@ -15,7 +20,10 @@ export default function LinkComponent({ children, skipLocaleHandling, ...rest })
 
   return (
     <Link href={href} legacyBehavior scroll={false}>
-      <a {...rest} style={{ textDecoration: 'none', color: theme.palette.primary.main }}>
+      <a
+        {...rest}
+        style={{ textDecoration: 'none', color: theme.palette.primary.main }}
+        onClick={() => setTriggerSidebarMobile(false)}>
         {children}
       </a>
     </Link>
