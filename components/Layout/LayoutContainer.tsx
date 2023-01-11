@@ -72,7 +72,7 @@ export default function LayoutContainer({
   useEffect(() => {
     if (foodPlaceMenu.weeks.length !== 0) {
       const dailyMeals = foodPlaceMenu.weeks
-        .filter((week) => week.year === value?.year() && week.number === value.week() - 1)
+        .filter((week) => week.year === value?.year() && week.number === value.week())
         .map((week) => week.days.filter((day) => dayjs(day.date).isSame(value, 'day')))
         .flat(1)
         .map((dailyMenu) => dailyMenu.dishes.map((dish) => dish))
