@@ -85,7 +85,7 @@ export default function FoodPlaceTitleContainer({
               alignItems="center"
               spacing={1}
               flexDirection="row">
-              <Grid item xs={3}>
+              <Grid item sd={3} xs={5}>
                 <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
                   {t('queueStatus')}
                 </Typography>
