@@ -77,7 +77,11 @@ export default function Sidebar({
     const { address } = foodPlace.location
     if (address.includes('Garching'))
       foodPlacesSorted.find((item) => item.city === 'Garching')?.foodPlaces.push(foodPlace)
-    else if (address.includes('München') || address.includes('Plategg'))
+    else if (
+      address.includes('München') ||
+      address.includes('Plategg') ||
+      address.includes('Planegg-Martinsried')
+    )
       foodPlacesSorted.find((item) => item.city === 'Munich')?.foodPlaces.push(foodPlace)
     else if (address.includes('Freising'))
       foodPlacesSorted.find((item) => item.city === 'Weihenstephan')?.foodPlaces.push(foodPlace)
@@ -128,7 +132,11 @@ export default function Sidebar({
         </Button>
         <List component="nav">
           {foodPlacesSorted.map((foodPlace) => (
-            <SidebarSubmenu foodPlace={foodPlace} key={foodPlace.city} setTriggerSidebarMobile={setTriggerSidebarMobile} />
+            <SidebarSubmenu
+              foodPlace={foodPlace}
+              key={foodPlace.city}
+              setTriggerSidebarMobile={setTriggerSidebarMobile}
+            />
           ))}
         </List>
       </Box>

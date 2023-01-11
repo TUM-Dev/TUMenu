@@ -101,9 +101,7 @@ export const getStaticProps = async (ctx: Context) => {
 }
 
 export const getStaticPaths = async () => {
-  let canteenIds = await getPathIds()
-  canteenIds = canteenIds.filter((canteen) => canteen.id !== 'stucafe-weihenstephan-maximus')
-  canteenIds = canteenIds.filter((canteen) => canteen.id !== 'stubistro-martinsried')
+  const canteenIds = await getPathIds()
   const i18Paths = getI18nPaths()
   const paths: { params: { locale: string; id: string } }[] = []
   i18Paths.forEach((locale) =>
