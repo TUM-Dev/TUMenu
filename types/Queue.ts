@@ -1,4 +1,4 @@
 export type Queue = {
-    current: number
+    count: number
     percent: number
 }

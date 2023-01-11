@@ -4,7 +4,7 @@ import dayjs from 'dayjs'
 import Banner from '../../components/Banner'
 import LayoutContainer from '../../components/Layout/LayoutContainer'
 import { getI18nPaths, getI18nProps } from '../../lib/getStatic'
-import { FoodPlace } from '../../types/FoodPlace'
+import { FoodPlace, daysArr, OpeningHoursType } from '../../types/FoodPlace'
 import getPathIds from '../../lib/getPathIds'
 import { Context } from '../../types/Context'
 import getFoodPlaces from '../../lib/getFoodPlaces'
@@ -64,27 +64,31 @@ export default function CanteenPage({
   )
 }
 
+const isCanteenOpen = (foodPlaces: FoodPlace[], id: string) => {
+  const now = dayjs()
+  if (now.get('day') === 6 || now.get('day') === 0) return false
+  const foodPlace = foodPlaces.find((canteen) => canteen.canteen_id === id)
+  const foodPlaceOpeningHoursNow =
+    // eslint-disable-next-line no-unsafe-optional-chaining
+    foodPlace?.open_hours[`${daysArr[now?.get('day')! - 1]}` as keyof OpeningHoursType]
+  const foodPlaceOpens = foodPlaceOpeningHoursNow?.start
+  const foodPlaceCloses = foodPlaceOpeningHoursNow?.end
+  if (now.format('HH:mm') >= foodPlaceOpens! && now.format('HH:mm') < foodPlaceCloses!) {
+    return true
+  }
+  return false
+}
+
 export const getStaticProps = async (ctx: Context) => {
   const { id, locale } = ctx.params
   const foodPlaces = await getFoodPlaces()
   const foodPlaceMenu = await getFoodPlace(locale, id)
-  const queueStatusExist = foodPlaces.filter(
-    (foodPlace) =>
-      foodPlace.canteen_id === foodPlaceMenu.canteen_id &&
-      foodPlaceMenu.canteen_id === 'mensa-garching',
-  )
-  let queueData = null
-  if (
-    queueStatusExist.length !== 0 &&
-    queueStatusExist[0].queue_status !== null &&
-    dayjs().get('hour') < 14 &&
-    dayjs().get('hour') >= 11 &&
-    dayjs().get('day') !== 6 &&
-    dayjs().get('day') !== 0
-  ) {
-    queueData = await getQueueStatus(queueStatusExist[0].queue_status)
-  }
   const labels = await getLabels()
+  let queueData = null
+  if (isCanteenOpen(foodPlaces, id)) {
+    queueData = await getQueueStatus(id)
+    queueData = queueData.percent === -1 ? null : queueData
+  }
   return {
     props: {
       ...(await getI18nProps(ctx, ['common'])),

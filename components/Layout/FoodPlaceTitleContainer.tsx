@@ -92,7 +92,7 @@ export default function FoodPlaceTitleContainer({
               </Grid>
               <Grid item xs={7}>
                 <Tooltip
-                  title={`${t('people')}: ${queueData.current}, ${t(
+                  title={`${t('people')}: ${queueData.count}, ${t(
                     'percent',
                   )}: ${queueData.percent.toFixed(2)}`}
                   arrow
