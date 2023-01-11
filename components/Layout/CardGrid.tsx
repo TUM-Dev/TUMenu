@@ -14,7 +14,7 @@ export default function CardGrid({ dailyMeals, labels, height }: CardGridProps) 
     <Box
       sx={{
         display: 'flex',
-        alignItems: 'flex-start',
+        alignContent: 'flex-start',
         justifyContent: { xs: 'center', sd: 'flex-start' },
         columnGap: theme.spacing(4),
         rowGap: theme.spacing(4),
