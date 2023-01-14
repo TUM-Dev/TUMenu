@@ -88,6 +88,15 @@ export const themeOptions: ThemeOptions = {
                 },
             },
         },
+        MuiCheckbox: {
+            styleOverrides: {
+                root: {
+                    "&.Mui-checked": {
+                        color: "#3070B3 !important",
+                    },
+                }
+            }
+        }
     },
     typography: {
         h1: { fontFamilyName },

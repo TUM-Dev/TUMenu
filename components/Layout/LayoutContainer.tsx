@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
+import { useEffect, useState, useRef } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Box, Typography, useTheme, Button, Tabs, Tab, useMediaQuery } from '@mui/material'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
@@ -14,6 +13,7 @@ import NotFound from '../NotFound'
 import { Labels } from '../../types/Labels'
 import { Queue } from '../../types/Queue'
 import GeneratedMenu from './GeneratedMenu'
+import FilterDropdown from './FilterDropdown'
 
 export interface LayoutContainerProps {
   foodPlaceMenu: FoodPlaceMenu
@@ -39,7 +39,6 @@ export default function LayoutContainer({
 }: LayoutContainerProps) {
   const theme = useTheme()
   const { t } = useTranslation('common')
-  const router = useRouter()
 
   const [value, setValue] = useState<dayjs.Dayjs | null>(dayjs())
   const [maxDate, setMaxDate] = useState<dayjs.Dayjs>(dayjs())
@@ -52,6 +51,39 @@ export default function LayoutContainer({
   const [rerender, setRerender] = useState<number>(Math.random())
   const disableButtons = initialMeals.length === 0
   const matches = useMediaQuery('(min-width:28.125em)')
+  const [open, setOpen] = useState(false)
+  const anchorRef = useRef<HTMLButtonElement>(null)
+  const [selectedLabels, setSelectedLabels] = useState<string[]>([])
+
+  const handleCheck = (name: string) => {
+    if (selectedLabels.includes(name)) {
+      setSelectedLabels(selectedLabels.filter((item) => item !== name))
+    } else {
+      setSelectedLabels([...selectedLabels, name])
+    }
+  }
+
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen)
+  }
+
+  const handleClose = (event: Event | React.SyntheticEvent) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
+      return
+    }
+
+    setOpen(false)
+  }
+
+  // return focus to the button when we transitioned from !open -> open
+  const prevOpen = useRef(open)
+  useEffect(() => {
+    if (prevOpen.current === true && open === false) {
+      anchorRef.current!.focus()
+    }
+
+    prevOpen.current = open
+  }, [open])
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     if (newValue !== 'All') {
@@ -71,13 +103,18 @@ export default function LayoutContainer({
 
   useEffect(() => {
     if (foodPlaceMenu.weeks.length !== 0) {
-      const dailyMeals = foodPlaceMenu.weeks
+      let dailyMeals = foodPlaceMenu.weeks
         .filter((week) => week.year === value?.year() && week.number === value.week())
         .map((week) => week.days.filter((day) => dayjs(day.date).isSame(value, 'day')))
         .flat(1)
         .map((dailyMenu) => dailyMenu.dishes.map((dish) => dish))
         .flat(1)
 
+      if (selectedLabels.length !== 0) {
+        dailyMeals = dailyMeals.filter((meal) =>
+          meal.labels.every((label) => !selectedLabels.includes(label)),
+        )
+      }
       setMealsShown(dailyMeals)
       setInitialMeals(dailyMeals)
 
@@ -100,12 +137,12 @@ export default function LayoutContainer({
       setMealsShown([])
       setInitialMeals([])
     }
-  }, [value, foodPlaceMenu])
+  }, [value, foodPlaceMenu, selectedLabels])
 
   useEffect(() => {
     setFilteredValue('All')
     setShowMenu(false)
-  }, [value, router.pathname])
+  }, [value, foodPlaceMenu])
 
   return (
     <Box
@@ -115,6 +152,7 @@ export default function LayoutContainer({
         px: theme.spacing(4),
         py: theme.spacing(2),
         backgroundColor: `${theme.palette.primary.main} !important`,
+        zoom: 1,
       }}>
       <LayoutContainerHeader
         foodPlaceData={foodPlaceData}
@@ -183,11 +221,16 @@ export default function LayoutContainer({
             variant="contained"
             size={matches ? 'medium' : 'small'}
             disabled={disableButtons}
+            ref={anchorRef}
+            aria-controls={open ? 'composition-menu' : undefined}
+            aria-expanded={open ? 'true' : undefined}
+            aria-haspopup="true"
+            onClick={handleToggle}
             sx={{
               backgroundColor: theme.palette.primary.light,
               color: theme.palette.primary.main,
             }}>
-            {t('labelFilter')}
+            {`${t('labelFilter')}(${selectedLabels.length})`}
           </Button>
         </Box>
       </Box>
@@ -209,6 +252,16 @@ export default function LayoutContainer({
           meals={initialMeals}
           labels={labels}
           rerender={rerender}
+        />
+      )}
+      {open && (
+        <FilterDropdown
+          open={open}
+          anchorRef={anchorRef}
+          handleClose={handleClose}
+          handleCheck={handleCheck}
+          labels={labels}
+          selectedLabels={selectedLabels}
         />
       )}
     </Box>
