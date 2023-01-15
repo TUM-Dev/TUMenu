@@ -8,7 +8,6 @@ import NotFound from '../NotFound'
 import DishCard from './DishCard'
 
 interface GeneratedMenuProps {
-  height: number
   setFilteredValue: React.Dispatch<React.SetStateAction<string>>
   setShowMenu: React.Dispatch<React.SetStateAction<boolean>>
   meals: Dishes[]
@@ -37,7 +36,6 @@ const CircleTitleContainer = styled('div')(({ theme }) => ({
 }))
 
 export default function GeneratedMenu({
-  height,
   setFilteredValue,
   setShowMenu,
   meals,
@@ -88,7 +86,6 @@ export default function GeneratedMenu({
     return (
       <Box
         sx={{
-          minHeight: height,
           display: 'flex',
           flexWrap: 'wrap',
           alignItems: 'flex-start',
@@ -159,5 +156,5 @@ export default function GeneratedMenu({
       </Box>
     )
   }
-  return <NotFound height={height} translationString="noMenu" imageSource="/no_menu.svg" />
+  return <NotFound translationString="noMenu" imageSource="/no_menu.svg" />
 }

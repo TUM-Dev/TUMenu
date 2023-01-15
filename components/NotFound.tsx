@@ -3,12 +3,11 @@ import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 
 interface NotFoundProps {
-  height: number
   translationString: string
   imageSource: string
 }
 
-export default function NotFound({ height, imageSource, translationString }: NotFoundProps) {
+export default function NotFound({ imageSource, translationString }: NotFoundProps) {
   const theme = useTheme()
   const { t } = useTranslation('common')
   const matches = useMediaQuery('(min-width:37.5em)')
@@ -22,7 +21,6 @@ export default function NotFound({ height, imageSource, translationString }: Not
         rowGap: theme.spacing(4),
         flexWrap: 'wrap',
         my: theme.spacing(4),
-        minHeight: height,
       }}>
       <Box
         sx={{

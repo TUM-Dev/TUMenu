@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useState } from 'react'
 import dynamic from 'next/dynamic'
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded'
 import { useTranslation } from 'next-i18next'
@@ -10,8 +10,6 @@ import SidebarSubmenu from './SidebarSubmenu'
 
 interface SidebarProps {
   foodPlaces: FoodPlace[]
-  height: number
-  setHeight: React.Dispatch<React.SetStateAction<number>>
   triggerSidebarMobile: boolean
   setTriggerSidebarMobile: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -22,38 +20,12 @@ const DynamicMap = dynamic(() => import('../Layout/Map'), {
 
 export default function Sidebar({
   foodPlaces,
-  height,
-  setHeight,
   triggerSidebarMobile,
   setTriggerSidebarMobile,
 }: SidebarProps) {
-  // useRef allows us to "store" the div in a constant,
-  // and to access it via observedDiv.current
-  const observedDiv = useRef<HTMLDivElement>(null)
   const [openMap, setOpenMap] = useState<boolean>(false)
 
   const { t } = useTranslation('common')
-
-  // we also instantiate the resizeObserver and we pass
-  const handleElementResized = () => {
-    if (observedDiv !== null && observedDiv.current) {
-      if (observedDiv.current.offsetHeight !== height) {
-        setHeight(observedDiv.current.offsetHeight)
-      }
-    }
-  }
-  // the event handler to the constructor
-  const resizeObserver = new ResizeObserver(handleElementResized)
-
-  useEffect(() => {
-    // the code in useEffect will be executed when the component
-    // has mounted, so we are certain observedDiv.current will contain
-    // the div we want to observe
-    resizeObserver.observe(observedDiv.current!)
-    return function cleanup() {
-      resizeObserver.disconnect()
-    }
-  })
 
   const foodPlacesSorted: SidebarEntry[] = [
     { city: 'Garching', foodPlaces: [] },
@@ -96,9 +68,8 @@ export default function Sidebar({
       <Box
         sx={{
           display: { lg: 'flex', xs: triggerSidebarMobile ? 'flex' : 'none' },
-          position: 'absolute' as 'absolute',
-          minHeight: '100%',
-          height: 'auto',
+          position: { lg: 'relative' as 'relative', xs: 'absolute' as 'absolute' },
+          minHeight: { lg: 'auto', xs: '100%' },
           width: theme.spacing(30),
           flexDirection: 'column',
           bgcolor: theme.palette.primary.light,
@@ -106,8 +77,8 @@ export default function Sidebar({
           borderTopRightRadius: '12px',
           borderBottomRightRadius: '12px',
           zIndex: 9999,
-        }}
-        ref={observedDiv}>
+          backgroundColor: theme.palette.primary.light,
+        }}>
         <Box
           sx={{
             display: { lg: 'none', xs: 'flex' },

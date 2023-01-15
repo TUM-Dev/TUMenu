@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Box, useTheme } from '@mui/material'
 import dynamic from 'next/dynamic'
 import dayjs from 'dayjs'
 import Banner from '../../components/Banner'
@@ -33,7 +34,7 @@ export default function CanteenPage({
   labels,
   queueData,
 }: CanteenPageProps) {
-  const [height, setHeight] = useState(0)
+  const theme = useTheme()
   const [triggerSidebarMobile, setTriggerSidebarMobile] = useState(false)
   const foodPlaceData = foodPlaces.find(
     (foodPlace) => foodPlace.canteen_id === foodPlaceMenu.canteen_id,
@@ -42,24 +43,30 @@ export default function CanteenPage({
   return (
     <>
       <Banner />
-      <DynamicSidebar
-        foodPlaces={foodPlaces}
-        height={height}
-        setHeight={setHeight}
-        triggerSidebarMobile={triggerSidebarMobile}
-        setTriggerSidebarMobile={setTriggerSidebarMobile}
-      />
-      {foodPlaceData && (
-        <LayoutContainer
-          foodPlaceMenu={foodPlaceMenu}
-          foodPlaceData={foodPlaceData}
-          labels={labels}
-          height={height}
-          queueData={queueData}
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: {
+            lg: `${theme.spacing(30)} calc(100% - ${theme.spacing(30)})`,
+            xs: `100%`,
+          },
+        }}>
+        <DynamicSidebar
+          foodPlaces={foodPlaces}
           triggerSidebarMobile={triggerSidebarMobile}
           setTriggerSidebarMobile={setTriggerSidebarMobile}
         />
-      )}
+        {foodPlaceData && (
+          <LayoutContainer
+            foodPlaceMenu={foodPlaceMenu}
+            foodPlaceData={foodPlaceData}
+            labels={labels}
+            queueData={queueData}
+            triggerSidebarMobile={triggerSidebarMobile}
+            setTriggerSidebarMobile={setTriggerSidebarMobile}
+          />
+        )}
+      </Box>
     </>
   )
 }

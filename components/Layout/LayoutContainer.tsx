@@ -19,7 +19,6 @@ export interface LayoutContainerProps {
   foodPlaceMenu: FoodPlaceMenu
   foodPlaceData: FoodPlace
   labels: Labels[]
-  height: number
   queueData: Queue
   triggerSidebarMobile: boolean
   setTriggerSidebarMobile: React.Dispatch<React.SetStateAction<boolean>>
@@ -32,7 +31,6 @@ export default function LayoutContainer({
   foodPlaceMenu,
   foodPlaceData,
   labels,
-  height,
   queueData,
   triggerSidebarMobile,
   setTriggerSidebarMobile,
@@ -137,7 +135,7 @@ export default function LayoutContainer({
       setMealsShown([])
       setInitialMeals([])
     }
-  }, [value, foodPlaceMenu, selectedLabels])
+  }, [value, foodPlaceMenu])
 
   useEffect(() => {
     setFilteredValue('All')
@@ -147,7 +145,6 @@ export default function LayoutContainer({
   return (
     <Box
       sx={{
-        ml: { lg: theme.spacing(30), md: 0 },
         minHeight: '100%',
         px: theme.spacing(4),
         py: theme.spacing(2),
@@ -235,18 +232,13 @@ export default function LayoutContainer({
         </Box>
       </Box>
       {mealsShown.length !== 0 && !showMenu ? (
-        <CardGrid dailyMeals={mealsShown} labels={labels} height={height} />
+        <CardGrid dailyMeals={mealsShown} labels={labels} />
       ) : (
         // eslint-disable-next-line react/jsx-no-useless-fragment
-        <>
-          {!showMenu && (
-            <NotFound height={height} translationString="notFound" imageSource="/not_found.svg" />
-          )}
-        </>
+        <>{!showMenu && <NotFound translationString="notFound" imageSource="/not_found.svg" />}</>
       )}
       {showMenu && (
         <GeneratedMenu
-          height={height}
           setFilteredValue={setFilteredValue}
           setShowMenu={setShowMenu}
           meals={initialMeals}

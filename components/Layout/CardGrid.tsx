@@ -6,9 +6,8 @@ import DishCard from './DishCard'
 interface CardGridProps {
   dailyMeals: Dishes[]
   labels: Labels[]
-  height: number
 }
-export default function CardGrid({ dailyMeals, labels, height }: CardGridProps) {
+export default function CardGrid({ dailyMeals, labels }: CardGridProps) {
   const theme = useTheme()
   return (
     <Box
@@ -20,7 +19,6 @@ export default function CardGrid({ dailyMeals, labels, height }: CardGridProps) 
         rowGap: theme.spacing(4),
         flexWrap: 'wrap',
         my: theme.spacing(4),
-        minHeight: height,
       }}>
       {dailyMeals.map((meal) => (
         <DishCard key={meal.name} meal={meal} labels={labels} />
