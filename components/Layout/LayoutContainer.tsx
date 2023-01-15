@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Box, Typography, useTheme, Button, Tabs, Tab, useMediaQuery } from '@mui/material'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
@@ -41,17 +41,21 @@ export default function LayoutContainer({
   const [value, setValue] = useState<dayjs.Dayjs | null>(dayjs())
   const [maxDate, setMaxDate] = useState<dayjs.Dayjs>(dayjs())
   const [minDate, setMinDate] = useState<dayjs.Dayjs>(dayjs())
+
   const [mealsShown, setMealsShown] = useState<Dishes[]>([])
   const [initialMeals, setInitialMeals] = useState<Dishes[]>([])
+  const [filteredMeals, setFilteredMeals] = useState<Dishes[]>([])
+  const [selectedLabels, setSelectedLabels] = useState<string[]>([])
   const [filteredValue, setFilteredValue] = useState<string>('All')
+
   const [showMenu, setShowMenu] = useState<boolean>(false)
   // to initate the rerender of the GenerateMenu component
   const [rerender, setRerender] = useState<number>(Math.random())
+  const [open, setOpen] = useState(false)
+
+  const anchorRef = useRef<HTMLButtonElement>(null)
   const disableButtons = initialMeals.length === 0
   const matches = useMediaQuery('(min-width:28.125em)')
-  const [open, setOpen] = useState(false)
-  const anchorRef = useRef<HTMLButtonElement>(null)
-  const [selectedLabels, setSelectedLabels] = useState<string[]>([])
 
   const handleCheck = (name: string) => {
     if (selectedLabels.includes(name)) {
@@ -69,7 +73,6 @@ export default function LayoutContainer({
     if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
       return
     }
-
     setOpen(false)
   }
 
@@ -79,18 +82,20 @@ export default function LayoutContainer({
     if (prevOpen.current === true && open === false) {
       anchorRef.current!.focus()
     }
-
     prevOpen.current = open
   }, [open])
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    if (newValue !== 'All') {
-      const filteredMeals = initialMeals.filter((meal) => meal.dish_type === newValue)
+    if (newValue !== 'All' && newValue !== 'Disable') {
+      const filteredMealsByCategory = filteredMeals.filter((meal) => meal.dish_type === newValue)
+      setMealsShown(filteredMealsByCategory)
+      setShowMenu(false)
+    } else if (!showMenu) {
       setMealsShown(filteredMeals)
+      setShowMenu(false)
     } else {
-      setMealsShown(initialMeals)
+      setRerender(Math.random())
     }
-    setShowMenu(false)
     setFilteredValue(newValue)
   }
 
@@ -108,13 +113,14 @@ export default function LayoutContainer({
         .map((dailyMenu) => dailyMenu.dishes.map((dish) => dish))
         .flat(1)
 
+      setInitialMeals(dailyMeals)
       if (selectedLabels.length !== 0) {
         dailyMeals = dailyMeals.filter((meal) =>
           meal.labels.every((label) => !selectedLabels.includes(label)),
         )
       }
+      setFilteredMeals(dailyMeals)
       setMealsShown(dailyMeals)
-      setInitialMeals(dailyMeals)
 
       const latestWeek = Math.max(...foodPlaceMenu.weeks.map((week) => week.number))
       const firstWeek = Math.min(...foodPlaceMenu.weeks.map((week) => week.number))
@@ -128,19 +134,26 @@ export default function LayoutContainer({
           .filter((week) => week.number === firstWeek)[0]
           .days.map((day) => dayjs(day.date)),
       )
-
       setMinDate(firstDay)
       setMaxDate(lastDay)
     } else {
       setMealsShown([])
       setInitialMeals([])
     }
-  }, [value, foodPlaceMenu])
-
-  useEffect(() => {
     setFilteredValue('All')
     setShowMenu(false)
   }, [value, foodPlaceMenu])
+
+  useEffect(() => {
+    const filteredMealsByLabel = initialMeals.filter((meal) =>
+      meal.labels.every((label) => !selectedLabels.includes(label)),
+    )
+    setFilteredMeals(filteredMealsByLabel)
+  }, [selectedLabels])
+
+  useEffect(() => {
+    handleChange({} as React.SyntheticEvent, filteredValue)
+  }, [filteredMeals])
 
   return (
     <Box
@@ -241,7 +254,7 @@ export default function LayoutContainer({
         <GeneratedMenu
           setFilteredValue={setFilteredValue}
           setShowMenu={setShowMenu}
-          meals={initialMeals}
+          meals={filteredMeals}
           labels={labels}
           rerender={rerender}
         />

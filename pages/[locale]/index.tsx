@@ -13,7 +13,6 @@ interface HomeProps {
 }
 
 export default function Home({ foodPlaces }: HomeProps) {
-  const [height, setHeight] = useState(0)
   const [triggerSidebarMobile, setTriggerSidebarMobile] = useState(false)
 
   return (
@@ -21,8 +20,6 @@ export default function Home({ foodPlaces }: HomeProps) {
       <Banner />
       <DynamicSidebar
         foodPlaces={foodPlaces}
-        height={height}
-        setHeight={setHeight}
         triggerSidebarMobile={triggerSidebarMobile}
         setTriggerSidebarMobile={setTriggerSidebarMobile}
       />
