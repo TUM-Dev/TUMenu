@@ -53,7 +53,7 @@ export default function FilterDropdown({
           style={{
             transformOrigin: 'left top',
           }}>
-          <Paper sx={{ marginTop: theme.spacing(0.1) }}>
+          <Paper sx={{ marginTop: theme.spacing(0.1), marginBottom: theme.spacing(2) }}>
             <ClickAwayListener onClickAway={handleClose}>
               <MenuList
                 autoFocusItem={open}

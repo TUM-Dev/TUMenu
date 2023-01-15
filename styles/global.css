@@ -1,3 +1,11 @@
 .Mui-selected {
   background-color: #14519a !important;
 }
+body {
+  background: #fff;
+}
+@media (min-width: 1100px) {
+  body {
+    background: linear-gradient(to right, #3070b3 0rem, #3070b3 15rem, white 15.01rem, white 100%);
+  }
+}

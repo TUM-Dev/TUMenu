@@ -74,7 +74,6 @@ export default function Sidebar({
           flexDirection: 'column',
           bgcolor: theme.palette.primary.light,
           color: theme.palette.primary.main,
-          borderTopRightRadius: '12px',
           borderBottomRightRadius: '12px',
           zIndex: 9999,
           backgroundColor: theme.palette.primary.light,
