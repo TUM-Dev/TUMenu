@@ -75,7 +75,8 @@ export default function FilterDropdown({
             sx={{
               marginTop: theme.spacing(0.1),
               backgroundColor: theme.palette.secondary.main,
-              marginBottom: theme.spacing(2),
+              borderBottomLeftRadius: '12px',
+              borderBottomRightRadius: '12px',
             }}>
             <ClickAwayListener onClickAway={handleClose}>
               <MenuList

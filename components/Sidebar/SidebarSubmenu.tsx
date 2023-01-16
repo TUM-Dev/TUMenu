@@ -42,18 +42,19 @@ export default function SidebarSubmenu({ foodPlace, setTriggerSidebarMobile }: S
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {foodPlace.foodPlaces.map((place) => (
-            <ListItemButton key={place.canteen_id} sx={{ pl: 4 }}>
-              <Link
-                href={`/${place.canteen_id}`}
-                skipLocaleHandling={false}
-                setTriggerSidebarMobile={setTriggerSidebarMobile}>
+            <Link
+              key={place.canteen_id}
+              href={`/${place.canteen_id}`}
+              skipLocaleHandling={false}
+              setTriggerSidebarMobile={setTriggerSidebarMobile}>
+              <ListItemButton sx={{ pl: 4 }}>
                 <ListItemText
                   disableTypography
                   primary={place.name}
                   sx={{ fontSize: theme.spacing(2) }}
                 />
-              </Link>
-            </ListItemButton>
+              </ListItemButton>
+            </Link>
           ))}
         </List>
       </Collapse>
