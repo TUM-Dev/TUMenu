@@ -9,3 +9,16 @@ body {
     background: linear-gradient(to right, #3070b3 0rem, #3070b3 15rem, white 15.01rem, white 100%);
   }
 }
+.container-dropdown::-webkit-scrollbar {
+  width: 0.4em;
+  background-color: #f5f5f5;
+}
+.container-dropdown::-webkit-scrollbar-thumb {
+  background-color: #3070b3;
+  border-radius: 10px;
+}
+
+.container-dropdown {
+  scrollbar-color: #3070b3 #f5f5f5;
+  scrollbar-width: thin;
+}

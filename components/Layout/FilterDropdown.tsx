@@ -41,19 +41,42 @@ export default function FilterDropdown({
 
   return (
     <Popper
+      className="container-dropdown"
+      sx={{
+        maxHeight: theme.spacing(50),
+        overflowY: 'scroll',
+      }}
       open={open}
       anchorEl={anchorRef.current}
       role={undefined}
       placement="bottom-end"
       transition
-      disablePortal={false}>
+      disablePortal={false}
+      modifiers={[
+        {
+          name: 'flip',
+          enabled: false,
+        },
+        {
+          name: 'preventOverflow',
+          enabled: true,
+          options: {
+            boundariesElement: 'scrollParent',
+          },
+        },
+      ]}>
       {({ TransitionProps }) => (
         <Grow
           {...TransitionProps}
           style={{
             transformOrigin: 'left top',
           }}>
-          <Paper sx={{ marginTop: theme.spacing(0.1), marginBottom: theme.spacing(2) }}>
+          <Paper
+            sx={{
+              marginTop: theme.spacing(0.1),
+              backgroundColor: theme.palette.secondary.main,
+              marginBottom: theme.spacing(2),
+            }}>
             <ClickAwayListener onClickAway={handleClose}>
               <MenuList
                 autoFocusItem={open}
@@ -63,6 +86,7 @@ export default function FilterDropdown({
                   <MenuItem
                     key={index.toLocaleString()}
                     disableTouchRipple
+                    onClick={() => handleCheck(label.enum_name)}
                     sx={{
                       display: 'flex',
                       alignItems: 'center',
