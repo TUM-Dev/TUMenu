@@ -4,9 +4,6 @@ module.exports = {
   reactStrictMode: true,
   swcMinify: true,
   staticPageGenerationTimeout: 1000,
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   images: {
     unoptimized: true,
   },
@@ -15,7 +12,7 @@ module.exports = {
       {
         source: '/',
         destination: '/de/mensa-garching',
-        permanent: true,
+        permanent: false,
       },
       {
         source: '/de',

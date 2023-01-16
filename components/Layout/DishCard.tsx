@@ -53,8 +53,8 @@ export default function DishCard({ meal, labels }: DishCardProps) {
       }}>
       <Typography variant="h5">{meal.name}</Typography>
       <Grid container alignItems="center" justifyContent="flex-start" spacing={1}>
-        {meal.labels.map((label: string) => (
-          <Grid item xs={4}>
+        {meal.labels.map((label: string, index: number) => (
+          <Grid key={index.toLocaleString()} item xs={4}>
             <Label
               key={label}
               // eslint-disable-next-line @typescript-eslint/no-explicit-any

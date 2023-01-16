@@ -59,8 +59,9 @@ export default function FilterDropdown({
                 autoFocusItem={open}
                 id="composition-menu"
                 aria-labelledby="composition-button">
-                {labels.map((label) => (
+                {labels.map((label, index) => (
                   <MenuItem
+                    key={index.toLocaleString()}
                     disableTouchRipple
                     sx={{
                       display: 'flex',

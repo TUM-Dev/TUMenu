@@ -70,7 +70,7 @@ export default function MensaMap({
             foodPlace.location.longitude,
           ]
           return (
-            <Marker position={coordinates}>
+            <Marker key={foodPlace.canteen_id} position={coordinates}>
               <Popup>
                 <a
                   href={`https://maps.google.com/?q=${foodPlace.location.latitude},${foodPlace.location.longitude}`}
