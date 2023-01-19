@@ -90,7 +90,7 @@ export default function LayoutContainer({
       const filteredMealsByCategory = filteredMeals.filter((meal) => meal.dish_type === newValue)
       setMealsShown(filteredMealsByCategory)
       setShowMenu(false)
-    } else if (!showMenu) {
+    } else if (!showMenu || newValue === 'All') {
       setMealsShown(filteredMeals)
       setShowMenu(false)
     } else {
