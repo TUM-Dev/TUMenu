@@ -51,6 +51,7 @@ export default function LayoutContainer({
   const [showMenu, setShowMenu] = useState<boolean>(false)
   // to initate the rerender of the GenerateMenu component
   const [rerender, setRerender] = useState<number>(Math.random())
+  const [firstMount, setFirstMount] = useState<boolean>(true)
   const [open, setOpen] = useState(false)
 
   const anchorRef = useRef<HTMLButtonElement>(null)
@@ -145,15 +146,21 @@ export default function LayoutContainer({
   }, [value, foodPlaceMenu])
 
   useEffect(() => {
-    const filteredMealsByLabel = initialMeals.filter((meal) =>
-      meal.labels.every((label) => !selectedLabels.includes(label)),
-    )
-    setFilteredMeals(filteredMealsByLabel)
+    if (!firstMount) {
+      const filteredMealsByLabel = initialMeals.filter((meal) =>
+        meal.labels.every((label) => !selectedLabels.includes(label)),
+      )
+      setFilteredMeals(filteredMealsByLabel)
+    }
   }, [selectedLabels])
 
   useEffect(() => {
     handleChange({} as React.SyntheticEvent, filteredValue)
   }, [filteredMeals])
+
+  useEffect(() => {
+    setFirstMount(false)
+  }, [])
 
   return (
     <Box
