@@ -28,6 +28,7 @@
     "eslint-config-next": "13.0.3",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "framer-motion": "^8.5.0",
     "leaflet": "^1.9.3",
     "next": "13.0.3",
     "next-i18next": "^12.1.0",

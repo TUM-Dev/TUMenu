@@ -1,5 +1,6 @@
 import { Box, Typography, Grid, useTheme } from '@mui/material'
 import { useTranslation } from 'next-i18next'
+import { motion } from 'framer-motion'
 import { Dishes, Price } from '../../types/FoodPlaceMenu'
 import { LabelColors } from '../../types/LabelColors'
 import { Labels } from '../../types/Labels'
@@ -39,8 +40,16 @@ export default function DishCard({ meal, labels }: DishCardProps) {
   }
 
   return (
-    <Box
-      sx={{
+    <motion.div
+      variants={{
+        present: { scale: 1, opacity: 1 },
+        exit: { scale: 0.8, opacity: 0 },
+      }}
+      initial="exit"
+      animate="present"
+      exit="exit"
+      layout
+      style={{
         display: 'flex',
         flexDirection: 'column',
         gap: theme.spacing(2),
@@ -78,6 +87,6 @@ export default function DishCard({ meal, labels }: DishCardProps) {
           {formatPrice(meal.prices.students)}
         </Typography>
       </Box>
-    </Box>
+    </motion.div>
   )
 }

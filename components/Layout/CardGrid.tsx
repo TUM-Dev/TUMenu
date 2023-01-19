@@ -1,4 +1,5 @@
 import { Box, useTheme } from '@mui/material'
+import { AnimatePresence } from 'framer-motion'
 import { Dishes } from '../../types/FoodPlaceMenu'
 import { Labels } from '../../types/Labels'
 import DishCard from './DishCard'
@@ -20,9 +21,11 @@ export default function CardGrid({ dailyMeals, labels }: CardGridProps) {
         flexWrap: 'wrap',
         my: theme.spacing(4),
       }}>
-      {dailyMeals.map((meal) => (
-        <DishCard key={meal.name} meal={meal} labels={labels} />
-      ))}
+      <AnimatePresence initial={false}>
+        {dailyMeals.map((meal) => (
+          <DishCard key={meal.name} meal={meal} labels={labels} />
+        ))}
+      </AnimatePresence>
     </Box>
   )
 }
