@@ -1,4 +1,4 @@
-import { RefObject } from 'react'
+import { RefObject, useMemo } from 'react'
 import { useTranslation } from 'next-i18next'
 import {
   ClickAwayListener,
@@ -38,6 +38,15 @@ export default function FilterDropdown({
     }
     return label.text.EN.toUpperCase()
   }
+
+  const sortedLabels = useMemo(
+    () =>
+      labels.sort((a, b) => {
+        if (i18n.language === 'en') return a.text.EN.localeCompare(b.text.EN)
+        return a.text.DE.localeCompare(b.text.DE)
+      }),
+    [i18n.language, labels],
+  )
 
   return (
     <Popper
@@ -83,7 +92,7 @@ export default function FilterDropdown({
                 autoFocusItem={open}
                 id="composition-menu"
                 aria-labelledby="composition-button">
-                {labels.map((label, index) => (
+                {sortedLabels.map((label, index) => (
                   <MenuItem
                     key={index.toLocaleString()}
                     disableTouchRipple
