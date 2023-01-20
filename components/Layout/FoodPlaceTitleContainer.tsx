@@ -78,7 +78,7 @@ export default function FoodPlaceTitleContainer({
           </Box>
         </Grid>
         {queueData !== null &&
-        dayjs(dayjs().format('DD/MM/YYYY')).isSame(dayjs(datePickerValue?.format('DD/MM/YYYY'))) ? (
+        dayjs(dayjs().format('MM/DD/YYYY')).isSame(dayjs(datePickerValue?.format('MM/DD/YYYY'))) ? (
           <Grid item xs={12}>
             <Grid
               container
