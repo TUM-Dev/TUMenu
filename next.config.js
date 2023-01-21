@@ -7,23 +7,23 @@ module.exports = {
   images: {
     unoptimized: true,
   },
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/de/mensa-garching',
-        permanent: false,
-      },
-      {
-        source: '/de',
-        destination: '/de/mensa-garching',
-        permanent: false,
-      },
-      {
-        source: '/en',
-        destination: '/en/mensa-garching',
-        permanent: false,
-      },
-    ]
-  },
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: '/',
+  //       destination: '/de/mensa-garching',
+  //       permanent: false,
+  //     },
+  //     {
+  //       source: '/de',
+  //       destination: '/de/mensa-garching',
+  //       permanent: false,
+  //     },
+  //     {
+  //       source: '/en',
+  //       destination: '/en/mensa-garching',
+  //       permanent: false,
+  //     },
+  //   ]
+  // },
 }

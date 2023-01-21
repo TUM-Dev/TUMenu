@@ -28,5 +28,6 @@
   "secondDish": "Hauptgericht",
   "noMenu": "Kein passendes Menu gefunden",
   "showAllCanteens": "Alle Mensen zeigen",
-  "selectCanteen": "Mensa wählen"
+  "selectCanteen": "Mensa wählen",
+  "startBrowsing": "Bitte wählen Sie eine Mensa aus, um die täglichen Speiseoptionen anzusehen"
 }

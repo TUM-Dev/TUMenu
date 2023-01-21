@@ -28,5 +28,6 @@
   "secondDish": "Main dish",
   "noMenu": "Could not find a menu",
   "showAllCanteens": "Show all canteens",
-  "selectCanteen": "Select canteen"
+  "selectCanteen": "Select canteen",
+  "startBrowsing": "Please select a canteen to view the daily meals"
 }
