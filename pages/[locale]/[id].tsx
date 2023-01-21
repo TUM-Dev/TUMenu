@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useMemo } from 'react'
 import { Box, useTheme } from '@mui/material'
 import dayjs from 'dayjs'
@@ -47,20 +48,25 @@ export default function CanteenPage({
   )
 
   return (
-    <CanteenContext.Provider value={contextValue}>
-      <Banner />
-      <Box
-        sx={{
-          display: 'grid',
-          gridTemplateColumns: {
-            lg: `${theme.spacing(30)} calc(100% - ${theme.spacing(30)})`,
-            xs: `100%`,
-          },
-        }}>
-        <Sidebar foodPlaces={foodPlaces} />
-        {foodPlaceData && <LayoutContainer />}
-      </Box>
-    </CanteenContext.Provider>
+    <>
+      <Head>
+        <title>TUMenu &ndash; {foodPlaceData.name}</title>
+      </Head>
+      <CanteenContext.Provider value={contextValue}>
+        <Banner />
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: {
+              lg: `${theme.spacing(30)} calc(100% - ${theme.spacing(30)})`,
+              xs: `100%`,
+            },
+          }}>
+          <Sidebar foodPlaces={foodPlaces} />
+          {foodPlaceData && <LayoutContainer />}
+        </Box>
+      </CanteenContext.Provider>
+    </>
   )
 }
 

@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { Box, useTheme, Button, Grid } from '@mui/material'
 import Banner from '../../components/Banner'
@@ -19,6 +20,9 @@ export default function Home({ foodPlaces }: HomeProps) {
 
   return (
     <>
+      <Head>
+        <title>TUMenu</title>
+      </Head>
       <Banner />
       <Box
         sx={{

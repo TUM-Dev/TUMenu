@@ -27,6 +27,7 @@ export default function HeaderDatePicker({
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
+        closeOnSelect
         minDate={minDate}
         maxDate={maxDate}
         shouldDisableDate={disableWeekends}
