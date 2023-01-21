@@ -11,6 +11,7 @@ export default function NotFound({ imageSource, translationString }: NotFoundPro
   const theme = useTheme()
   const { t } = useTranslation('common')
   const matches = useMediaQuery('(min-width:37.5em)')
+
   return (
     <Box
       sx={{

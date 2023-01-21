@@ -1,42 +1,25 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useContext } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Box, Typography, useTheme, Button, Tabs, Tab, useMediaQuery } from '@mui/material'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import dayjs from 'dayjs'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import minMax from 'dayjs/plugin/minMax'
-import { FoodPlace } from '../../types/FoodPlace'
-import { Dishes, FoodPlaceMenu } from '../../types/FoodPlaceMenu'
+import { Dishes } from '../../types/FoodPlaceMenu'
 import LayoutContainerHeader from './LayoutContainerHeader'
 import CardGrid from './CardGrid'
 import NotFound from '../NotFound'
-import { Labels } from '../../types/Labels'
-import { Queue } from '../../types/Queue'
 import GeneratedMenu from './GeneratedMenu'
 import FilterDropdown from './FilterDropdown'
-
-export interface LayoutContainerProps {
-  foodPlaceMenu: FoodPlaceMenu
-  foodPlaceData: FoodPlace
-  labels: Labels[]
-  queueData: Queue
-  triggerSidebarMobile: boolean
-  setTriggerSidebarMobile: React.Dispatch<React.SetStateAction<boolean>>
-}
+import CanteenContext from '../CanteenContext'
 
 dayjs.extend(weekOfYear)
 dayjs.extend(minMax)
 
-export default function LayoutContainer({
-  foodPlaceMenu,
-  foodPlaceData,
-  labels,
-  queueData,
-  triggerSidebarMobile,
-  setTriggerSidebarMobile,
-}: LayoutContainerProps) {
+export default function LayoutContainer() {
   const theme = useTheme()
   const { t } = useTranslation('common')
+  const { foodPlaceMenu, labels } = useContext(CanteenContext)
 
   const [value, setValue] = useState<dayjs.Dayjs | null>(dayjs())
   const [maxDate, setMaxDate] = useState<dayjs.Dayjs>(dayjs())
@@ -172,14 +155,10 @@ export default function LayoutContainer({
         zoom: 1,
       }}>
       <LayoutContainerHeader
-        foodPlaceData={foodPlaceData}
         datePickerValue={value}
         datePickerSetValue={setValue}
         minDate={minDate}
         maxDate={maxDate}
-        queueData={queueData}
-        triggerSidebarMobile={triggerSidebarMobile}
-        setTriggerSidebarMobile={setTriggerSidebarMobile}
       />
       <Box
         sx={{ borderBottom: 2, borderColor: 'divider', display: 'flex', justifyContent: 'center' }}>
@@ -262,7 +241,6 @@ export default function LayoutContainer({
           setFilteredValue={setFilteredValue}
           setShowMenu={setShowMenu}
           meals={filteredMeals}
-          labels={labels}
           rerender={rerender}
         />
       )}
@@ -272,7 +250,6 @@ export default function LayoutContainer({
           anchorRef={anchorRef}
           handleClose={handleClose}
           handleCheck={handleCheck}
-          labels={labels}
           selectedLabels={selectedLabels}
         />
       )}

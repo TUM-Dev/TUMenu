@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import dayjs from 'dayjs'
 import {
   Grid,
@@ -15,25 +15,20 @@ import { linearProgressClasses } from '@mui/material/LinearProgress'
 import { styled } from '@mui/material/styles'
 import { LocationOn } from '@mui/icons-material'
 import { useTranslation } from 'next-i18next'
-import { FoodPlace, daysArr, OpeningHoursType } from '../../types/FoodPlace'
+import { daysArr, OpeningHoursType } from '../../types/FoodPlace'
 import OpeningHours from './OpeningHours'
-import { Queue } from '../../types/Queue'
+import CanteenContext from '../CanteenContext'
 
 const DynamicMap = dynamic(() => import('./Map'), {
   ssr: false,
 })
 
 export interface FoodPlaceTitleContainerProps {
-  foodPlaceData: FoodPlace
   datePickerValue: dayjs.Dayjs | null
-  queueData: Queue
 }
 
-export default function FoodPlaceTitleContainer({
-  foodPlaceData,
-  datePickerValue,
-  queueData,
-}: FoodPlaceTitleContainerProps) {
+export default function FoodPlaceTitleContainer({ datePickerValue }: FoodPlaceTitleContainerProps) {
+  const { foodPlaceData, queueData } = useContext(CanteenContext)
   const [open, setOpen] = useState<boolean>(false)
   const [mapIsOpen, setMapIsOpen] = useState(false)
   const theme = useTheme()

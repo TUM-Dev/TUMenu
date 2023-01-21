@@ -15,10 +15,9 @@ import { SidebarEntry } from '../../types/SidebarEntry'
 
 interface SubmenuProps {
   foodPlace: SidebarEntry
-  setTriggerSidebarMobile: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function SidebarSubmenu({ foodPlace, setTriggerSidebarMobile }: SubmenuProps) {
+export default function SidebarSubmenu({ foodPlace }: SubmenuProps) {
   const [open, setOpen] = useState(false)
   const theme = useTheme()
   return (
@@ -42,11 +41,7 @@ export default function SidebarSubmenu({ foodPlace, setTriggerSidebarMobile }: S
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {foodPlace.foodPlaces.map((place) => (
-            <Link
-              key={place.canteen_id}
-              href={`/${place.canteen_id}`}
-              skipLocaleHandling={false}
-              setTriggerSidebarMobile={setTriggerSidebarMobile}>
+            <Link key={place.canteen_id} href={`/${place.canteen_id}`} skipLocaleHandling={false}>
               <ListItemButton sx={{ pl: 4 }}>
                 <ListItemText
                   disableTypography

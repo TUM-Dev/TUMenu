@@ -1,42 +1,32 @@
+import { useContext } from 'react'
 import { Button, Grid, useTheme, Box } from '@mui/material'
 import dayjs from 'dayjs'
 import { useTranslation } from 'next-i18next'
-import { FoodPlace } from '../../types/FoodPlace'
-import { Queue } from '../../types/Queue'
+import SidebarContext from '../SidebarContext'
 import HeaderDatePicker from './DatePicker'
 import FoodPlaceTitleContainer from './FoodPlaceTitleContainer'
 
 export interface LayoutHeaderProps {
-  foodPlaceData: FoodPlace
   datePickerValue: dayjs.Dayjs | null
   datePickerSetValue: React.Dispatch<React.SetStateAction<dayjs.Dayjs | null>>
   minDate: dayjs.Dayjs
   maxDate: dayjs.Dayjs
-  queueData: Queue
-  triggerSidebarMobile: boolean
-  setTriggerSidebarMobile: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function LayoutContainerHeader({
-  foodPlaceData,
   datePickerValue,
   datePickerSetValue,
   minDate,
   maxDate,
-  queueData,
-  triggerSidebarMobile,
-  setTriggerSidebarMobile,
 }: LayoutHeaderProps) {
+  const { triggerSidebarMobile, setTriggerSidebarMobile } = useContext(SidebarContext)
   const theme = useTheme()
   const { t } = useTranslation('common')
+  
   return (
     <Grid container justifyContent="center" alignItems="center" spacing={2}>
       <Grid item lg={9} xs={12}>
-        <FoodPlaceTitleContainer
-          foodPlaceData={foodPlaceData}
-          datePickerValue={datePickerValue}
-          queueData={queueData}
-        />
+        <FoodPlaceTitleContainer datePickerValue={datePickerValue} />
       </Grid>
       <Grid item lg={0} md={3} sm={4} xs={6} sx={{ display: { lg: 'none', xs: 'block' } }}>
         <Box sx={{ display: 'center', alignItems: 'center', justifyContent: 'center' }}>

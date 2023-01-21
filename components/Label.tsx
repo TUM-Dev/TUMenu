@@ -7,6 +7,7 @@ interface LabelProps {
 
 export default function Label({ bgColor, text }: LabelProps) {
   const theme = useTheme()
+
   return (
     <Tooltip title={text} arrow>
       <Chip

@@ -12,6 +12,7 @@ interface OpeningHoursProps {
 export default function OpeningHours({ foodPlaceData, open, setOpen }: OpeningHoursProps) {
   const { t } = useTranslation('common')
   const theme = useTheme()
+  
   return (
     <Dialog
       open={open}

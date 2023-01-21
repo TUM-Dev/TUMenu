@@ -1,4 +1,4 @@
-import { RefObject, useMemo } from 'react'
+import { RefObject, useMemo, useContext } from 'react'
 import { useTranslation } from 'next-i18next'
 import {
   ClickAwayListener,
@@ -11,12 +11,12 @@ import {
   useTheme,
 } from '@mui/material'
 import { Labels } from '../../types/Labels'
+import CanteenContext from '../CanteenContext'
 
 interface FilterDropdownProps {
   open: boolean
   anchorRef: RefObject<HTMLButtonElement>
   handleClose: (event: Event | React.SyntheticEvent) => void
-  labels: Labels[]
   selectedLabels: string[]
   handleCheck: (name: string) => void
 }
@@ -25,10 +25,10 @@ export default function FilterDropdown({
   open,
   anchorRef,
   handleClose,
-  labels,
   selectedLabels,
   handleCheck,
 }: FilterDropdownProps) {
+  const { labels } = useContext(CanteenContext)
   const theme = useTheme()
   const { i18n } = useTranslation('common')
 

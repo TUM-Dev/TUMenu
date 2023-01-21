@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import dynamic from 'next/dynamic'
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded'
 import { useTranslation } from 'next-i18next'
@@ -7,23 +7,19 @@ import MapIcon from '@mui/icons-material/Map'
 import { FoodPlace } from '../../types/FoodPlace'
 import { SidebarEntry } from '../../types/SidebarEntry'
 import SidebarSubmenu from './SidebarSubmenu'
+import SidebarContext from '../SidebarContext'
 
 interface SidebarProps {
   foodPlaces: FoodPlace[]
-  triggerSidebarMobile: boolean
-  setTriggerSidebarMobile: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const DynamicMap = dynamic(() => import('../Layout/Map'), {
   ssr: false,
 })
 
-export default function Sidebar({
-  foodPlaces,
-  triggerSidebarMobile,
-  setTriggerSidebarMobile,
-}: SidebarProps) {
+export default function Sidebar({ foodPlaces }: SidebarProps) {
   const [openMap, setOpenMap] = useState<boolean>(false)
+  const { triggerSidebarMobile, setTriggerSidebarMobile } = useContext(SidebarContext)
 
   const { t } = useTranslation('common')
 
@@ -102,11 +98,7 @@ export default function Sidebar({
         </Button>
         <List component="nav">
           {foodPlacesSorted.map((foodPlace) => (
-            <SidebarSubmenu
-              foodPlace={foodPlace}
-              key={foodPlace.city}
-              setTriggerSidebarMobile={setTriggerSidebarMobile}
-            />
+            <SidebarSubmenu foodPlace={foodPlace} key={foodPlace.city} />
           ))}
         </List>
       </Box>

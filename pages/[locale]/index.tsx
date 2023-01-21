@@ -1,15 +1,12 @@
-import { useState } from 'react'
-import dynamic from 'next/dynamic'
+import { useContext } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Box, useTheme, Button, Grid } from '@mui/material'
 import Banner from '../../components/Banner'
 import { getStaticPaths, getI18nProps } from '../../lib/getStatic'
 import { FoodPlace } from '../../types/FoodPlace'
 import NotFound from '../../components/NotFound'
-
-const DynamicSidebar = dynamic(() => import('../../components/Sidebar/Sidebar'), {
-  ssr: false,
-})
+import Sidebar from '../../components/Sidebar/Sidebar'
+import SidebarContext from '../../components/SidebarContext'
 
 interface HomeProps {
   foodPlaces: FoodPlace[]
@@ -18,7 +15,7 @@ interface HomeProps {
 export default function Home({ foodPlaces }: HomeProps) {
   const theme = useTheme()
   const { t } = useTranslation()
-  const [triggerSidebarMobile, setTriggerSidebarMobile] = useState(false)
+  const { triggerSidebarMobile, setTriggerSidebarMobile } = useContext(SidebarContext)
 
   return (
     <>
@@ -31,11 +28,7 @@ export default function Home({ foodPlaces }: HomeProps) {
             xs: `100%`,
           },
         }}>
-        <DynamicSidebar
-          foodPlaces={foodPlaces}
-          triggerSidebarMobile={triggerSidebarMobile}
-          setTriggerSidebarMobile={setTriggerSidebarMobile}
-        />
+        <Sidebar foodPlaces={foodPlaces} />
         <Box sx={{ p: theme.spacing(4) }}>
           <Grid item lg={0} md={3} sm={4} xs={6} sx={{ display: { lg: 'none', xs: 'block' } }}>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>

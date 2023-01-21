@@ -1,6 +1,5 @@
-import { useState } from 'react'
+import { useMemo } from 'react'
 import { Box, useTheme } from '@mui/material'
-import dynamic from 'next/dynamic'
 import dayjs from 'dayjs'
 import Banner from '../../components/Banner'
 import LayoutContainer from '../../components/Layout/LayoutContainer'
@@ -15,11 +14,8 @@ import getLabels from '../../lib/getLabels'
 import { Labels } from '../../types/Labels'
 import getQueueStatus from '../../lib/getQueueStatus'
 import { Queue } from '../../types/Queue'
-
-// important for the ResizeObserver api
-const DynamicSidebar = dynamic(() => import('../../components/Sidebar/Sidebar'), {
-  ssr: false,
-})
+import CanteenContext from '../../components/CanteenContext'
+import Sidebar from '../../components/Sidebar/Sidebar'
 
 interface CanteenPageProps {
   foodPlaces: FoodPlace[]
@@ -35,13 +31,23 @@ export default function CanteenPage({
   queueData,
 }: CanteenPageProps) {
   const theme = useTheme()
-  const [triggerSidebarMobile, setTriggerSidebarMobile] = useState(false)
+
   const foodPlaceData = foodPlaces.find(
     (foodPlace) => foodPlace.canteen_id === foodPlaceMenu.canteen_id,
+  )!
+
+  const contextValue = useMemo(
+    () => ({
+      foodPlaceMenu,
+      foodPlaceData,
+      labels,
+      queueData,
+    }),
+    [foodPlaceMenu, foodPlaceData, labels, queueData],
   )
 
   return (
-    <>
+    <CanteenContext.Provider value={contextValue}>
       <Banner />
       <Box
         sx={{
@@ -51,23 +57,10 @@ export default function CanteenPage({
             xs: `100%`,
           },
         }}>
-        <DynamicSidebar
-          foodPlaces={foodPlaces}
-          triggerSidebarMobile={triggerSidebarMobile}
-          setTriggerSidebarMobile={setTriggerSidebarMobile}
-        />
-        {foodPlaceData && (
-          <LayoutContainer
-            foodPlaceMenu={foodPlaceMenu}
-            foodPlaceData={foodPlaceData}
-            labels={labels}
-            queueData={queueData}
-            triggerSidebarMobile={triggerSidebarMobile}
-            setTriggerSidebarMobile={setTriggerSidebarMobile}
-          />
-        )}
+        <Sidebar foodPlaces={foodPlaces} />
+        {foodPlaceData && <LayoutContainer />}
       </Box>
-    </>
+    </CanteenContext.Provider>
   )
 }
 

@@ -1,9 +1,9 @@
 import { Box, styled, Typography, useTheme } from '@mui/material'
 import { useTranslation } from 'next-i18next'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { Dishes } from '../../types/FoodPlaceMenu'
-import { Labels } from '../../types/Labels'
 import { Menu } from '../../types/Menu'
+import CanteenContext from '../CanteenContext'
 import NotFound from '../NotFound'
 import DishCard from './DishCard'
 
@@ -11,7 +11,6 @@ interface GeneratedMenuProps {
   setFilteredValue: React.Dispatch<React.SetStateAction<string>>
   setShowMenu: React.Dispatch<React.SetStateAction<boolean>>
   meals: Dishes[]
-  labels: Labels[]
   rerender: number
 }
 
@@ -39,9 +38,9 @@ export default function GeneratedMenu({
   setFilteredValue,
   setShowMenu,
   meals,
-  labels,
   rerender,
 }: GeneratedMenuProps) {
+  const { labels } = useContext(CanteenContext)
   const [menu, setMenu] = useState<Menu>()
   const theme = useTheme()
   const { t } = useTranslation('common')

@@ -1,13 +1,11 @@
 import { useTheme } from '@mui/material'
+import { useContext } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import SidebarContext from './SidebarContext'
 
-export default function LinkComponent({
-  children,
-  skipLocaleHandling,
-  setTriggerSidebarMobile,
-  ...rest
-}) {
+export default function LinkComponent({ children, skipLocaleHandling, ...rest }) {
+  const { setTriggerSidebarMobile } = useContext(SidebarContext)
   const theme = useTheme()
   const router = useRouter()
   const locale = rest.locale || router.query.locale || ''

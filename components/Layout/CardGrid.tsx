@@ -10,6 +10,7 @@ interface CardGridProps {
 }
 export default function CardGrid({ dailyMeals, labels }: CardGridProps) {
   const theme = useTheme()
+
   return (
     <Box
       sx={{
