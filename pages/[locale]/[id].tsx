@@ -51,6 +51,10 @@ export default function CanteenPage({
     <>
       <Head>
         <title>TUMenu &ndash; {foodPlaceData.name}</title>
+        <meta
+          name="description"
+          content={`Entdecke hier die täglichen Menüs der ${foodPlaceData.name}. Finde jetzt dein nächstes Mahlzeit!`}
+        />
       </Head>
       <CanteenContext.Provider value={contextValue}>
         <Banner />

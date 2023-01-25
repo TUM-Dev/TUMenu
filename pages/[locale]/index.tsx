@@ -22,6 +22,10 @@ export default function Home({ foodPlaces }: HomeProps) {
     <>
       <Head>
         <title>TUMenu</title>
+        <meta
+          name="description"
+          content="Entdecke hier die täglichen Menüs der besten Studentenlokale in München"
+        />
       </Head>
       <Banner />
       <Box
