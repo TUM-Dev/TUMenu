@@ -75,15 +75,19 @@ export default function CanteenPage({
 }
 
 const isCanteenOpen = (foodPlaces: FoodPlace[], id: string) => {
-  const now = dayjs()
+  // because now is with english locale and its one hour earlier as the german time
+  const now = dayjs().add(1, 'hour')
   if (now.get('day') === 6 || now.get('day') === 0) return false
   const foodPlace = foodPlaces.find((canteen) => canteen.canteen_id === id)
   const foodPlaceOpeningHoursNow =
     // eslint-disable-next-line no-unsafe-optional-chaining
     foodPlace?.open_hours[`${daysArr[now?.get('day')! - 1]}` as keyof OpeningHoursType]
-  const foodPlaceOpens = foodPlaceOpeningHoursNow?.start
-  const foodPlaceCloses = foodPlaceOpeningHoursNow?.end
-  if (now.format('HH:mm') >= foodPlaceOpens! && now.format('HH:mm') < foodPlaceCloses!) {
+  const foodPlaceOpens = foodPlaceOpeningHoursNow?.start!
+  const foodPlaceCloses = foodPlaceOpeningHoursNow?.end!
+  const time = foodPlaceOpens.split(':')
+  const hour = (parseInt(time[0], 10) - 1 + 24) % 24
+  const foodPlaceOpensMinusOne = `${hour < 10 ? `0${hour}` : hour}:${time[1]}`
+  if (now.format('HH:mm') >= foodPlaceOpensMinusOne && now.format('HH:mm') < foodPlaceCloses) {
     return true
   }
   return false
