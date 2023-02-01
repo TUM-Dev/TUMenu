@@ -1,13 +1,26 @@
 # TUMenu
 
-This is a [Next.js](https://nextjs.org/) static website for daily dish menus at some student food places in Munich
+This is a [Next.js](https://nextjs.org/) static website for daily dish menus at some student food places in Munich.
+
+**Features include:**
+
+- Daily menus in more than 25 student canteens and cafés around Munich
+- Calendar to choose a date to see what the menu on this day would be
+- Filter the dishes by the type of the dish (meat, grill, vegeterian, etc.)
+- Filter the dishes by labels (gluten, celery, preservatives, etc.)
+- See how many people are inside every canteen during canteen working hours.
+- Generate random menu containing starter, main dish and dessert from the daily manu
+- See the location and the openning hours of each canteen visualised
+- The website is available in English and German
+
+The project uses the [eat-api](https://github.com/TUM-Dev/eat-api) for the daily menus and the [HeadCount](https://github.com/TUM-Dev/Campus-Backend/) feature from the Campus-Backend to measure how many people are inside a canteen. **TUMenu** is there thanks to the contributors of these projects.
 
 # Table of Contents
 
 - [Getting Started](#getting-started)
 - [Building and exporting](#building-and-exporting)
-- [Translations with i18n-nexti18n](#translations-with-i18n-nexti18n)
-- [Styling with MUI](https://mui.com/material-ui/getting-started/overview/)
+- [Translations with next-i18next](#translations-with-next-i18next)
+- [Styling with MUI](#styling-with-MUI)
 - [Support](#support)
 
 ## Getting Started
@@ -38,7 +51,7 @@ The following scripts are provided:
 
 If you set everything up correctly, `prettier` and `eslint` should run everytime you save.
 
-## Build and export the project as a static website
+## Building and exporting
 
 To build and export the project as a static website, run the following commands:
 
@@ -52,7 +65,7 @@ This will build the project and start a static file server that serves the conte
 
 ## Translations with next-i18next
 
-The website is currently available in german and english. This works because of the [next-i18next](https://github.com/i18next/next-i18next) library. The translations string are stored in the public folder which contains two locale folders and in there are the `common.json` files, where the translations strings are located. All text on the website is displayed using some translation string from these folders.
+The website is currently available in german and english. This works because of the [next-i18next](https://github.com/i18next/next-i18next) library. The translations string are stored in the public folder which contains two locale folders and in there are the `common.json` files, where the translations strings are located.
 
 ```
 .
@@ -85,7 +98,7 @@ If you wonder why everything is looking weird with some `.js` files and weird lo
 
 # Styling with MUI
 
-All the styling of this repository is implemented using MUI. If you have no idea how MUI styles work please reffer to the MUI documentation.
+All the styling of this repository is implemented using MUI. If you have no idea how MUI styles work please reffer to the [MUI documentation](https://mui.com/material-ui/getting-started/overview/). All further improvement should also be implemented with MUI.
 
 ## Support
 
