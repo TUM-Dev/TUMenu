@@ -251,6 +251,7 @@ export default function LayoutContainer() {
           handleClose={handleClose}
           handleCheck={handleCheck}
           selectedLabels={selectedLabels}
+          setSelectedLabels={setSelectedLabels}
         />
       )}
     </Box>

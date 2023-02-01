@@ -29,5 +29,6 @@
   "noMenu": "Kein passendes Menu gefunden",
   "showAllCanteens": "Alle Mensen zeigen",
   "selectCanteen": "Mensa wählen",
-  "startBrowsing": "Bitte wählen Sie eine Mensa aus, um die täglichen Speiseoptionen anzusehen"
+  "startBrowsing": "Bitte wählen Sie eine Mensa aus, um die täglichen Speiseoptionen anzusehen",
+  "deleteFilters": "Lösche ausgewählte labels"
 }

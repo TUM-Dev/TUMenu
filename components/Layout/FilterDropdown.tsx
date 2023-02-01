@@ -1,5 +1,6 @@
-import { RefObject, useMemo, useContext } from 'react'
+import React, { RefObject, useMemo, useContext } from 'react'
 import { useTranslation } from 'next-i18next'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import {
   ClickAwayListener,
   Grow,
@@ -18,6 +19,7 @@ interface FilterDropdownProps {
   anchorRef: RefObject<HTMLButtonElement>
   handleClose: (event: Event | React.SyntheticEvent) => void
   selectedLabels: string[]
+  setSelectedLabels: React.Dispatch<React.SetStateAction<string[]>>
   handleCheck: (name: string) => void
 }
 
@@ -26,11 +28,12 @@ export default function FilterDropdown({
   anchorRef,
   handleClose,
   selectedLabels,
+  setSelectedLabels,
   handleCheck,
 }: FilterDropdownProps) {
   const { labels } = useContext(CanteenContext)
   const theme = useTheme()
-  const { i18n } = useTranslation('common')
+  const { t, i18n } = useTranslation('common')
 
   const getLabelText = (label: Labels, locale: string) => {
     if (locale === 'de') {
@@ -92,6 +95,18 @@ export default function FilterDropdown({
                 autoFocusItem={open}
                 id="composition-menu"
                 aria-labelledby="composition-button">
+                <MenuItem
+                  disableTouchRipple
+                  onClick={() => setSelectedLabels([])}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: theme.spacing(1),
+                  }}>
+                  {t('deleteFilters')}
+                  <DeleteForeverIcon sx={{ color: '#545454', padding: '0 !important' }} />
+                </MenuItem>
                 {sortedLabels.map((label, index) => (
                   <MenuItem
                     key={index.toLocaleString()}

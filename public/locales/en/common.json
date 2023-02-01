@@ -29,5 +29,6 @@
   "noMenu": "Could not find a menu",
   "showAllCanteens": "Show all canteens",
   "selectCanteen": "Select canteen",
-  "startBrowsing": "Please select a canteen to view the daily meals"
+  "startBrowsing": "Please select a canteen to view the daily meals",
+  "deleteFilters": "Delete selected labels"
 }
