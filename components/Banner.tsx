@@ -48,6 +48,17 @@ export default function Banner() {
           {t('subtitleBanner')}
         </Typography>
       </Box>
+      <Typography
+        variant="body2"
+        sx={{
+          position: 'absolute' as 'absolute',
+          right: '5px',
+          bottom: '5px',
+          color: theme.palette.primary.main,
+          fontSize: theme.spacing(0.85),
+        }}>
+        Copyright: https://www.meck-architekten.de/projekte/id/2019-mensa-campus-garching/
+      </Typography>
       {nextI18nextConfig.i18n.locales.map((locale) => {
         if (locale === currentLocale) return null
         return <LanguageSwitchLink locale={locale} key={locale} />
