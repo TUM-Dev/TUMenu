@@ -30,7 +30,7 @@ To get started with this project, you'll need to have [Node.js](https://nodejs.o
 Clone the repository and install the dependencies by running the following commands:
 
 ```bash
-git clone https://github.com/marinovl7/TUMenu.git
+git clone https://github.com/TUM-Dev/TUMenu.git
 cd tumenu
 npm i
 ```
