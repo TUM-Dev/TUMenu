@@ -17,6 +17,13 @@ interface ExtendedAppProps extends AppProps {
 
 const clientSideEmotionCache = createEmotionCache()
 
+let assetPrefix = ''
+if (process.env.GITHUB_ACTIONS) {
+  const repo = process.env.GITHUB_REPOSITORY!.replace(/.*?\//, '')
+
+  assetPrefix = `/${repo}`
+}
+
 function MyApp({ Component, emotionCache = clientSideEmotionCache, pageProps }: ExtendedAppProps) {
   const [triggerSidebarMobile, setTriggerSidebarMobile] = useState(false)
 
@@ -30,11 +37,11 @@ function MyApp({ Component, emotionCache = clientSideEmotionCache, pageProps }: 
   return (
     <>
       <Head>
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#3070b3" />
+        <link rel="apple-touch-icon" sizes="180x180" href={`${assetPrefix}/apple-touch-icon.png`} />
+        <link rel="icon" type="image/png" sizes="32x32" href={`${assetPrefix}/favicon-32x32.png`} />
+        <link rel="icon" type="image/png" sizes="16x16" href={`${assetPrefix}/favicon-16x16.png`} />
+        <link rel="manifest" href={`${assetPrefix}/site.webmanifest`} />
+        <link rel="mask-icon" href={`${assetPrefix}/safari-pinned-tab.svg`} color="#3070b3" />
         <meta name="msapplication-TileColor" content="#3070b3" />
         <meta name="theme-color" content="#ffffff" />
       </Head>

@@ -6,6 +6,13 @@ import { useRouter } from 'next/router'
 import LanguageSwitchLink from './LanguageSwitcher'
 import nextI18nextConfig from '../next-i18next.config'
 
+let assetPrefix = ''
+if (process.env.GITHUB_ACTIONS) {
+  const repo = process.env.GITHUB_REPOSITORY!.replace(/.*?\//, '')
+
+  assetPrefix = `/${repo}`
+}
+
 export default function Banner() {
   const router = useRouter()
   const theme = useTheme()
@@ -21,7 +28,7 @@ export default function Banner() {
         zIndex: theme.zIndex.drawer + 1,
       }}>
       <Image
-        src="/MGA-8.jpg"
+        src={`${assetPrefix}/MGA-8.jpg`}
         objectFit="cover"
         layout="fill"
         quality={100}

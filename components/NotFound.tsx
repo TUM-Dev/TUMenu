@@ -7,6 +7,13 @@ interface NotFoundProps {
   imageSource: string
 }
 
+let assetPrefix = ''
+if (process.env.GITHUB_ACTIONS) {
+  const repo = process.env.GITHUB_REPOSITORY!.replace(/.*?\//, '')
+
+  assetPrefix = `/${repo}`
+}
+
 export default function NotFound({ imageSource, translationString }: NotFoundProps) {
   const theme = useTheme()
   const { t } = useTranslation('common')
@@ -35,7 +42,7 @@ export default function NotFound({ imageSource, translationString }: NotFoundPro
           {t(translationString)}
         </Typography>
         <Image
-          src={imageSource}
+          src={assetPrefix + imageSource}
           quality={100}
           height={matches ? 400 : 300}
           width={matches ? 400 : 300}
