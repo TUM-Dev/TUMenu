@@ -1,16 +1,10 @@
 /** @type {import('next').NextConfig} */
 
-const isGithubActions = process.env.GITHUB_ACTIONS || false
+// change this to "" when in dev mode
+const repo = '/TUMenu'
 
-let assetPrefix = ''
-let basePath = '/'
-
-if (isGithubActions) {
-  const repo = process.env.GITHUB_REPOSITORY.replace(/.*?\//, '')
-
-  assetPrefix = `/${repo}`
-  basePath = `/${repo}`
-}
+const assetPrefix = `/${repo}`
+const basePath = `/${repo}`
 
 module.exports = {
   reactStrictMode: true,

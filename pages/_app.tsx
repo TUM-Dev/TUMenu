@@ -17,6 +17,9 @@ interface ExtendedAppProps extends AppProps {
 
 const clientSideEmotionCache = createEmotionCache()
 
+// change this to "" if you are in dev mode
+const assetPrefix = '/TUMenu'
+
 function MyApp({ Component, emotionCache = clientSideEmotionCache, pageProps }: ExtendedAppProps) {
   const [triggerSidebarMobile, setTriggerSidebarMobile] = useState(false)
 
@@ -27,13 +30,6 @@ function MyApp({ Component, emotionCache = clientSideEmotionCache, pageProps }: 
     }),
     [triggerSidebarMobile, setTriggerSidebarMobile],
   )
-
-  let assetPrefix = ''
-  if (process.env.GITHUB_ACTIONS) {
-    const repo = process.env.GITHUB_REPOSITORY!.replace(/.*?\//, '')
-
-    assetPrefix = `/${repo}`
-  }
 
   return (
     <>

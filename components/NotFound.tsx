@@ -6,14 +6,10 @@ interface NotFoundProps {
   translationString: string
   imageSource: string
 }
+// change this to "" if you are in dev mode
+const assetPrefix = '/TUMenu'
 
 export default function NotFound({ imageSource, translationString }: NotFoundProps) {
-  let assetPrefix = ''
-  if (process.env.GITHUB_ACTIONS) {
-    const repo = process.env.GITHUB_REPOSITORY!.replace(/.*?\//, '')
-    assetPrefix = `/${repo}`
-  }
-
   const theme = useTheme()
   const { t } = useTranslation('common')
   const matches = useMediaQuery('(min-width:37.5em)')

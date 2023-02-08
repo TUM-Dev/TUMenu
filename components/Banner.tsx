@@ -6,13 +6,10 @@ import { useRouter } from 'next/router'
 import LanguageSwitchLink from './LanguageSwitcher'
 import nextI18nextConfig from '../next-i18next.config'
 
-export default function Banner() {
-  let assetPrefix = ''
-  if (process.env.GITHUB_ACTIONS) {
-    const repo = process.env.GITHUB_REPOSITORY!.replace(/.*?\//, '')
+// change this to "" if you are in dev mode
+const assetPrefix = '/TUMenu'
 
-    assetPrefix = `/${repo}`
-  }
+export default function Banner() {
   const router = useRouter()
   const theme = useTheme()
   const { t } = useTranslation('common')
