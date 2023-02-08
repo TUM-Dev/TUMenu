@@ -17,13 +17,6 @@ interface ExtendedAppProps extends AppProps {
 
 const clientSideEmotionCache = createEmotionCache()
 
-let assetPrefix = ''
-if (process.env.GITHUB_ACTIONS) {
-  const repo = process.env.GITHUB_REPOSITORY!.replace(/.*?\//, '')
-
-  assetPrefix = `/${repo}`
-}
-
 function MyApp({ Component, emotionCache = clientSideEmotionCache, pageProps }: ExtendedAppProps) {
   const [triggerSidebarMobile, setTriggerSidebarMobile] = useState(false)
 
@@ -34,6 +27,14 @@ function MyApp({ Component, emotionCache = clientSideEmotionCache, pageProps }: 
     }),
     [triggerSidebarMobile, setTriggerSidebarMobile],
   )
+
+  let assetPrefix = ''
+  if (process.env.GITHUB_ACTIONS) {
+    const repo = process.env.GITHUB_REPOSITORY!.replace(/.*?\//, '')
+
+    assetPrefix = `/${repo}`
+  }
+
   return (
     <>
       <Head>
