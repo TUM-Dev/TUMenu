@@ -6,8 +6,7 @@ interface NotFoundProps {
   translationString: string
   imageSource: string
 }
-// change this to "" if you are in dev mode
-const assetPrefix = '/TUMenu'
+const assetPrefix = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 export default function NotFound({ imageSource, translationString }: NotFoundProps) {
   const theme = useTheme()

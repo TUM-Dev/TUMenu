@@ -6,8 +6,7 @@ import { useRouter } from 'next/router'
 import LanguageSwitchLink from './LanguageSwitcher'
 import nextI18nextConfig from '../next-i18next.config'
 
-// change this to "" if you are in dev mode
-const assetPrefix = '/TUMenu'
+const assetPrefix = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 export default function Banner() {
   const router = useRouter()

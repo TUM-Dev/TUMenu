@@ -17,8 +17,7 @@ interface ExtendedAppProps extends AppProps {
 
 const clientSideEmotionCache = createEmotionCache()
 
-// change this to "" if you are in dev mode
-const assetPrefix = '/TUMenu'
+const assetPrefix = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 function MyApp({ Component, emotionCache = clientSideEmotionCache, pageProps }: ExtendedAppProps) {
   const [triggerSidebarMobile, setTriggerSidebarMobile] = useState(false)

@@ -1,17 +1,11 @@
 /** @type {import('next').NextConfig} */
 
-// change this to "" when in dev mode
-const repo = '/TUMenu'
-
-const assetPrefix = `/${repo}`
-const basePath = `/${repo}`
-
 module.exports = {
   reactStrictMode: true,
   swcMinify: true,
   staticPageGenerationTimeout: 1000,
-  assetPrefix,
-  basePath,
+  assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH,
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH,
   images: {
     unoptimized: true,
   },
