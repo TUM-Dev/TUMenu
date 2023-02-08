@@ -68,7 +68,7 @@ export const themeOptions: ThemeOptions = {
             },
             styleOverrides: {
                 root: {
-                    lineHeight: 2,
+                    lineHeight: 1.5,
                     borderWidth: 4,
                     "&.Mui-disabled": {
                         backgroundColor: "#598dc2 !important",
