@@ -40,6 +40,7 @@ function MyApp({ Component, emotionCache = clientSideEmotionCache, pageProps }: 
         <link rel="mask-icon" href={`${assetPrefix}/safari-pinned-tab.svg`} color="#3070b3" />
         <meta name="msapplication-TileColor" content="#3070b3" />
         <meta name="theme-color" content="#ffffff" />
+        <meta http-equiv="Permissions-Policy" content="interest-cohort=()" />
       </Head>
       <CacheProvider value={emotionCache}>
         <ThemeProvider theme={theme}>

@@ -1,16 +1,7 @@
 import dynamic from 'next/dynamic'
 import { useState, useContext } from 'react'
 import dayjs from 'dayjs'
-import {
-  Grid,
-  Typography,
-  useTheme,
-  LinearProgress,
-  Button,
-  Box,
-  Tooltip,
-  useMediaQuery,
-} from '@mui/material'
+import { Grid, Typography, useTheme, LinearProgress, Button, Box, Tooltip } from '@mui/material'
 import { linearProgressClasses } from '@mui/material/LinearProgress'
 import { styled } from '@mui/material/styles'
 import { LocationOn } from '@mui/icons-material'
@@ -34,7 +25,6 @@ export default function FoodPlaceTitleContainer({ datePickerValue }: FoodPlaceTi
   const theme = useTheme()
   const { t } = useTranslation('common')
   const weekend = datePickerValue?.get('day') === 6 || datePickerValue?.get('day') === 0
-  const matches = useMediaQuery('(min-width:28.125em)')
 
   const BorderLinearProgress = styled(LinearProgress)(() => ({
     [`&.${linearProgressClasses.colorPrimary}`]: {
@@ -146,7 +136,7 @@ export default function FoodPlaceTitleContainer({ datePickerValue }: FoodPlaceTi
             <Button
               onClick={() => setOpen(true)}
               variant="contained"
-              size={matches ? 'medium' : 'small'}
+              size="medium"
               sx={{
                 backgroundColor: theme.palette.primary.light,
                 color: theme.palette.primary.main,
