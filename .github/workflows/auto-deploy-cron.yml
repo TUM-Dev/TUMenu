@@ -1,8 +1,13 @@
-name: Node.js CI
+name: Auto-Deployment
 
 on:
-  push:
-    branches: [main]
+  schedule:
+    - cron: '30 10 * * MON-FRI'
+    - cron: '30 11 * * MON-FRI'
+    - cron: '30 12 * * MON-FRI'
+    - cron: '30 13 * * MON-FRI'
+    - cron: '30 14 * * MON-FRI'
+    - cron: '0 12 * * SUN'
 
 jobs:
   build:
