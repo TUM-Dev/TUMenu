@@ -1,10 +1,12 @@
-# .github/workflows/build-and-deploy.yml
-
 name: Node.js CI
 
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: '0 11 * * *'
+    - cron: '30 12 * * *'
+    - cron: '30 14 * * *'
 
 jobs:
   build:
