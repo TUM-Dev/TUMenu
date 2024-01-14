@@ -10,6 +10,15 @@ const LanguageSwitchLink = ({ locale, ...rest }) => {
   const theme = useTheme()
   const { t } = useTranslation('common')
 
+  const handleLanguageChange = (newLocale) => {
+    localStorage.setItem('appLocale', newLocale);
+    languageDetector.cache(newLocale);
+
+    // Trigger a custom event
+    const event = new CustomEvent('languageChange', { detail: { locale: newLocale } });
+    window.dispatchEvent(event);
+  };
+
   let href = rest.href || router.asPath
   let pName = router.pathname
   Object.keys(router.query).forEach((k) => {
@@ -40,7 +49,7 @@ const LanguageSwitchLink = ({ locale, ...rest }) => {
         </Typography>
       </Grid>
       <Grid item xs={4}>
-        <Link href={href} onClick={() => languageDetector.cache(locale)}>
+        <Link href={href} onClick={() => handleLanguageChange(locale)}>
           <button
             style={{
               fontSize: theme.spacing(3),
