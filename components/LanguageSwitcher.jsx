@@ -11,10 +11,7 @@ const LanguageSwitchLink = ({ locale, ...rest }) => {
   const { t } = useTranslation('common')
 
   const handleLanguageChange = (newLocale) => {
-    localStorage.setItem('appLocale', newLocale);
-    languageDetector.cache(newLocale);
-
-    // Trigger a custom event
+    router.push(router.pathname, router.asPath, { locale: newLocale });
     const event = new CustomEvent('languageChange', { detail: { locale: newLocale } });
     window.dispatchEvent(event);
   };

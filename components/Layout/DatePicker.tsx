@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import dayjs, { Dayjs } from 'dayjs'
-import 'dayjs/locale/de' // import German locale
-import 'dayjs/locale/en' // import English locale
+import 'dayjs/locale/de'
+import 'dayjs/locale/en'
 import TextField from '@mui/material/TextField'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -38,7 +38,7 @@ export default function HeaderDatePicker({
       window.addEventListener('languageChange', handleLanguageChange);
 
       // Initial locale setup
-      const currentLocale = localStorage.getItem('appLocale') || 'en';
+      const currentLocale = localStorage.getItem('i18nextLng') || 'en';
       setLocale(currentLocale);
       dayjs.locale(currentLocale);
 
@@ -68,7 +68,7 @@ export default function HeaderDatePicker({
         onChange={(newValue) => {
           if (dayjs(newValue).isValid()) datePickerSetValue(newValue)
         }}
-        inputFormat={getDateFormat()} // Moved inputFormat here
+        inputFormat={getDateFormat()}
         renderInput={(params) => (
           <TextField
             {...params}
