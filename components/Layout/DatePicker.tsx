@@ -29,13 +29,13 @@ export default function HeaderDatePicker({
   const [locale, setLocale] = useState('en'); // default to English
 
     useEffect(() => {
-      const handleLanguageChange = (event) => {
+      const handleLanguageChange = (event: CustomEvent) => {
         const newLocale = event.detail.locale;
         setLocale(newLocale);
         dayjs.locale(newLocale);
       };
 
-      window.addEventListener('languageChange', handleLanguageChange);
+      window.addEventListener('languageChange', handleLanguageChange as EventListener);
 
       // Initial locale setup
       const currentLocale = localStorage.getItem('i18nextLng') || 'en';
@@ -43,7 +43,7 @@ export default function HeaderDatePicker({
       dayjs.locale(currentLocale);
 
       return () => {
-        window.removeEventListener('languageChange', handleLanguageChange);
+        window.removeEventListener('languageChange', handleLanguageChange as EventListener);
         };
       }, []);
 
