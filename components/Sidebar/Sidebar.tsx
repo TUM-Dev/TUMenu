@@ -47,7 +47,7 @@ export default function Sidebar({ foodPlaces }: SidebarProps) {
       foodPlacesSorted.find((item) => item.city === 'Garching')?.foodPlaces.push(foodPlace)
     else if (
       address.includes('München') ||
-      address.includes('Plategg') ||
+      address.includes('Planegg') ||
       address.includes('Planegg-Martinsried')
     )
       foodPlacesSorted.find((item) => item.city === 'Munich')?.foodPlaces.push(foodPlace)
