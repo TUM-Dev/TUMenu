@@ -35,6 +35,7 @@ export default function Sidebar({ foodPlaces }: SidebarProps) {
       foodPlaces: [],
     },
     { city: 'Rosenheim', foodPlaces: [] },
+    { city: 'Heilbronn', foodPlaces: [] },
   ]
 
   const handleOpenMap = () => {
@@ -57,6 +58,8 @@ export default function Sidebar({ foodPlaces }: SidebarProps) {
       foodPlacesSorted.find((item) => item.city === 'Rosenheim')?.foodPlaces.push(foodPlace)
     else if (address.includes('Straubing'))
       foodPlacesSorted.find((item) => item.city === 'Straubing')?.foodPlaces.push(foodPlace)
+    else if (address.includes('Heilbronn'))
+      foodPlacesSorted.find((item) => item.city === 'Heilbronn')?.foodPlaces.push(foodPlace)
   })
   const theme = useTheme()
   return (
