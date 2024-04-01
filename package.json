@@ -19,7 +19,7 @@
     "@types/leaflet": "^1.9.8",
     "@types/node": "18.11.9",
     "@types/react": "18.2.45",
-    "@types/react-dom": "18.2.4",
+    "@types/react-dom": "18.2.23",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "dayjs": "^1.11.6",
     "eslint": "8.41.0",
