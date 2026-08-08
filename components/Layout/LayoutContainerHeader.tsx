@@ -22,7 +22,7 @@ export default function LayoutContainerHeader({
   const { triggerSidebarMobile, setTriggerSidebarMobile } = useContext(SidebarContext)
   const theme = useTheme()
   const { t } = useTranslation('common')
-  
+
   return (
     <Grid container spacing={2} sx={{ justifyContent: 'center', alignItems: 'center' }}>
       <Grid size={{ lg: 9, xs: 12 }}>

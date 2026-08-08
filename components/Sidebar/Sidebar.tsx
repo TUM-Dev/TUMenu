@@ -67,7 +67,7 @@ export default function Sidebar({ foodPlaces }: SidebarProps) {
       <Box
         sx={{
           display: { lg: 'flex', xs: triggerSidebarMobile ? 'flex' : 'none' },
-          position: { lg: 'relative' as 'relative', xs: 'absolute' as 'absolute' },
+          position: { lg: 'relative' as const, xs: 'absolute' as const },
           minHeight: { lg: 'auto', xs: '100%' },
           width: theme.spacing(30),
           flexDirection: 'column',

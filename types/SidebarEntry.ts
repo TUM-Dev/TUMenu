@@ -1,6 +1,6 @@
-import { FoodPlace } from "./FoodPlace";
+import { FoodPlace } from './FoodPlace'
 
 export type SidebarEntry = {
-    city: string,
-    foodPlaces: FoodPlace[],
+  city: string
+  foodPlaces: FoodPlace[]
 }

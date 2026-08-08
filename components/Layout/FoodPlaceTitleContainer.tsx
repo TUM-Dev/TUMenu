@@ -45,7 +45,7 @@ export default function FoodPlaceTitleContainer({ datePickerValue }: FoodPlaceTi
           alignItems: 'center',
           justifyContent: 'center',
           width: '100%',
-          position: 'relative' as 'relative',
+          position: 'relative' as const,
         }}>
         <Grid size={{ xs: 12 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -67,10 +67,7 @@ export default function FoodPlaceTitleContainer({ datePickerValue }: FoodPlaceTi
         {queueData !== null &&
         dayjs(dayjs().format('MM/DD/YYYY')).isSame(dayjs(datePickerValue?.format('MM/DD/YYYY'))) ? (
           <Grid size={{ xs: 12 }}>
-            <Grid
-              container
-              spacing={1}
-              sx={{ justifyContent: 'center', alignItems: 'center' }}>
+            <Grid container spacing={1} sx={{ justifyContent: 'center', alignItems: 'center' }}>
               <Grid size={{ sd: 3, xs: 5 }}>
                 <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
                   {t('queueStatus')}
@@ -117,12 +114,12 @@ export default function FoodPlaceTitleContainer({ datePickerValue }: FoodPlaceTi
                     },
                   })} ${
                     foodPlaceData.open_hours[
-                      // eslint-disable-next-line no-unsafe-optional-chaining
+                      // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
                       `${daysArr[datePickerValue?.get('day')! - 1]}` as keyof OpeningHoursType
                     ].start
                   } - ${
                     foodPlaceData.open_hours[
-                      // eslint-disable-next-line no-unsafe-optional-chaining
+                      // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
                       `${daysArr[datePickerValue?.get('day')! - 1]}` as keyof OpeningHoursType
                     ].end
                   }`

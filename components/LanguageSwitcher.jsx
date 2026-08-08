@@ -11,10 +11,10 @@ const LanguageSwitchLink = ({ locale, ...rest }) => {
   const { t } = useTranslation('common')
 
   const handleLanguageChange = (newLocale) => {
-    router.push(router.pathname, router.asPath, { locale: newLocale });
-    const event = new CustomEvent('languageChange', { detail: { locale: newLocale } });
-    window.dispatchEvent(event);
-  };
+    router.push(router.pathname, router.asPath, { locale: newLocale })
+    const event = new CustomEvent('languageChange', { detail: { locale: newLocale } })
+    window.dispatchEvent(event)
+  }
 
   let href = rest.href || router.asPath
   let pName = router.pathname

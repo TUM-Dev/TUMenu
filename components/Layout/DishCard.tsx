@@ -61,10 +61,7 @@ export default function DishCard({ meal, labels }: DishCardProps) {
         height: theme.spacing(45),
       }}>
       <Typography variant="h5">{meal.name}</Typography>
-      <Grid
-        container
-        spacing={1}
-        sx={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+      <Grid container spacing={1} sx={{ alignItems: 'center', justifyContent: 'flex-start' }}>
         {meal.labels.map((label: string, index: number) => (
           <Grid key={index.toLocaleString()} size={{ xs: 4 }}>
             <Label

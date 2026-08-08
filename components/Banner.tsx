@@ -17,7 +17,7 @@ export default function Banner() {
   return (
     <Box
       sx={{
-        position: 'relative' as 'relative',
+        position: 'relative' as const,
         width: '100%',
         height: theme.spacing(44),
         zIndex: theme.zIndex.drawer + 1,
@@ -32,7 +32,7 @@ export default function Banner() {
       />
       <Box
         sx={{
-          position: 'absolute' as 'absolute',
+          position: 'absolute' as const,
           left: { sm: theme.spacing(7), xs: '50%' },
           top: { sm: theme.spacing(7), xs: '50%' },
           color: theme.palette.primary.main,
@@ -51,7 +51,7 @@ export default function Banner() {
       <Typography
         variant="body2"
         sx={{
-          position: 'absolute' as 'absolute',
+          position: 'absolute' as const,
           right: '5px',
           bottom: '5px',
           color: theme.palette.primary.main,

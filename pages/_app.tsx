@@ -11,7 +11,6 @@ import createEmotionCache from '../common/createEmotionCache'
 import '../styles/global.css'
 
 interface ExtendedAppProps extends AppProps {
-  // eslint-disable-next-line react/require-default-props
   emotionCache?: EmotionCache
 }
 

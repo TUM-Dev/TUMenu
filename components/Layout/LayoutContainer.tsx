@@ -233,7 +233,6 @@ export default function LayoutContainer() {
       {mealsShown.length !== 0 && !showMenu ? (
         <CardGrid dailyMeals={mealsShown} labels={labels} />
       ) : (
-        // eslint-disable-next-line react/jsx-no-useless-fragment
         <>{!showMenu && <NotFound translationString="notFound" imageSource="/not_found.svg" />}</>
       )}
       {showMenu && (
