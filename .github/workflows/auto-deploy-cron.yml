@@ -17,19 +17,22 @@ jobs:
       # https://github.com/actions/checkout
       - uses: actions/checkout@v4
 
+      # https://github.com/pnpm/action-setup
+      - uses: pnpm/action-setup@v4
+
       # a standard step for GitHub actions on Node
       # https://github.com/actions/setup-node
       - uses: actions/setup-node@v4
         with:
           # update the Node version to meet your needs
           node-version: 22
-          cache: npm
+          cache: pnpm
 
       - name: Build
         run: |
-          npm ci
-          npm run lint
-          npm run build
+          pnpm install --frozen-lockfile
+          pnpm run lint
+          pnpm run build
           touch out/.nojekyll
         env:
           NEXT_PUBLIC_BASE_PATH: ''
