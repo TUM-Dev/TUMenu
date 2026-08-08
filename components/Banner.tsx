@@ -1,7 +1,7 @@
 import { Typography, useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import { useTranslation } from 'next-i18next'
-import Image from 'next/legacy/image'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import LanguageSwitchLink from './LanguageSwitcher'
 import nextI18nextConfig from '../next-i18next.config'
@@ -24,11 +24,9 @@ export default function Banner() {
       }}>
       <Image
         src={`${assetPrefix}/MGA-8.jpg`}
-        objectFit="cover"
-        layout="fill"
+        fill
         quality={100}
-        objectPosition="bottom"
-        style={{ filter: 'brightness(60%)' }}
+        style={{ objectFit: 'cover', objectPosition: 'bottom', filter: 'brightness(60%)' }}
         priority
         alt="Mensa Garching"
       />

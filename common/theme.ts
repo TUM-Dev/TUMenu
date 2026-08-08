@@ -1,5 +1,5 @@
 import { createTheme, responsiveFontSizes, Theme, ThemeOptions, } from '@mui/material/styles'
-import { Roboto } from '@next/font/google'
+import { Roboto } from 'next/font/google'
 
 const fontFamily = Roboto({ weight: ['400', '500', '700'], subsets: ['latin'] })
 const fontFamilyName = fontFamily.style.fontFamily
