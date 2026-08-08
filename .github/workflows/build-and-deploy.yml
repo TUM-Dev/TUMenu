@@ -3,6 +3,8 @@ name: Node.js CI
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   build:
@@ -32,6 +34,8 @@ jobs:
         env:
           NEXT_PUBLIC_BASE_PATH: ''
       - name: Deploy
+        # Only deploy on pushes to main, never for pull request builds.
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         # https://github.com/JamesIves/github-pages-deploy-action
         uses: JamesIves/github-pages-deploy-action@v4
         with:
