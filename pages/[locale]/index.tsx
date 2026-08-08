@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import Head from 'next/head'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { Box, useTheme, Button, Grid } from '@mui/material'
 import Banner from '../../components/Banner'
 import { getStaticPaths, getI18nProps } from '../../lib/getStatic'
@@ -38,7 +38,7 @@ export default function Home({ foodPlaces }: HomeProps) {
         }}>
         <Sidebar foodPlaces={foodPlaces} />
         <Box sx={{ p: theme.spacing(4) }}>
-          <Grid item lg={0} md={3} sm={4} xs={6} sx={{ display: { lg: 'none', xs: 'block' } }}>
+          <Grid size={{ md: 3, sm: 4, xs: 6 }} sx={{ display: { lg: 'none', xs: 'block' } }}>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
               <Button
                 variant="contained"

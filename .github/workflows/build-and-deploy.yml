@@ -3,6 +3,8 @@ name: Node.js CI
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   build:
@@ -10,24 +12,30 @@ jobs:
 
     steps:
       # https://github.com/actions/checkout
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
+      # https://github.com/pnpm/action-setup
+      - uses: pnpm/action-setup@v4
 
       # a standard step for GitHub actions on Node
       # https://github.com/actions/setup-node
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           # update the Node version to meet your needs
-          node-version: 18.2
-          cache: npm
+          node-version: 22
+          cache: pnpm
 
       - name: Build
         run: |
-          npm ci
-          npm run build
+          pnpm install --frozen-lockfile
+          pnpm run lint
+          pnpm run build
           touch out/.nojekyll
         env:
           NEXT_PUBLIC_BASE_PATH: ''
       - name: Deploy
+        # Only deploy on pushes to main, never for pull request builds.
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         # https://github.com/JamesIves/github-pages-deploy-action
         uses: JamesIves/github-pages-deploy-action@v4
         with:

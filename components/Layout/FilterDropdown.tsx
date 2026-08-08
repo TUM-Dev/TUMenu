@@ -1,5 +1,5 @@
 import React, { RefObject, useMemo, useContext } from 'react'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import {
   ClickAwayListener,
@@ -16,7 +16,7 @@ import CanteenContext from '../CanteenContext'
 
 interface FilterDropdownProps {
   open: boolean
-  anchorRef: RefObject<HTMLButtonElement>
+  anchorRef: RefObject<HTMLButtonElement | null>
   handleClose: (event: Event | React.SyntheticEvent) => void
   selectedLabels: string[]
   setSelectedLabels: React.Dispatch<React.SetStateAction<string[]>>

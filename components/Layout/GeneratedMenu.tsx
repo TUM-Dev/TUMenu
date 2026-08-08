@@ -1,5 +1,5 @@
 import { Box, styled, Typography, useTheme } from '@mui/material'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { useEffect, useState, useContext } from 'react'
 import { Dishes } from '../../types/FoodPlaceMenu'
 import { Menu } from '../../types/Menu'

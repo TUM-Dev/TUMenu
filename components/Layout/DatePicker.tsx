@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react'
 import dayjs, { Dayjs } from 'dayjs'
 import 'dayjs/locale/de'
 import 'dayjs/locale/en'
-import TextField from '@mui/material/TextField'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
@@ -26,39 +25,39 @@ export default function HeaderDatePicker({
   maxDate,
 }: HeaderDatePickerProps) {
   const theme = useTheme()
-  const [locale, setLocale] = useState('en'); // default to English
+  const [locale, setLocale] = useState('en') // default to English
 
-    useEffect(() => {
-      const handleLanguageChange = (event: CustomEvent) => {
-        const newLocale = event.detail.locale;
-        setLocale(newLocale);
-        dayjs.locale(newLocale);
-      };
+  useEffect(() => {
+    const handleLanguageChange = (event: CustomEvent) => {
+      const newLocale = event.detail.locale
+      setLocale(newLocale)
+      dayjs.locale(newLocale)
+    }
 
-      window.addEventListener('languageChange', handleLanguageChange as EventListener);
+    window.addEventListener('languageChange', handleLanguageChange as EventListener)
 
-      // Initial locale setup
-      const currentLocale = localStorage.getItem('i18nextLng') || 'en';
-      setLocale(currentLocale);
-      dayjs.locale(currentLocale);
+    // Initial locale setup
+    const currentLocale = localStorage.getItem('i18nextLng') || 'en'
+    setLocale(currentLocale)
+    dayjs.locale(currentLocale)
 
-      return () => {
-        window.removeEventListener('languageChange', handleLanguageChange as EventListener);
-        };
-      }, []);
+    return () => {
+      window.removeEventListener('languageChange', handleLanguageChange as EventListener)
+    }
+  }, [])
 
-      const getDateFormat = () => {
-        switch (locale) {
-          case 'de':
-            return 'DD.MM.YYYY'; // German format
-          case 'en':
-          default:
-            return 'DD/MM/YYYY'; // English format
-        }
-      }
+  const getDateFormat = () => {
+    switch (locale) {
+      case 'de':
+        return 'DD.MM.YYYY' // German format
+      case 'en':
+      default:
+        return 'DD/MM/YYYY' // English format
+    }
+  }
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs} locale={locale}>
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={locale}>
       <DatePicker
         closeOnSelect
         minDate={minDate}
@@ -68,15 +67,14 @@ export default function HeaderDatePicker({
         onChange={(newValue) => {
           if (dayjs(newValue).isValid()) datePickerSetValue(newValue)
         }}
-        inputFormat={getDateFormat()}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            sx={{
+        format={getDateFormat()}
+        slotProps={{
+          textField: {
+            sx: {
               backgroundColor: theme.palette.secondary.main,
-            }}
-          />
-        )}
+            },
+          },
+        }}
       />
     </LocalizationProvider>
   )

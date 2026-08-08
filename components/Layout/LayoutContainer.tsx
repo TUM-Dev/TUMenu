@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useContext } from 'react'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { Box, Typography, useTheme, Button, Tabs, Tab, useMediaQuery } from '@mui/material'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import dayjs from 'dayjs'
@@ -233,7 +233,6 @@ export default function LayoutContainer() {
       {mealsShown.length !== 0 && !showMenu ? (
         <CardGrid dailyMeals={mealsShown} labels={labels} />
       ) : (
-        // eslint-disable-next-line react/jsx-no-useless-fragment
         <>{!showMenu && <NotFound translationString="notFound" imageSource="/not_found.svg" />}</>
       )}
       {showMenu && (

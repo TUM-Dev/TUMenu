@@ -1,7 +1,7 @@
 import { Typography, useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
-import { useTranslation } from 'next-i18next'
-import Image from 'next/legacy/image'
+import { useTranslation } from 'next-i18next/pages'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import LanguageSwitchLink from './LanguageSwitcher'
 import nextI18nextConfig from '../next-i18next.config'
@@ -17,24 +17,22 @@ export default function Banner() {
   return (
     <Box
       sx={{
-        position: 'relative' as 'relative',
+        position: 'relative' as const,
         width: '100%',
         height: theme.spacing(44),
         zIndex: theme.zIndex.drawer + 1,
       }}>
       <Image
         src={`${assetPrefix}/MGA-8.jpg`}
-        objectFit="cover"
-        layout="fill"
+        fill
         quality={100}
-        objectPosition="bottom"
-        style={{ filter: 'brightness(60%)' }}
+        style={{ objectFit: 'cover', objectPosition: 'bottom', filter: 'brightness(60%)' }}
         priority
         alt="Mensa Garching"
       />
       <Box
         sx={{
-          position: 'absolute' as 'absolute',
+          position: 'absolute' as const,
           left: { sm: theme.spacing(7), xs: '50%' },
           top: { sm: theme.spacing(7), xs: '50%' },
           color: theme.palette.primary.main,
@@ -53,7 +51,7 @@ export default function Banner() {
       <Typography
         variant="body2"
         sx={{
-          position: 'absolute' as 'absolute',
+          position: 'absolute' as const,
           right: '5px',
           bottom: '5px',
           color: theme.palette.primary.main,

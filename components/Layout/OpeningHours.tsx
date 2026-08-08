@@ -1,6 +1,6 @@
 import { Box, Typography, Grid, useTheme, Dialog } from '@mui/material'
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { FoodPlace } from '../../types/FoodPlace'
 
 interface OpeningHoursProps {
@@ -12,13 +12,13 @@ interface OpeningHoursProps {
 export default function OpeningHours({ foodPlaceData, open, setOpen }: OpeningHoursProps) {
   const { t } = useTranslation('common')
   const theme = useTheme()
-  
+
   return (
     <Dialog
       open={open}
       onClose={() => setOpen(false)}
-      PaperProps={{
-        style: { borderRadius: '12px' },
+      slotProps={{
+        paper: { style: { borderRadius: '12px' } },
       }}
       disableScrollLock>
       <Box
@@ -39,8 +39,8 @@ export default function OpeningHours({ foodPlaceData, open, setOpen }: OpeningHo
       <Grid
         container
         rowSpacing={2}
-        flexDirection="column"
         sx={{
+          flexDirection: 'column',
           px: { xs: theme.spacing(3), sm: theme.spacing(5) },
           pb: theme.spacing(5),
           width: { xs: theme.spacing(37), sm: theme.spacing(50) },
@@ -48,37 +48,37 @@ export default function OpeningHours({ foodPlaceData, open, setOpen }: OpeningHo
           backgroundColor: theme.palette.primary.light,
           color: theme.palette.primary.main,
         }}>
-        <Grid item xs={12} sx={{ borderBottom: '2px solid #fff' }}>
+        <Grid size={{ xs: 12 }} sx={{ borderBottom: '2px solid #fff' }}>
           <Typography variant="h4">{foodPlaceData.name}</Typography>
           <Typography variant="subtitle1" sx={{ mt: theme.spacing(1) }}>
             {t('openingHours')}
           </Typography>
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <Typography variant="h6">{t('monday')}</Typography>
             <Typography variant="h6">{`${foodPlaceData.open_hours.mon.start} - ${foodPlaceData.open_hours.mon.end}`}</Typography>
           </Box>
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <Typography variant="h6">{t('tuesday')}</Typography>
             <Typography variant="h6">{`${foodPlaceData.open_hours.tue.start} - ${foodPlaceData.open_hours.tue.end}`}</Typography>
           </Box>
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <Typography variant="h6">{t('wednesday')}</Typography>
             <Typography variant="h6">{`${foodPlaceData.open_hours.wed.start} - ${foodPlaceData.open_hours.wed.end}`}</Typography>
           </Box>
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <Typography variant="h6">{t('thursday')}</Typography>
             <Typography variant="h6">{`${foodPlaceData.open_hours.thu.start} - ${foodPlaceData.open_hours.thu.end}`}</Typography>
           </Box>
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <Typography variant="h6">{t('friday')}</Typography>
             <Typography variant="h6">{`${foodPlaceData.open_hours.fri.start} - ${foodPlaceData.open_hours.fri.end}`}</Typography>

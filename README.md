@@ -25,20 +25,20 @@ The project uses the [eat-api](https://github.com/TUM-Dev/eat-api) for the daily
 
 ## Getting Started
 
-To get started with this project, you'll need to have [Node.js](https://nodejs.org) and [npm](https://www.npmjs.com) installed on your machine.
+To get started with this project, you'll need to have [Node.js](https://nodejs.org) and [pnpm](https://pnpm.io) installed on your machine.
 
 Clone the repository and install the dependencies by running the following commands:
 
 ```bash
 git clone https://github.com/TUM-Dev/TUMenu.git
 cd tumenu
-npm i
+pnpm install
 ```
 
 Once the dependencies are installed, you can start the development server by running:
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 This will start the development server and you can view the project by opening [http://localhost:8080](http://localhost:8080) in your browser.
@@ -47,7 +47,7 @@ This will start the development server and you can view the project by opening [
 
 The following scripts are provided:
 
-- `npm run lint`: Runs `eslint` and `prettier` on the code to find stylistic issues.
+- `pnpm lint`: Runs `eslint` and `prettier` on the code to find stylistic issues.
 
 If you set everything up correctly, `prettier` and `eslint` should run everytime you save.
 
@@ -56,9 +56,9 @@ If you set everything up correctly, `prettier` and `eslint` should run everytime
 To build and export the project as a static website, run the following commands:
 
 ```bash
-npm run build
+pnpm build
 # and then
-npx serve ./out
+pnpm dlx serve ./out
 ```
 
 This will build the project and start a static file server that serves the contents of the ./out directory.
@@ -83,7 +83,7 @@ find the corresponding string in there and add the string in both folders.
 Then you can use the string from the `common.json` file the following way.
 
 ```tsx
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 export const FilterDropdown = () => {
   const { t } = useTranslation('common')
   return <MenuItem>{t('deleteLabels')}</MenuItem>

@@ -5,7 +5,7 @@ import { Grid, Typography, useTheme, LinearProgress, Button, Box, Tooltip } from
 import { linearProgressClasses } from '@mui/material/LinearProgress'
 import { styled } from '@mui/material/styles'
 import { LocationOn } from '@mui/icons-material'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { daysArr, OpeningHoursType } from '../../types/FoodPlace'
 import OpeningHours from './OpeningHours'
 import CanteenContext from '../CanteenContext'
@@ -41,11 +41,13 @@ export default function FoodPlaceTitleContainer({ datePickerValue }: FoodPlaceTi
       <Grid
         container
         rowSpacing={1}
-        alignItems="center"
-        justifyContent="center"
-        flexDirection="row"
-        sx={{ width: '100%', position: 'relative' as 'relative' }}>
-        <Grid item xs={12}>
+        sx={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '100%',
+          position: 'relative' as const,
+        }}>
+        <Grid size={{ xs: 12 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Typography
               variant="h4"
@@ -64,19 +66,14 @@ export default function FoodPlaceTitleContainer({ datePickerValue }: FoodPlaceTi
         </Grid>
         {queueData !== null &&
         dayjs(dayjs().format('MM/DD/YYYY')).isSame(dayjs(datePickerValue?.format('MM/DD/YYYY'))) ? (
-          <Grid item xs={12}>
-            <Grid
-              container
-              justifyContent="center"
-              alignItems="center"
-              spacing={1}
-              flexDirection="row">
-              <Grid item sd={3} xs={5}>
+          <Grid size={{ xs: 12 }}>
+            <Grid container spacing={1} sx={{ justifyContent: 'center', alignItems: 'center' }}>
+              <Grid size={{ sd: 3, xs: 5 }}>
                 <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
                   {t('queueStatus')}
                 </Typography>
               </Grid>
-              <Grid item xs={7}>
+              <Grid size={{ xs: 7 }}>
                 <Tooltip
                   title={`${t('people')}: ${queueData.count}, ${t(
                     'percent',
@@ -99,7 +96,7 @@ export default function FoodPlaceTitleContainer({ datePickerValue }: FoodPlaceTi
         ) : (
           ''
         )}
-        <Grid item sm={9} xs={12}>
+        <Grid size={{ sm: 9, xs: 12 }}>
           <Box
             sx={{
               display: 'flex',
@@ -117,12 +114,12 @@ export default function FoodPlaceTitleContainer({ datePickerValue }: FoodPlaceTi
                     },
                   })} ${
                     foodPlaceData.open_hours[
-                      // eslint-disable-next-line no-unsafe-optional-chaining
+                      // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
                       `${daysArr[datePickerValue?.get('day')! - 1]}` as keyof OpeningHoursType
                     ].start
                   } - ${
                     foodPlaceData.open_hours[
-                      // eslint-disable-next-line no-unsafe-optional-chaining
+                      // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
                       `${daysArr[datePickerValue?.get('day')! - 1]}` as keyof OpeningHoursType
                     ].end
                   }`

@@ -80,9 +80,10 @@ const isCanteenOpen = (foodPlaces: FoodPlace[], id: string) => {
   if (now.get('day') === 6 || now.get('day') === 0) return false
   const foodPlace = foodPlaces.find((canteen) => canteen.canteen_id === id)
   const foodPlaceOpeningHoursNow =
-    // eslint-disable-next-line no-unsafe-optional-chaining
-    foodPlace?.open_hours[`${daysArr[now?.get('day')! - 1]}` as keyof OpeningHoursType]
+    foodPlace?.open_hours[`${daysArr[now.get('day') - 1]}` as keyof OpeningHoursType]
+  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
   const foodPlaceOpens = foodPlaceOpeningHoursNow?.start!
+  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
   const foodPlaceCloses = foodPlaceOpeningHoursNow?.end!
   const time = foodPlaceOpens.split(':')
   const hour = (parseInt(time[0], 10) - 1 + 24) % 24
