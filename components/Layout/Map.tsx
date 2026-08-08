@@ -38,8 +38,8 @@ export default function MensaMap({
       open={open}
       onClose={() => setOpen(false)}
       disableScrollLock
-      PaperProps={{
-        style: { borderRadius: '12px' },
+      slotProps={{
+        paper: { style: { borderRadius: '12px' } },
       }}>
       <Box
         sx={{

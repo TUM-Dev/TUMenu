@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { Button, Grid, useTheme, Box } from '@mui/material'
 import dayjs from 'dayjs'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import SidebarContext from '../SidebarContext'
 import HeaderDatePicker from './DatePicker'
 import FoodPlaceTitleContainer from './FoodPlaceTitleContainer'
@@ -24,11 +24,11 @@ export default function LayoutContainerHeader({
   const { t } = useTranslation('common')
   
   return (
-    <Grid container justifyContent="center" alignItems="center" spacing={2}>
-      <Grid item lg={9} xs={12}>
+    <Grid container spacing={2} sx={{ justifyContent: 'center', alignItems: 'center' }}>
+      <Grid size={{ lg: 9, xs: 12 }}>
         <FoodPlaceTitleContainer datePickerValue={datePickerValue} />
       </Grid>
-      <Grid item lg={0} md={3} sm={4} xs={6} sx={{ display: { lg: 'none', xs: 'block' } }}>
+      <Grid size={{ md: 3, sm: 4, xs: 6 }} sx={{ display: { lg: 'none', xs: 'block' } }}>
         <Box sx={{ display: 'center', alignItems: 'center', justifyContent: 'center' }}>
           <Button
             variant="contained"
@@ -42,7 +42,7 @@ export default function LayoutContainerHeader({
           </Button>
         </Box>
       </Grid>
-      <Grid item lg={3} md={3} sm={4} xs={6}>
+      <Grid size={{ lg: 3, md: 3, sm: 4, xs: 6 }}>
         <Box sx={{ display: 'center', alignItems: 'center', justifyContent: 'center' }}>
           <HeaderDatePicker
             datePickerValue={datePickerValue}

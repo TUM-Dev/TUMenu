@@ -1,5 +1,5 @@
 import { Box, Typography, useTheme, useMediaQuery } from '@mui/material'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import Image from 'next/image'
 
 interface NotFoundProps {

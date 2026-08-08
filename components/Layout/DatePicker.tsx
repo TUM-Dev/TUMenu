@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import dayjs, { Dayjs } from 'dayjs'
 import 'dayjs/locale/de'
 import 'dayjs/locale/en'
-import TextField from '@mui/material/TextField'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
@@ -58,7 +57,7 @@ export default function HeaderDatePicker({
       }
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs} locale={locale}>
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={locale}>
       <DatePicker
         closeOnSelect
         minDate={minDate}
@@ -68,15 +67,14 @@ export default function HeaderDatePicker({
         onChange={(newValue) => {
           if (dayjs(newValue).isValid()) datePickerSetValue(newValue)
         }}
-        inputFormat={getDateFormat()}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            sx={{
+        format={getDateFormat()}
+        slotProps={{
+          textField: {
+            sx: {
               backgroundColor: theme.palette.secondary.main,
-            }}
-          />
-        )}
+            },
+          },
+        }}
       />
     </LocalizationProvider>
   )

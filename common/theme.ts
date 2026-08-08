@@ -77,9 +77,6 @@ export const themeOptions: ThemeOptions = {
                         color: '#fff'
                     },
                 },
-                textPrimary: {
-                    color: '#ffffff',
-                },
                 contained: {
                     "&:hover": {
                         backgroundColor: '#14519A'
@@ -87,6 +84,12 @@ export const themeOptions: ThemeOptions = {
                     borderRadius: '12px'
                 },
             },
+            variants: [
+                {
+                    props: { variant: 'text', color: 'primary' },
+                    style: { color: '#ffffff' },
+                },
+            ],
         },
         MuiCheckbox: {
             styleOverrides: {

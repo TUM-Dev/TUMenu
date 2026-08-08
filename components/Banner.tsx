@@ -1,6 +1,6 @@
 import { Typography, useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import LanguageSwitchLink from './LanguageSwitcher'

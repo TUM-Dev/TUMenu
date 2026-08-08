@@ -1,5 +1,5 @@
 import { Box, Typography, Grid, useTheme } from '@mui/material'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { motion } from 'framer-motion'
 import { Dishes, Price } from '../../types/FoodPlaceMenu'
 import { LabelColors } from '../../types/LabelColors'
@@ -61,9 +61,12 @@ export default function DishCard({ meal, labels }: DishCardProps) {
         height: theme.spacing(45),
       }}>
       <Typography variant="h5">{meal.name}</Typography>
-      <Grid container alignItems="center" justifyContent="flex-start" spacing={1}>
+      <Grid
+        container
+        spacing={1}
+        sx={{ alignItems: 'center', justifyContent: 'flex-start' }}>
         {meal.labels.map((label: string, index: number) => (
-          <Grid key={index.toLocaleString()} item xs={4}>
+          <Grid key={index.toLocaleString()} size={{ xs: 4 }}>
             <Label
               key={label}
               // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import { appWithTranslation } from 'next-i18next'
+import { appWithTranslation } from 'next-i18next/pages'
 import { ThemeProvider } from '@mui/material/styles'
 import { useState, useMemo } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
